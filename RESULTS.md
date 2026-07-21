@@ -147,7 +147,52 @@ cd problems/699 && python search699.py --selftest && python search699.py 3000
 
 ## 2. LEADS — unverified, needs an expert. NOT trustworthy yet.
 
-*(empty — nothing is currently sitting in this bucket)*
+### [835] χ(J(20,10)) = 11 is equivalent to a large set of Steiner systems S(9,10,20)
+`[UNVERIFIED-LEAD]` — **the reduction below is a prose argument. It is not
+machine-checked. Do not rely on it.** The arithmetic it rests on, and the small
+cases, *are* checked.
+
+**The reduction.** An independent set in J(2k,k) is a family of k-subsets no two
+meeting in k−1 points. Each block contains k subsets of size k−1, and two blocks
+sharing one would intersect in exactly k−1 points — so those (k−1)-subsets are
+all distinct across the family, giving
+
+    α(J(2k,k)) · k ≤ C(2k, k−1),  i.e.  α ≤ C(2k,k)/(k+1).
+
+Equality forces every (k−1)-subset to be covered exactly once — the independent
+set *is* a Steiner system S(k−1, k, 2k). Since |V| = (k+1)·C(2k,k)/(k+1)
+exactly, a proper (k+1)-colouring must use k+1 classes of exactly maximum size.
+Hence
+
+> χ(J(2k,k)) = k+1  ⟺  there is a **large set** of k+1 pairwise disjoint Steiner
+> systems S(k−1, k, 2k) partitioning all k-subsets of {1,…,2k}.
+
+For the smallest open case k = 10 this says: χ(J(20,10)) = 11 iff eleven disjoint
+copies of **S(9,10,20)** partition the 10-subsets of a 20-set. No nontrivial
+Steiner system with t ≥ 6 is known to exist at all, so the open case sits on top
+of a famously hard question — which is a useful thing to know before spending
+compute on a colouring search.
+
+**What *is* machine-checked** (`[COMPUTATION-VERIFIED]`):
+
+- The reduction's arithmetic is exact for every k ≤ 12: |V| = (k+1)·⌊C(2k,k−1)/k⌋,
+  so the "must use maximum independent sets" step is tight, not approximate.
+- **For every k ≤ 259, the divisibility conditions for S(k−1,k,2k) hold if and only
+  if k+1 is prime** — no mismatches. Via the reduction, that gives an independent
+  route to Ma and Tang's theorem (χ > k+1 when k+1 is not prime) on that range.
+- Exact chromatic numbers by SAT: χ(J(4,2)) = 3 (= k+1, the one case that works),
+  χ(J(6,3)) = 6 and χ(J(8,4)) = 6 (both > k+1), reproducing the known failures.
+
+```
+cd problems/835
+python johnson835.py --arith 12       # reduction arithmetic
+python johnson835.py --primes 259     # admissible <=> k+1 prime
+python johnson835.py --chi 4          # exact chi, ~1 min
+```
+
+**To upgrade this out of the LEADS bucket** the double-counting bound
+`α·k ≤ C(2k,k−1)` and the tightness step would need formalizing in Lean, the way
+[287]'s elimination lemma was.
 
 ---
 

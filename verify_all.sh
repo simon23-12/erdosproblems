@@ -108,6 +108,13 @@ echo "$out" | grep -q "^VERIFIED" \
   && ok "recall (finds 8|9 and 12167|12168, nothing else) and precision vs sympy" \
   || bad "verifier did not confirm: $(echo "$out" | tail -4)"
 
+# ---------------------------------------------------------------- 835
+say "[835] Johnson graph chi(J(2k,k)) -- checked parts of the Steiner reduction"
+out=$($PY problems/835/johnson835.py --primes 259 2>&1)
+echo "$out" | grep -q "mismatches: NONE" \
+  && ok "S(k-1,k,2k) admissible <=> k+1 prime, for all k <= 259" \
+  || bad "mismatch found: $out"
+
 # ----------------------------------------------------------------
 printf '\n\033[1m%s\033[0m\n' "-------------------------------------------"
 printf '\033[1mPASS %d   FAIL %d\033[0m\n' "$pass" "$fail"

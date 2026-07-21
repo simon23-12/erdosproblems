@@ -24,8 +24,8 @@
       "dead-end"
     ],
     "generated": "2026-07-21T17:53:15+00:00",
-    "last_modified": "2026-07-21T19:41:47+00:00",
-    "last_commit": "b1da7c8"
+    "last_modified": "2026-07-21T19:47:17+00:00",
+    "last_commit": "66fbb43"
   },
   "problems": [
     {
@@ -211,7 +211,7 @@
       "title": "Is chi(J(20,10)) = 11?  (Erdos-Rosenfeld k>2 question)",
       "url": "https://www.erdosproblems.com/835",
       "erdos_status": "verifiable",
-      "status": "untouched",
+      "status": "lead",
       "tags": [
         "SAT",
         "BRUTE-FORCE",
@@ -226,14 +226,14 @@
       },
       "triage_rationale": "Equivalent to an 11-colouring of the Johnson graph J(20,10): 184,756 vertices, 100-regular. k=10 is the smallest open case (false for k<=8; Ma-Tang killed all k+1 composite). A FOUND colouring answers the problem YES and is verifiable in seconds -- excellent asymmetry. Failure to find proves nothing.",
       "approaches_attempted": [],
-      "search_bounds_reached": "",
+      "search_bounds_reached": "exact chi for k<=4; Steiner admissibility for k<=259",
       "compute_time_spent_sec": 0,
-      "best_verified_result": "",
-      "best_unverified_lead": "",
-      "reason_for_stopping": "",
+      "best_verified_result": "chi(J(4,2))=3, chi(J(6,3))=6, chi(J(8,4))=6; S(k-1,k,2k) admissible iff k+1 prime for k<=259",
+      "best_unverified_lead": "chi(J(2k,k))=k+1 iff a large set of k+1 disjoint Steiner systems S(k-1,k,2k) exists; for k=10 that is S(9,10,20), and no nontrivial Steiner system with t>=6 is known",
+      "reason_for_stopping": "reduction is prose; needs Lean to leave the LEADS bucket",
       "artifacts": [],
-      "last_commit": "",
-      "last_modified": ""
+      "last_commit": "66fbb43",
+      "last_modified": "2026-07-21T19:47:17+00:00"
     },
     {
       "problem_id": "699",
