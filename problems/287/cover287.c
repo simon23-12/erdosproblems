@@ -19,6 +19,10 @@
  *
  * Build: cc -O3 -o cover287 cover287.c -lm
  * Run:   ./cover287 <b0> <B>
+ *
+ * b0 is the FIRST value of b still needing coverage (everything below it must
+ * already be settled some other way). max(S) <= 37 is settled by the exhaustive
+ * search in search287.py, so the intended invocation is `./cover287 38 <B>`.
  */
 #include <stdio.h>
 #include <stdlib.h>

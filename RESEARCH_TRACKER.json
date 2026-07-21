@@ -24,8 +24,8 @@
       "dead-end"
     ],
     "generated": "2026-07-21T17:53:15+00:00",
-    "last_modified": "2026-07-21T18:35:06+00:00",
-    "last_commit": "2155dfb"
+    "last_modified": "2026-07-21T19:05:44+00:00",
+    "last_commit": "91cb91d"
   },
   "problems": [
     {
@@ -49,21 +49,21 @@
       "approaches_attempted": [
         "Segmented divisor-count sieve in C (problems/647/search647.c). Locality lemma: condition is equivalent to tau(n-j)<=j+2 for j<=W, so ranges split across cores; W=16384 checked at runtime against observed max tau (valid to ~1e13, where max tau=10752). Cross-checked against the independent brute-force verify647.py on [2,1e6]: identical output {2,3,4,5,6,8,10,12,24}. Running 8 workers over [1e7,1e13)."
       ],
-      "search_bounds_reached": "in progress, target 1e13",
+      "search_bounds_reached": "n <= 4.8e11 and climbing (target 1e13)",
       "compute_time_spent_sec": 0,
-      "best_verified_result": "",
+      "best_verified_result": "only n<=4.8e11 with the property are 2,3,4,5,6,8,10,12,24",
       "best_unverified_lead": "",
       "reason_for_stopping": "",
       "artifacts": [],
-      "last_commit": "3786ebe",
-      "last_modified": "2026-07-21T17:54:38+00:00"
+      "last_commit": "91cb91d",
+      "last_modified": "2026-07-21T19:04:48+00:00"
     },
     {
       "problem_id": "617",
       "title": "r=5: can K_26 be 5-coloured so every K_6 sees all 5 colours?",
       "url": "https://www.erdosproblems.com/617",
       "erdos_status": "falsifiable",
-      "status": "active",
+      "status": "dead-end",
       "tags": [
         "SAT"
       ],
@@ -82,17 +82,17 @@
       "compute_time_spent_sec": 0,
       "best_verified_result": "r=3: no balanced 3-colouring of K_10 (known result, reproduced)",
       "best_unverified_lead": "",
-      "reason_for_stopping": "",
+      "reason_for_stopping": "r=4 (known) did not finish in ~2h with symmetry breaking, so r=5 UNSAT is out of reach; a SAT counterexample would still be checkable",
       "artifacts": [],
-      "last_commit": "2155dfb",
-      "last_modified": "2026-07-21T18:35:06+00:00"
+      "last_commit": "91cb91d",
+      "last_modified": "2026-07-21T19:05:44+00:00"
     },
     {
       "problem_id": "287",
       "title": "Unit fractions summing to 1 must have a consecutive gap >= 3?",
       "url": "https://www.erdosproblems.com/287",
       "erdos_status": "falsifiable",
-      "status": "lead",
+      "status": "verified",
       "tags": [
         "NUMBER SEARCH",
         "BRUTE-FORCE",
@@ -107,16 +107,17 @@
       },
       "triage_rationale": "A counterexample is a set with all gaps <=2 and reciprocals summing to 1. The largest-prime-power valuation argument forces exclusions (p in (b/2,b] cannot appear), which prunes brutally. No published computational bound located.",
       "approaches_attempted": [
-        "Exclusion lemma via p-adic valuation, restated elementarily with lcm to be Lean-friendly. Three stages: brute force max(S)<=37; per-b certificates 38..1e5; interval covering (p and 2p+/-1 both prime certifies all b in [2p,3p)). C cover287 matches python exactly at 1e7 (42302 witness primes)."
+        "Exclusion lemma via p-adic valuation, restated elementarily with lcm to be Lean-friendly. Three stages: brute force max(S)<=37; per-b certificates 38..1e5; interval covering (p and 2p+/-1 both prime certifies all b in [2p,3p)). C cover287 matches python exactly at 1e7 (42302 witness primes).",
+        "Bridge fully formalized: ErdosFormal/Erdos287.lean proves certificate_sub (2p-1 prime => no counterexample with max S in [2p,3p)) and certificate_add (2p+1 prime => [2p+1,3p)). Both witness types are needed - 2p-1 alone leaves b=57 uncovered. Remaining computational content is only the interval covering plus brute force for max(S)<=37."
       ],
-      "search_bounds_reached": "max(S) <= 1e6 verified standalone; 1e12 covering running",
+      "search_bounds_reached": "max(S) <= 1e10 (1e12 running)",
       "compute_time_spent_sec": 0,
-      "best_verified_result": "no counterexample with max(S) <= 1e6 (verify287.py, 4s)",
-      "best_unverified_lead": "ELIMINATION lemma (elementary, prose) would extend this to 1e12+; Lean formalization pending",
-      "reason_for_stopping": "blocked on formalizing one lemma",
+      "best_verified_result": "LEAN: elimination + certificate_sub/_add (0 sorry, 3 std axioms). COMPUTATION: no counterexample with max(S) <= 1e10",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
       "artifacts": [],
-      "last_commit": "2155dfb",
-      "last_modified": "2026-07-21T18:35:05+00:00"
+      "last_commit": "91cb91d",
+      "last_modified": "2026-07-21T19:04:48+00:00"
     },
     {
       "problem_id": "743",
@@ -378,7 +379,7 @@
       "title": "Is [1..p_{k+1}-1] < p_k [1..p_k] for all k?",
       "url": "https://www.erdosproblems.com/458",
       "erdos_status": "falsifiable",
-      "status": "untouched",
+      "status": "verified",
       "tags": [
         "NUMBER SEARCH",
         "BRUTE-FORCE"
@@ -391,15 +392,17 @@
         "scales": true
       },
       "triage_rationale": "The lcm ratio is exactly the product of primes q having a power q^e (e>=2) inside the gap (p_k, p_{k+1}). So the check is a cheap prime-power scan over prime gaps. Very likely already done informally, but it is nearly free.",
-      "approaches_attempted": [],
-      "search_bounds_reached": "",
+      "approaches_attempted": [
+        "Reduction: lcm ratio = product of primes q with a power q^e (e>=2) inside the gap. Walk the ~pi(sqrt X) prime powers instead of the gaps. Only 5 gaps below 1e14 hold two prime powers: {8,9},{25,27},{121,125},{2187,2197},{32761,32768}."
+      ],
+      "search_bounds_reached": "all prime gaps with p_k <= 1e14",
       "compute_time_spent_sec": 0,
-      "best_verified_result": "",
+      "best_verified_result": "[1..p_{k+1}-1] < p_k[1..p_k] for every prime gap with p_k <= 1e14; tightest ratio 6/7 at p_k=7",
       "best_unverified_lead": "",
       "reason_for_stopping": "",
       "artifacts": [],
-      "last_commit": "",
-      "last_modified": ""
+      "last_commit": "91cb91d",
+      "last_modified": "2026-07-21T19:04:48+00:00"
     },
     {
       "problem_id": "475",
