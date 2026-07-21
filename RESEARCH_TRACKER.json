@@ -24,8 +24,8 @@
       "dead-end"
     ],
     "generated": "2026-07-21T17:53:15+00:00",
-    "last_modified": "2026-07-21T19:05:44+00:00",
-    "last_commit": "91cb91d"
+    "last_modified": "2026-07-21T19:15:54+00:00",
+    "last_commit": "f92ed38"
   },
   "problems": [
     {
@@ -49,14 +49,14 @@
       "approaches_attempted": [
         "Segmented divisor-count sieve in C (problems/647/search647.c). Locality lemma: condition is equivalent to tau(n-j)<=j+2 for j<=W, so ranges split across cores; W=16384 checked at runtime against observed max tau (valid to ~1e13, where max tau=10752). Cross-checked against the independent brute-force verify647.py on [2,1e6]: identical output {2,3,4,5,6,8,10,12,24}. Running 8 workers over [1e7,1e13)."
       ],
-      "search_bounds_reached": "n <= 4.8e11 and climbing (target 1e13)",
-      "compute_time_spent_sec": 0,
-      "best_verified_result": "only n<=4.8e11 with the property are 2,3,4,5,6,8,10,12,24",
+      "search_bounds_reached": "n <= 560010000000 and climbing",
+      "compute_time_spent_sec": 45000.0,
+      "best_verified_result": "only n <= 560010000000 with the property are 2,3,4,5,6,8,10,12,24",
       "best_unverified_lead": "",
       "reason_for_stopping": "",
       "artifacts": [],
-      "last_commit": "91cb91d",
-      "last_modified": "2026-07-21T19:04:48+00:00"
+      "last_commit": "f92ed38",
+      "last_modified": "2026-07-21T19:15:54+00:00"
     },
     {
       "problem_id": "617",
@@ -79,13 +79,13 @@
         "SAT encoding in lib/erdos/sat.py. Symmetry breaking by sorting the star at vertex 0: 47s -> 0.3s on r=3. Turan cardinality constraint made no measurable difference."
       ],
       "search_bounds_reached": "r=3 UNSAT confirmed; r=4 running",
-      "compute_time_spent_sec": 0,
+      "compute_time_spent_sec": 7500.0,
       "best_verified_result": "r=3: no balanced 3-colouring of K_10 (known result, reproduced)",
       "best_unverified_lead": "",
       "reason_for_stopping": "r=4 (known) did not finish in ~2h with symmetry breaking, so r=5 UNSAT is out of reach; a SAT counterexample would still be checkable",
       "artifacts": [],
-      "last_commit": "91cb91d",
-      "last_modified": "2026-07-21T19:05:44+00:00"
+      "last_commit": "f92ed38",
+      "last_modified": "2026-07-21T19:15:44+00:00"
     },
     {
       "problem_id": "287",
@@ -111,13 +111,13 @@
         "Bridge fully formalized: ErdosFormal/Erdos287.lean proves certificate_sub (2p-1 prime => no counterexample with max S in [2p,3p)) and certificate_add (2p+1 prime => [2p+1,3p)). Both witness types are needed - 2p-1 alone leaves b=57 uncovered. Remaining computational content is only the interval covering plus brute force for max(S)<=37."
       ],
       "search_bounds_reached": "max(S) <= 1e10 (1e12 running)",
-      "compute_time_spent_sec": 0,
+      "compute_time_spent_sec": 9000.0,
       "best_verified_result": "LEAN: elimination + certificate_sub/_add (0 sorry, 3 std axioms). COMPUTATION: no counterexample with max(S) <= 1e10",
       "best_unverified_lead": "",
       "reason_for_stopping": "",
       "artifacts": [],
-      "last_commit": "91cb91d",
-      "last_modified": "2026-07-21T19:04:48+00:00"
+      "last_commit": "f92ed38",
+      "last_modified": "2026-07-21T19:15:44+00:00"
     },
     {
       "problem_id": "743",
@@ -238,7 +238,7 @@
       "title": "For all 1<=i<j<=n/2, is there a prime p>=i dividing gcd(C(n,i),C(n,j))?",
       "url": "https://www.erdosproblems.com/699",
       "erdos_status": "falsifiable",
-      "status": "untouched",
+      "status": "verified",
       "tags": [
         "NUMBER SEARCH",
         "DYNAMIC PROGRAMMING"
@@ -251,15 +251,17 @@
         "scales": true
       },
       "triage_rationale": "Kummer's theorem gives v_p(C(n,i)) from base-p carries, so no binomial is ever formed. O(n^2) pairs per n. A counterexample is a single (n,i,j) triple -- instantly re-checkable.",
-      "approaches_attempted": [],
-      "search_bounds_reached": "",
-      "compute_time_spent_sec": 0,
-      "best_verified_result": "",
+      "approaches_attempted": [
+        "Kummer carry count for v_p(C(n,i)); bitmask OR over primes p>=i. Selftest reproduces gcd(C(28,5),C(28,14))=2^3*3^3*5 and Sylvester-Schur for n<120."
+      ],
+      "search_bounds_reached": "n <= 3000, all pairs 1<=i<j<=n/2",
+      "compute_time_spent_sec": 500.0,
+      "best_verified_result": "no counterexample for n <= 3000",
       "best_unverified_lead": "",
-      "reason_for_stopping": "",
+      "reason_for_stopping": "python scan is O(n^3/log n); going past ~3000 needs a C rewrite",
       "artifacts": [],
-      "last_commit": "",
-      "last_modified": ""
+      "last_commit": "f92ed38",
+      "last_modified": "2026-07-21T19:15:45+00:00"
     },
     {
       "problem_id": "398",
@@ -322,7 +324,7 @@
       "title": "Is |B cap [1,m]|/m < 2|B cap [1,n]|/n for multiples of a finite set A?",
       "url": "https://www.erdosproblems.com/488",
       "erdos_status": "falsifiable",
-      "status": "untouched",
+      "status": "verified",
       "tags": [
         "NUMBER SEARCH",
         "BRUTE-FORCE",
@@ -336,15 +338,17 @@
         "scales": true
       },
       "triage_rationale": "Fully concrete and cheap: choose A, compute two densities exactly. Search over A subset of a small window. Counterexamples to the mis-typed variant already exist, so the search machinery is known to be exercising the right object.",
-      "approaches_attempted": [],
-      "search_bounds_reached": "",
-      "compute_time_spent_sec": 0,
-      "best_verified_result": "",
+      "approaches_attempted": [
+        "Exact integer test n*f(m) < 2*m*f(n), no floats. Enumeration restricted to divisibility antichains (a|a' makes a' redundant since B is unchanged). Empirically the extremal configuration is always the singleton A={a}, n=2a-1 giving 2-1/a; no multi-element set beats it."
+      ],
+      "search_bounds_reached": "antichains in [2,40] with |A|<=3 (n<m<=8000) and in [2,30] with |A|<=4 (n<m<=6000)",
+      "compute_time_spent_sec": 400.0,
+      "best_verified_result": "no counterexample in either sweep; singleton A={a} at n=2a-1 is always extremal, ratio 2-1/a",
       "best_unverified_lead": "",
       "reason_for_stopping": "",
       "artifacts": [],
-      "last_commit": "",
-      "last_modified": ""
+      "last_commit": "f92ed38",
+      "last_modified": "2026-07-21T19:15:45+00:00"
     },
     {
       "problem_id": "1020",
@@ -396,13 +400,13 @@
         "Reduction: lcm ratio = product of primes q with a power q^e (e>=2) inside the gap. Walk the ~pi(sqrt X) prime powers instead of the gaps. Only 5 gaps below 1e14 hold two prime powers: {8,9},{25,27},{121,125},{2187,2197},{32761,32768}."
       ],
       "search_bounds_reached": "all prime gaps with p_k <= 1e14",
-      "compute_time_spent_sec": 0,
+      "compute_time_spent_sec": 200.0,
       "best_verified_result": "[1..p_{k+1}-1] < p_k[1..p_k] for every prime gap with p_k <= 1e14; tightest ratio 6/7 at p_k=7",
       "best_unverified_lead": "",
       "reason_for_stopping": "",
       "artifacts": [],
-      "last_commit": "91cb91d",
-      "last_modified": "2026-07-21T19:04:48+00:00"
+      "last_commit": "f92ed38",
+      "last_modified": "2026-07-21T19:15:44+00:00"
     },
     {
       "problem_id": "475",

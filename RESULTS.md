@@ -17,6 +17,15 @@ Machine-readable state: `RESEARCH_TRACKER.json`. Overview page: `docs/index.html
 > a compute budget buys; a mathematician should read them as "no counterexample
 > below X", not as "solved".
 
+**Re-verify everything with one command:**
+
+```
+./verify_all.sh            # fast tier, ~5 min      (--full for the slow bounds)
+```
+
+It rebuilds the Lean proofs, prints their axiom dependencies, and re-runs every
+standalone checker. Last run: **12 checks, 12 pass, 0 fail.**
+
 ---
 
 ## 1. VERIFIED — machine-checked, safe to show a mathematician
@@ -75,9 +84,10 @@ cd problems/458 && python check458.py 1e14        # ~3 min
 ### [647] Erdős–Selfridge: is there n > 24 with max_{m<n}(m + τ(m)) ≤ n + 2?
 `[COMPUTATION-VERIFIED]` — exhaustive negative. Erdős offered £25 for such an n.
 
-**Claim.** The only n ≥ 2 with the property and n ≤ 4.8×10¹¹ are
+**Claim.** The only n ≥ 2 with the property and n ≤ 5.6×10¹¹ are
 n = 2, 3, 4, 5, 6, 8, 10, 12, 24. So there is **no** such n with
-24 < n ≤ 4.8×10¹¹. *(Search running; live bound from `progress647.py`.)*
+24 < n ≤ 5.6×10¹¹. *(Search still running at ≈1.1×10¹¹/hour; `progress647.py`
+prints the live contiguous bound, which is the number to quote.)*
 
 The condition rewrites as `τ(n−j) ≤ j+2` for all `j ≥ 1`, and `τ(m) ≤ 6720` for
 `m < 10¹²`, so only `j ≤ W = 16384` can matter — which makes the test local and
@@ -93,6 +103,39 @@ cc -O3 -o search647 search647.c -lm && ./search647 2 1000000   # C agrees exactl
 ```
 `verify647.py` shares no code with the C search: it sieves τ by brute force and
 tracks the running maximum directly, with no locality argument at all.
+
+### [488] Is |B∩[1,m]|/m < 2|B∩[1,n]|/n for the multiples of a finite set?
+`[COMPUTATION-VERIFIED]` — no counterexample in two exhaustive sweeps.
+
+`B` = the integers divisible by some member of `A`. Verified for every
+divisibility-*antichain* `A ⊆ [2,40]` with `|A| ≤ 3` and all `max(A) ≤ n < m ≤ 8000`,
+and for every antichain `A ⊆ [2,30]` with `|A| ≤ 4` and `n < m ≤ 6000`
+(21,550 sets in total). Antichains suffice because `a | a′` makes `a′`
+contribute no new multiples. The test is exact integer arithmetic —
+`n·f(m) < 2·m·f(n)`, no floats — so a near-miss cannot read as a hit.
+
+The largest ratio found is always attained by a **singleton**: `A = {a}`, `n = 2a−1`,
+giving `2 − 1/a` (79/40 at a=40). No multi-element set beat it, which matches the
+known extremal example and is mild evidence that singletons are extremal in general.
+
+```
+cd problems/488 && python search488.py --K 40 --L 3 --X 8000     # ~2 min
+```
+
+### [699] Erdős–Szekeres: a prime p ≥ i dividing gcd(C(n,i), C(n,j))
+`[COMPUTATION-VERIFIED]` — holds for all `n ≤ 3000` and all `1 ≤ i < j ≤ n/2`.
+
+No binomial coefficient is ever formed: `v_p(C(n,i))` is the number of carries
+when adding `i` and `n−i` in base `p` (Kummer), so each `A_p = {i : p | C(n,i)}`
+is one sieve pass, and the covered-`j` set for a given `i` is a single bitmask OR.
+
+The self-test reproduces two documented facts before any search runs:
+`gcd(C(28,5), C(28,14)) = 2³·3³·5` — the Erdős–Szekeres example where `p ≥ i` is
+satisfiable (`p = 5`) but `p > i` is not — and Sylvester–Schur for all `n < 120`.
+
+```
+cd problems/699 && python search699.py --selftest && python search699.py 3000
+```
 
 ---
 
