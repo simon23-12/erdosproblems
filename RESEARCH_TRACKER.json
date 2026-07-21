@@ -24,8 +24,8 @@
       "dead-end"
     ],
     "generated": "2026-07-21T17:53:15+00:00",
-    "last_modified": "2026-07-21T19:35:43+00:00",
-    "last_commit": "957d601"
+    "last_modified": "2026-07-21T19:41:47+00:00",
+    "last_commit": "b1da7c8"
   },
   "problems": [
     {
@@ -401,14 +401,14 @@
       "approaches_attempted": [
         "Reduction: lcm ratio = product of primes q with a power q^e (e>=2) inside the gap. Walk the ~pi(sqrt X) prime powers instead of the gaps. Only 5 gaps below 1e14 hold two prime powers: {8,9},{25,27},{121,125},{2187,2197},{32761,32768}."
       ],
-      "search_bounds_reached": "all prime gaps with p_k <= 1e14",
+      "search_bounds_reached": "every prime gap entirely below 99,999,820,000,061",
       "compute_time_spent_sec": 200.0,
-      "best_verified_result": "[1..p_{k+1}-1] < p_k[1..p_k] for every prime gap with p_k <= 1e14; tightest ratio 6/7 at p_k=7",
+      "best_verified_result": "no violation; tightest ratio 6/7 at p_k=7 (the very first gap)",
       "best_unverified_lead": "",
       "reason_for_stopping": "",
       "artifacts": [],
-      "last_commit": "f92ed38",
-      "last_modified": "2026-07-21T19:15:44+00:00"
+      "last_commit": "b1da7c8",
+      "last_modified": "2026-07-21T19:41:46+00:00"
     },
     {
       "problem_id": "475",

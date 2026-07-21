@@ -65,7 +65,13 @@ cc -O3 -o cover287 cover287.c -lm && ./cover287 38 10000000000     # ~60s
 `search287.py` or `cover287.c`.
 
 ### [458] Is `[1,…,p_{k+1}−1] < p_k·[1,…,p_k]` for all k?
-`[COMPUTATION-VERIFIED]` — holds for **every prime gap with p_k ≤ 10¹⁴**.
+`[COMPUTATION-VERIFIED]` — holds for **every prime gap lying entirely below
+99,999,820,000,061** (≈10¹⁴).
+
+The bound is stated that way on purpose: the last group of prime powers sits in a
+gap that may continue above the search limit and contain prime powers never
+enumerated, which would make its product too small. That final group is dropped
+rather than counted.
 
 The lcm ratio is *exactly* the product of the primes `q` having a power `q^e`
 (`e ≥ 2`) inside the gap `(p_k, p_{k+1})` — so the conjecture is literally
@@ -73,7 +79,7 @@ The lcm ratio is *exactly* the product of the primes `q` having a power `q^e`
 the prime powers rather than the gaps. Every grouping decision is settled by
 exhibiting an explicit prime, never by assuming one exists.
 
-Only **5** gaps below 10¹⁴ contain two prime powers — `{8,9}`, `{25,27}`,
+Only **5** gaps in the whole range contain two prime powers — `{8,9}`, `{25,27}`,
 `{121,125}`, `{2187,2197}`, `{32761,32768}` — and the tightest case overall is
 the very first one, `p_k = 7` with ratio `6/7`.
 
@@ -150,8 +156,9 @@ cd problems/699 && python search699.py --selftest && python search699.py 3000
 ### [617] Erdős–Gyárfás balanced colourings — r = 5 not reachable by SAT
 r = 3 confirmed UNSAT (`[COMPUTATION-VERIFIED]`, but it reproduces a known
 theorem, so no novelty). Symmetry breaking — sorting the star at vertex 0 —
-cut r = 3 from 47s to 0.3s. r = 4 (also known) did not finish in ~2 hours, which
-puts r = 5, the first *open* case, far out of reach for an UNSAT proof.
+cut r = 3 from 47s to 0.3s. r = 4 (also known) had still not finished after ~1.75
+hours, when I killed it to free a core — so r = 5, the first *open* case and a far
+bigger instance, is out of reach for an UNSAT proof.
 A counterexample would still be trivially checkable if local search ever found
 one; `check_colouring()` exists for that.
 

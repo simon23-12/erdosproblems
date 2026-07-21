@@ -125,7 +125,9 @@ r = 5). Sorting the star at vertex 0 — legitimate, since relabelling vertices
 redundant Turán cardinality constraint (`|colour class| ≥ 55` at r=5) made no
 measurable difference.
 
-r = 4, also a known case, did not finish in ~2 hours even so. r = 5 (K₂₆, 5
+r = 4, also a known case, had still not finished after ~1.75 hours, at which
+point I killed it to free a core (so it is a lower bound on the runtime, not a
+measured one). r = 5 (K₂₆, 5
 colours, 1625 vars / 1.15M clauses) is therefore far out of reach for UNSAT, and
 r = 5 is the first *open* case. Recorded as a dead end. A SAT answer would still
 be trivially checkable — `check_colouring()` re-verifies a claimed colouring from
