@@ -100,6 +100,14 @@ echo "$out" | grep -q "0 counterexamples" \
   && ok "no counterexample for n <= 400" \
   || bad "counterexample reported: $out"
 
+# ---------------------------------------------------------------- 366
+say "[366] 2-full n with n+1 3-full (and the reverse order)"
+( cd problems/366 && cc -O3 -o search366 search366.c -lm 2>/dev/null )
+out=$($PY problems/366/verify366.py 2>&1)
+echo "$out" | grep -q "^VERIFIED" \
+  && ok "recall (finds 8|9 and 12167|12168, nothing else) and precision vs sympy" \
+  || bad "verifier did not confirm: $(echo "$out" | tail -4)"
+
 # ----------------------------------------------------------------
 printf '\n\033[1m%s\033[0m\n' "-------------------------------------------"
 printf '\033[1mPASS %d   FAIL %d\033[0m\n' "$pass" "$fail"

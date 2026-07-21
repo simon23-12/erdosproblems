@@ -24,8 +24,8 @@
       "dead-end"
     ],
     "generated": "2026-07-21T17:53:15+00:00",
-    "last_modified": "2026-07-21T19:15:54+00:00",
-    "last_commit": "f92ed38"
+    "last_modified": "2026-07-21T19:35:43+00:00",
+    "last_commit": "957d601"
   },
   "problems": [
     {
@@ -181,7 +181,7 @@
       "title": "Is there a 2-full n with n+1 3-full?",
       "url": "https://www.erdosproblems.com/366",
       "erdos_status": "verifiable",
-      "status": "untouched",
+      "status": "active",
       "tags": [
         "NUMBER SEARCH",
         "BRUTE-FORCE"
@@ -194,15 +194,17 @@
         "scales": true
       },
       "triage_rationale": "Enumerate 3-full m <= X (only ~c*X^(1/3) of them, so 1e26 is ~1e9 candidates) and test whether m-1 is powerful. Small-prime trial division rejects essentially all candidates instantly. Current published bound is 1e22, so 1e25-1e26 is a genuine extension.",
-      "approaches_attempted": [],
-      "search_bounds_reached": "",
+      "approaches_attempted": [
+        "Enumerate the 3-full member (~c*X^(1/3), i.e. 21M below 1e20) rather than powerful numbers (~2.17*sqrt(X)); test both neighbours. Powerfulness: trial-divide to P0 > X^(1/5), then the cofactor is powerful iff a perfect k-th power (k<=4) - the first non-perfect-power shape p^2q^3 needs c > P0^5. BUG CAUGHT by the known-pair check: an early version computed 2^128 mod p instead of 2^64 mod p in the fast modulo, producing a flood of false hits at 1e20."
+      ],
+      "search_bounds_reached": "1e20 confirmed; 1e24 running",
       "compute_time_spent_sec": 0,
-      "best_verified_result": "",
+      "best_verified_result": "only consecutive 2-full/3-full pairs up to 1e20 are 8|9 and 12167|12168, both with the 3-full member first",
       "best_unverified_lead": "",
       "reason_for_stopping": "",
       "artifacts": [],
-      "last_commit": "",
-      "last_modified": ""
+      "last_commit": "957d601",
+      "last_modified": "2026-07-21T19:35:43+00:00"
     },
     {
       "problem_id": "835",
