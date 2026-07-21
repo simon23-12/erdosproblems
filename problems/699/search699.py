@@ -33,31 +33,11 @@ Usage:
 from __future__ import annotations
 
 import argparse
-from math import isqrt
+import pathlib
+import sys
 
-
-def primes_upto(n: int) -> list[int]:
-    if n < 2:
-        return []
-    s = bytearray([1]) * (n + 1)
-    s[0:2] = b"\x00\x00"
-    for k in range(2, isqrt(n) + 1):
-        if s[k]:
-            s[k * k:: k] = bytearray(len(s[k * k:: k]))
-    return [k for k in range(2, n + 1) if s[k]]
-
-
-def carries(n: int, i: int, p: int) -> int:
-    """Number of carries adding i and n-i in base p  ( = v_p(C(n,i)) )."""
-    j, c, out = n - i, 0, 0
-    while i or j:
-        if (i % p) + (j % p) + c >= p:
-            c, out = 1, out + 1
-        else:
-            c = 0
-        i //= p
-        j //= p
-    return out
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent.parent / "lib"))
+from erdos.numth import primes_upto, kummer_carries as carries  # noqa: E402
 
 
 def scan(n: int, primes: list[int]):

@@ -27,71 +27,13 @@ Usage:
 """
 from __future__ import annotations
 
+import pathlib
 import sys
-from math import isqrt
 
-
-# deterministic Miller-Rabin for n < 3.3*10^24
-_MR_BASES = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37)
-
-
-def is_prime(n: int) -> bool:
-    if n < 2:
-        return False
-    for p in _MR_BASES:
-        if n % p == 0:
-            return n == p
-    d, s = n - 1, 0
-    while d % 2 == 0:
-        d //= 2
-        s += 1
-    for a in _MR_BASES:
-        x = pow(a, d, n)
-        if x == 1 or x == n - 1:
-            continue
-        for _ in range(s - 1):
-            x = x * x % n
-            if x == n - 1:
-                break
-        else:
-            return False
-    return True
-
-
-def primes_upto(n: int) -> list[int]:
-    s = bytearray([1]) * (n + 1)
-    s[0:2] = b"\x00\x00"
-    for i in range(2, isqrt(n) + 1):
-        if s[i]:
-            s[i * i:: i] = bytearray(len(s[i * i:: i]))
-    return [i for i in range(2, n + 1) if s[i]]
-
-
-def prime_powers_upto(X: int) -> list[tuple[int, int]]:
-    """(value, base prime) for every q^e <= X with e >= 2, sorted by value."""
-    out = []
-    for q in primes_upto(isqrt(X)):
-        v = q * q
-        while v <= X:
-            out.append((v, q))
-            v *= q
-    out.sort()
-    return out
-
-
-def prev_prime(n: int) -> int:
-    m = n - 1
-    while not is_prime(m):
-        m -= 1
-    return m
-
-
-def prime_between(a: int, b: int):
-    """An explicit prime in the open interval (a,b), or None."""
-    for m in range(a + 1, b):
-        if is_prime(m):
-            return m
-    return None
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent.parent / "lib"))
+from erdos.numth import (  # noqa: E402
+    is_prime, prev_prime, prime_between, prime_powers_upto,
+)
 
 
 def main():

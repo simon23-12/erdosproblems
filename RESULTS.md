@@ -24,7 +24,7 @@ Machine-readable state: `RESEARCH_TRACKER.json`. Overview page: `docs/index.html
 ```
 
 It rebuilds the Lean proofs, prints their axiom dependencies, and re-runs every
-standalone checker. Last run: **12 checks, 12 pass, 0 fail.**
+standalone checker. Last run: **14 checks, 14 pass, 0 fail.**
 
 ---
 

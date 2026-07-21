@@ -26,6 +26,70 @@ def primes_upto(n: int) -> list[int]:
     return [i for i in range(2, n + 1) if sieve[i]]
 
 
+# deterministic Miller-Rabin: this base set is proven correct for n < 3.3*10^24
+_MR_BASES = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37)
+
+
+def is_prime(n: int) -> bool:
+    """Deterministic primality for n < 3.3*10^24 (exact, not probabilistic)."""
+    if n < 2:
+        return False
+    for p in _MR_BASES:
+        if n % p == 0:
+            return n == p
+    d, s = n - 1, 0
+    while d % 2 == 0:
+        d //= 2
+        s += 1
+    for a in _MR_BASES:
+        x = pow(a, d, n)
+        if x == 1 or x == n - 1:
+            continue
+        for _ in range(s - 1):
+            x = x * x % n
+            if x == n - 1:
+                break
+        else:
+            return False
+    return True
+
+
+def prev_prime(n: int) -> int:
+    """Largest prime strictly below n."""
+    m = n - 1
+    while not is_prime(m):
+        m -= 1
+    return m
+
+
+def prime_between(a: int, b: int):
+    """An EXPLICIT prime in the open interval (a,b), or None.
+
+    Returning a witness rather than a yes/no keeps callers honest: a gap
+    argument that needs 'there is a prime here' should exhibit it.
+    """
+    for m in range(a + 1, b):
+        if is_prime(m):
+            return m
+    return None
+
+
+def prime_powers_upto(X: int) -> list[tuple[int, int]]:
+    """(value, base prime) for every q^e <= X with e >= 2, sorted by value.
+
+    There are only ~pi(sqrt(X)) of these, which is what makes prime-power
+    arguments (e.g. [458]) far cheaper than walking prime gaps.
+    """
+    out = []
+    for q in primes_upto(int(X ** 0.5) + 1):
+        v = q * q
+        while v <= X:
+            out.append((v, q))
+            v *= q
+    out.sort()
+    return out
+
+
 def smallest_prime_factor(n: int) -> list[int]:
     """spf[k] = least prime factor of k, for k <= n. Enables O(log k) factoring."""
     spf = list(range(n + 1))
