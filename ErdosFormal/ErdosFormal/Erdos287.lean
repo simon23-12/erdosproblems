@@ -9,6 +9,20 @@ The computational search in `problems/287` rules out counterexamples by
 excluding two CONSECUTIVE integers from any such set, using this lemma. It is
 formalised here so that the search result does not rest on a prose argument.
 
+FAITHFULNESS OF THE STATEMENT (the one thing a proof cannot check for you).
+The published problem reads: "Let k >= 2. Is it true that, for any distinct
+integers 1 < n_1 < ... < n_k such that 1 = 1/n_1 + ... + 1/n_k we must have
+max(n_{i+1} - n_i) >= 3?"  The encoding below is:
+
+  distinct integers   ->  `Finset ℕ` (distinctness holds by construction)
+  1 < n_i             ->  `hS2 : ∀ n ∈ S, 2 ≤ n`
+  sum of 1/n_i = 1    ->  `hsum`, taken in ℚ so it is exact
+  a COUNTEREXAMPLE    ->  every consecutive gap ≤ 2, encoded as `hgap`: from any
+                          non-maximal member, the next member is at most 2 on.
+                          (Equivalent: the successor of n is the least element
+                          above n, and it is in {n+1, n+2} iff the gap is ≤ 2.)
+  k >= 2              ->  automatic; a singleton {n} with n ≥ 2 cannot sum to 1.
+
 The proof deliberately avoids p-adic valuations. Rather than the lcm of the
 whole set it uses the explicit COMMON multiple D = 2·p·L, where L is the lcm of
 the members NOT divisible by p. Then every term D/n is visibly a multiple of p

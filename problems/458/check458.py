@@ -109,6 +109,12 @@ def main():
             cur = [nxt]
     groups.append(cur)
 
+    # The final group is NOT trustworthy: its prime gap may extend above X and
+    # hold further prime powers we never enumerated, which would make its R too
+    # small. Drop it and report the bound as the largest p_k fully accounted for.
+    incomplete = groups.pop()
+    bound = prev_prime(incomplete[0][0])
+
     worst_ratio, worst = 0.0, None
     violations = []
     multi = 0
@@ -132,13 +138,16 @@ def main():
             print(f"  multi-gap: p_k={pk}, prime powers {[v for v,_ in g]}, "
                   f"R={R}, R/p_k={R/pk:.4f}")
     print(f"prime gaps containing >= 1 prime power : {len(groups):,}")
+    print(f"final gap dropped as incomplete        : p_k={bound} "
+          f"(its gap may extend past X)")
     print(f"                       >= 2 prime powers: {multi:,}")
     print(f"tightest case: p_k={worst[0]}, prime powers {worst[1]}, "
           f"R={worst[2]}, R/p_k={worst_ratio:.4f}")
     print(f"violations (R >= p_k): {violations if violations else 'NONE'}")
     print()
     print(f"RESULT: [1..p_(k+1)-1] < p_k [1..p_k] holds for every prime gap "
-          f"with p_k <= {X:g}" if not violations else "RESULT: VIOLATION FOUND")
+          f"lying entirely below {bound:,}"
+          if not violations else "RESULT: VIOLATION FOUND")
 
 
 if __name__ == "__main__":
