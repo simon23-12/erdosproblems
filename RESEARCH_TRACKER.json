@@ -24,8 +24,8 @@
       "dead-end"
     ],
     "generated": "2026-07-21T17:53:15+00:00",
-    "last_modified": "2026-07-21T17:54:38+00:00",
-    "last_commit": "3786ebe"
+    "last_modified": "2026-07-21T18:35:06+00:00",
+    "last_commit": "2155dfb"
   },
   "problems": [
     {
@@ -63,7 +63,7 @@
       "title": "r=5: can K_26 be 5-coloured so every K_6 sees all 5 colours?",
       "url": "https://www.erdosproblems.com/617",
       "erdos_status": "falsifiable",
-      "status": "untouched",
+      "status": "active",
       "tags": [
         "SAT"
       ],
@@ -75,22 +75,24 @@
         "scales": false
       },
       "triage_rationale": "1625 vars / ~1.2M clauses. Erdos-Gyarfas did r=3,4 by hand; r=5 is the first open case and looks computationally untouched. SAT => counterexample (trivially checkable). UNSAT is hard (26! vertex symmetry) but symmetry breaking may reach it. Does not scale past r=5.",
-      "approaches_attempted": [],
-      "search_bounds_reached": "",
+      "approaches_attempted": [
+        "SAT encoding in lib/erdos/sat.py. Symmetry breaking by sorting the star at vertex 0: 47s -> 0.3s on r=3. Turan cardinality constraint made no measurable difference."
+      ],
+      "search_bounds_reached": "r=3 UNSAT confirmed; r=4 running",
       "compute_time_spent_sec": 0,
-      "best_verified_result": "",
+      "best_verified_result": "r=3: no balanced 3-colouring of K_10 (known result, reproduced)",
       "best_unverified_lead": "",
       "reason_for_stopping": "",
       "artifacts": [],
-      "last_commit": "",
-      "last_modified": ""
+      "last_commit": "2155dfb",
+      "last_modified": "2026-07-21T18:35:06+00:00"
     },
     {
       "problem_id": "287",
       "title": "Unit fractions summing to 1 must have a consecutive gap >= 3?",
       "url": "https://www.erdosproblems.com/287",
       "erdos_status": "falsifiable",
-      "status": "untouched",
+      "status": "lead",
       "tags": [
         "NUMBER SEARCH",
         "BRUTE-FORCE",
@@ -104,15 +106,17 @@
         "scales": true
       },
       "triage_rationale": "A counterexample is a set with all gaps <=2 and reciprocals summing to 1. The largest-prime-power valuation argument forces exclusions (p in (b/2,b] cannot appear), which prunes brutally. No published computational bound located.",
-      "approaches_attempted": [],
-      "search_bounds_reached": "",
+      "approaches_attempted": [
+        "Exclusion lemma via p-adic valuation, restated elementarily with lcm to be Lean-friendly. Three stages: brute force max(S)<=37; per-b certificates 38..1e5; interval covering (p and 2p+/-1 both prime certifies all b in [2p,3p)). C cover287 matches python exactly at 1e7 (42302 witness primes)."
+      ],
+      "search_bounds_reached": "max(S) <= 1e6 verified standalone; 1e12 covering running",
       "compute_time_spent_sec": 0,
-      "best_verified_result": "",
-      "best_unverified_lead": "",
-      "reason_for_stopping": "",
+      "best_verified_result": "no counterexample with max(S) <= 1e6 (verify287.py, 4s)",
+      "best_unverified_lead": "ELIMINATION lemma (elementary, prose) would extend this to 1e12+; Lean formalization pending",
+      "reason_for_stopping": "blocked on formalizing one lemma",
       "artifacts": [],
-      "last_commit": "",
-      "last_modified": ""
+      "last_commit": "2155dfb",
+      "last_modified": "2026-07-21T18:35:05+00:00"
     },
     {
       "problem_id": "743",
@@ -658,7 +662,7 @@
       "title": "Is the independent-set sequence of every tree unimodal?",
       "url": "https://www.erdosproblems.com/993",
       "erdos_status": "falsifiable",
-      "status": "untouched",
+      "status": "dead-end",
       "tags": [
         "BRUTE-FORCE",
         "GRAPH ENUMERATION",
@@ -677,10 +681,10 @@
       "compute_time_spent_sec": 0,
       "best_verified_result": "",
       "best_unverified_lead": "",
-      "reason_for_stopping": "",
+      "reason_for_stopping": "literature already verified to 29 vertices (2026); n=30 is 1.48e10 trees ~1.3e13 ops for a one-vertex gain",
       "artifacts": [],
-      "last_commit": "",
-      "last_modified": ""
+      "last_commit": "2155dfb",
+      "last_modified": "2026-07-21T18:35:06+00:00"
     },
     {
       "problem_id": "547",

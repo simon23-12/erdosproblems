@@ -74,7 +74,7 @@
   <h1>Erdős problems — machine-verified research log</h1>
   <p class="sub">Autonomous work on open problems from
     <a href="https://www.erdosproblems.com" target="_blank" rel="noopener">erdosproblems.com</a>.
-    Generated 2026-07-21 17:54 UTC · commit <code>3786ebe</code></p>
+    Generated 2026-07-21 18:35 UTC · commit <code>2155dfb</code></p>
 
   <div class="trust"><b>Trust rule.</b> A claim counts only if Lean compiles it with no sorry, or a short standalone script recomputes it from scratch. Everything else is a lead.
     Counts below are deliberately conservative: a problem is
@@ -82,9 +82,9 @@
 
   <div class="cards">
     <div class="card "><b>0</b><span>Verified</span></div>
-    <div class="card acc"><b>1</b><span>In progress</span></div>
-    <div class="card warn"><b>0</b><span>Leads (unverified)</span></div>
-    <div class="card bad"><b>0</b><span>Dead ends</span></div>
+    <div class="card acc"><b>2</b><span>In progress</span></div>
+    <div class="card warn"><b>1</b><span>Leads (unverified)</span></div>
+    <div class="card bad"><b>1</b><span>Dead ends</span></div>
     <div class="card"><b>43</b><span>Triaged</span></div>
     <div class="card"><b>—</b><span>Compute spent</span></div>
   </div>
@@ -119,14 +119,14 @@
           
         </td>
       </tr>
-      <tr class="s-untouched" data-status="untouched">
+      <tr class="s-active" data-status="active">
         <td class="num"><a href="https://www.erdosproblems.com/617" target="_blank" rel="noopener">#617</a></td>
         <td class="title">
           <div class="t">r=5: can K_26 be 5-coloured so every K_6 sees all 5 colours?</div>
           <div class="tags"><span class="tag t-sat">SAT</span></div>
           <div class="why">1625 vars / ~1.2M clauses. Erdos-Gyarfas did r=3,4 by hand; r=5 is the first open case and looks computationally untouched. SAT =&gt; counterexample (trivially checkable). UNSAT is hard (26! vertex symmetry) but symmetry breaking may reach it. Does not scale past r=5.</div>
         </td>
-        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td><span class="pill p-active">In progress</span></td>
         <td class="pri"><div class="bar"><i style="width:75%"></i></div>
             <span>0.75</span></td>
         <td class="est">
@@ -135,19 +135,19 @@
           <div>novelty <b>high</b></div>
         </td>
         <td class="prog">
-          <div>—</div>
+          <div>r=3 UNSAT confirmed; r=4 running</div>
           <div class="dim">— compute</div>
-          
+          <div class="best">r=3: no balanced 3-colouring of K_10 (known result, reproduced)</div>
         </td>
       </tr>
-      <tr class="s-untouched" data-status="untouched">
+      <tr class="s-lead" data-status="lead">
         <td class="num"><a href="https://www.erdosproblems.com/287" target="_blank" rel="noopener">#287</a></td>
         <td class="title">
           <div class="t">Unit fractions summing to 1 must have a consecutive gap &gt;= 3?</div>
           <div class="tags"><span class="tag t-number">NUMBER SEARCH</span><span class="tag t-brute-force">BRUTE-FORCE</span><span class="tag t-dynamic">DYNAMIC PROGRAMMING</span></div>
           <div class="why">A counterexample is a set with all gaps &lt;=2 and reciprocals summing to 1. The largest-prime-power valuation argument forces exclusions (p in (b/2,b] cannot appear), which prunes brutally. No published computational bound located.</div>
         </td>
-        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td><span class="pill p-lead">Unverified lead</span></td>
         <td class="pri"><div class="bar"><i style="width:70%"></i></div>
             <span>0.70</span></td>
         <td class="est">
@@ -156,9 +156,9 @@
           <div>novelty <b>high</b></div>
         </td>
         <td class="prog">
-          <div>—</div>
+          <div>max(S) &lt;= 1e6 verified standalone; 1e12 covering running</div>
           <div class="dim">— compute</div>
-          
+          <div class="best">no counterexample with max(S) &lt;= 1e6 (verify287.py, 4s)</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -552,27 +552,6 @@
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.6</b></div>
-          <div>novelty <b>low</b></div>
-        </td>
-        <td class="prog">
-          <div>—</div>
-          <div class="dim">— compute</div>
-          
-        </td>
-      </tr>
-      <tr class="s-untouched" data-status="untouched">
-        <td class="num"><a href="https://www.erdosproblems.com/993" target="_blank" rel="noopener">#993</a></td>
-        <td class="title">
-          <div class="t">Is the independent-set sequence of every tree unimodal?</div>
-          <div class="tags"><span class="tag t-brute-force">BRUTE-FORCE</span><span class="tag t-graph">GRAPH ENUMERATION</span><span class="tag t-dynamic">DYNAMIC PROGRAMMING</span></div>
-          <div class="why">Already verified to 29 vertices (literature, 2026). n=30 is 1.48e10 free trees x O(n^2) DP ~= 1.3e13 operations: reachable only with a heavily optimised C implementation over many hours, for a one-vertex improvement. Kept as a fallback for spare compute.</div>
-        </td>
-        <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:30%"></i></div>
-            <span>0.30</span></td>
-        <td class="est">
-          <div>runtime <b>days</b></div>
-          <div>P(verif) <b>0.5</b></div>
           <div>novelty <b>low</b></div>
         </td>
         <td class="prog">
@@ -994,6 +973,27 @@
           <div>runtime <b>-</b></div>
           <div>P(verif) <b>0.05</b></div>
           <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-dead-end" data-status="dead-end">
+        <td class="num"><a href="https://www.erdosproblems.com/993" target="_blank" rel="noopener">#993</a></td>
+        <td class="title">
+          <div class="t">Is the independent-set sequence of every tree unimodal?</div>
+          <div class="tags"><span class="tag t-brute-force">BRUTE-FORCE</span><span class="tag t-graph">GRAPH ENUMERATION</span><span class="tag t-dynamic">DYNAMIC PROGRAMMING</span></div>
+          <div class="why">Already verified to 29 vertices (literature, 2026). n=30 is 1.48e10 free trees x O(n^2) DP ~= 1.3e13 operations: reachable only with a heavily optimised C implementation over many hours, for a one-vertex improvement. Kept as a fallback for spare compute.</div>
+        </td>
+        <td><span class="pill p-dead-end">Dead end</span></td>
+        <td class="pri"><div class="bar"><i style="width:30%"></i></div>
+            <span>0.30</span></td>
+        <td class="est">
+          <div>runtime <b>days</b></div>
+          <div>P(verif) <b>0.5</b></div>
+          <div>novelty <b>low</b></div>
         </td>
         <td class="prog">
           <div>—</div>
