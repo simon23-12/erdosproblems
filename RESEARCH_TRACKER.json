@@ -1,0 +1,1235 @@
+{
+  "meta": {
+    "description": "Persistent research tracker for machine-checkable work on open Erdos problems (erdosproblems.com).",
+    "source": "https://github.com/teorth/erdosproblems + https://www.erdosproblems.com",
+    "trust_rule": "A claim counts only if Lean compiles it with no sorry, or a short standalone script recomputes it from scratch. Everything else is a lead.",
+    "tag_vocabulary": [
+      "BRUTE-FORCE",
+      "SAT",
+      "SMT/Z3",
+      "ILP",
+      "GRAPH ENUMERATION",
+      "NUMBER SEARCH",
+      "DYNAMIC PROGRAMMING",
+      "FORMALIZATION",
+      "SYMBOLIC",
+      "NOT COMPUTE-AMENABLE"
+    ],
+    "status_vocabulary": [
+      "untouched",
+      "active",
+      "paused",
+      "verified",
+      "lead",
+      "dead-end"
+    ],
+    "generated": "2026-07-21T17:53:15+00:00",
+    "last_modified": "2026-07-21T17:54:38+00:00",
+    "last_commit": "3786ebe"
+  },
+  "problems": [
+    {
+      "problem_id": "647",
+      "title": "Is there n>24 with max_{m<n}(m+tau(m)) <= n+2?  (GBP 25 prize)",
+      "url": "https://www.erdosproblems.com/647",
+      "erdos_status": "verifiable",
+      "status": "active",
+      "tags": [
+        "NUMBER SEARCH",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.8,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.95,
+        "novelty": "high",
+        "scales": true
+      },
+      "triage_rationale": "Condition is LOCAL: tau(n-j)<=j+2 for j<=max tau, so the range splits across cores. Segmented divisor sieve at ~1.75s per 1e8 even at 1e13. No published search bound found.",
+      "approaches_attempted": [
+        "Segmented divisor-count sieve in C (problems/647/search647.c). Locality lemma: condition is equivalent to tau(n-j)<=j+2 for j<=W, so ranges split across cores; W=16384 checked at runtime against observed max tau (valid to ~1e13, where max tau=10752). Cross-checked against the independent brute-force verify647.py on [2,1e6]: identical output {2,3,4,5,6,8,10,12,24}. Running 8 workers over [1e7,1e13)."
+      ],
+      "search_bounds_reached": "in progress, target 1e13",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "3786ebe",
+      "last_modified": "2026-07-21T17:54:38+00:00"
+    },
+    {
+      "problem_id": "617",
+      "title": "r=5: can K_26 be 5-coloured so every K_6 sees all 5 colours?",
+      "url": "https://www.erdosproblems.com/617",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "SAT"
+      ],
+      "priority": 0.75,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.6,
+        "novelty": "high",
+        "scales": false
+      },
+      "triage_rationale": "1625 vars / ~1.2M clauses. Erdos-Gyarfas did r=3,4 by hand; r=5 is the first open case and looks computationally untouched. SAT => counterexample (trivially checkable). UNSAT is hard (26! vertex symmetry) but symmetry breaking may reach it. Does not scale past r=5.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "287",
+      "title": "Unit fractions summing to 1 must have a consecutive gap >= 3?",
+      "url": "https://www.erdosproblems.com/287",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NUMBER SEARCH",
+        "BRUTE-FORCE",
+        "DYNAMIC PROGRAMMING"
+      ],
+      "priority": 0.7,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.8,
+        "novelty": "high",
+        "scales": true
+      },
+      "triage_rationale": "A counterexample is a set with all gaps <=2 and reciprocals summing to 1. The largest-prime-power valuation argument forces exclusions (p in (b/2,b] cannot appear), which prunes brutally. No published computational bound located.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "743",
+      "title": "Tree packing: is K_10 the edge-disjoint union of trees T_2..T_10?",
+      "url": "https://www.erdosproblems.com/743",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "BRUTE-FORCE",
+        "SAT",
+        "GRAPH ENUMERATION"
+      ],
+      "priority": 0.65,
+      "estimates": {
+        "runtime": "hours-days",
+        "p_machine_verifiable": 0.7,
+        "novelty": "high",
+        "scales": false
+      },
+      "triage_rationale": "Fishburn settled n<=9 in 1983; n=10 is 428,076 tree-collections x one exact-cover each. Sum of tree sizes is exactly 45 = |E(K_10)|, so it is a perfect packing. n=11 is ~50x worse.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "64",
+      "title": "Does every graph with min degree >= 3 contain a cycle of length 2^k?  ($1000)",
+      "url": "https://www.erdosproblems.com/64",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "GRAPH ENUMERATION",
+        "SAT"
+      ],
+      "priority": 0.6,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.6,
+        "novelty": "high",
+        "scales": false
+      },
+      "triage_rationale": "A counterexample must avoid C_4, C_8, C_16, ... Avoiding C_4 forces girth >= 5, and cubic girth-5 graphs are generable up to ~26 vertices. Cycle spectrum is cheap. Liu-Montgomery proved it above an absolute degree constant, so only small degree can fail.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "366",
+      "title": "Is there a 2-full n with n+1 3-full?",
+      "url": "https://www.erdosproblems.com/366",
+      "erdos_status": "verifiable",
+      "status": "untouched",
+      "tags": [
+        "NUMBER SEARCH",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.6,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.85,
+        "novelty": "medium",
+        "scales": true
+      },
+      "triage_rationale": "Enumerate 3-full m <= X (only ~c*X^(1/3) of them, so 1e26 is ~1e9 candidates) and test whether m-1 is powerful. Small-prime trial division rejects essentially all candidates instantly. Current published bound is 1e22, so 1e25-1e26 is a genuine extension.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "835",
+      "title": "Is chi(J(20,10)) = 11?  (Erdos-Rosenfeld k>2 question)",
+      "url": "https://www.erdosproblems.com/835",
+      "erdos_status": "verifiable",
+      "status": "untouched",
+      "tags": [
+        "SAT",
+        "BRUTE-FORCE",
+        "GRAPH ENUMERATION"
+      ],
+      "priority": 0.6,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.45,
+        "novelty": "high",
+        "scales": false
+      },
+      "triage_rationale": "Equivalent to an 11-colouring of the Johnson graph J(20,10): 184,756 vertices, 100-regular. k=10 is the smallest open case (false for k<=8; Ma-Tang killed all k+1 composite). A FOUND colouring answers the problem YES and is verifiable in seconds -- excellent asymmetry. Failure to find proves nothing.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "699",
+      "title": "For all 1<=i<j<=n/2, is there a prime p>=i dividing gcd(C(n,i),C(n,j))?",
+      "url": "https://www.erdosproblems.com/699",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NUMBER SEARCH",
+        "DYNAMIC PROGRAMMING"
+      ],
+      "priority": 0.6,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.75,
+        "novelty": "medium",
+        "scales": true
+      },
+      "triage_rationale": "Kummer's theorem gives v_p(C(n,i)) from base-p carries, so no binomial is ever formed. O(n^2) pairs per n. A counterexample is a single (n,i,j) triple -- instantly re-checkable.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "398",
+      "title": "Brocard-Ramanujan: are n=4,5,7 the only solutions of n! = x^2 - 1?",
+      "url": "https://www.erdosproblems.com/398",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NUMBER SEARCH"
+      ],
+      "priority": 0.6,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.85,
+        "novelty": "unknown",
+        "scales": true
+      },
+      "triage_rationale": "Jacobi-symbol sieve: maintain n! mod p for primes p > N and reject n when n!+1 is a quadratic non-residue. ~2 symbols per n expected, so 1e10 is roughly an hour in C. The erdosproblems page cites 1e9; the true current record must be confirmed before spending compute.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "167",
+      "title": "Tuza: if G has <=k edge-disjoint triangles, can <=2k edges kill all triangles?",
+      "url": "https://www.erdosproblems.com/167",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "ILP",
+        "GRAPH ENUMERATION",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.55,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.8,
+        "novelty": "low",
+        "scales": false
+      },
+      "triage_rationale": "nu (max edge-disjoint triangle packing) and tau (min triangle edge cover) are both small ILPs. Exhaustive over geng graphs to ~11 vertices. Famous conjecture, but small cases are very likely already checked by others -- novelty is the weak point, not feasibility.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "488",
+      "title": "Is |B cap [1,m]|/m < 2|B cap [1,n]|/n for multiples of a finite set A?",
+      "url": "https://www.erdosproblems.com/488",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NUMBER SEARCH",
+        "BRUTE-FORCE",
+        "ILP"
+      ],
+      "priority": 0.55,
+      "estimates": {
+        "runtime": "minutes-hours",
+        "p_machine_verifiable": 0.8,
+        "novelty": "medium",
+        "scales": true
+      },
+      "triage_rationale": "Fully concrete and cheap: choose A, compute two densities exactly. Search over A subset of a small window. Counterexamples to the mis-typed variant already exist, so the search machinery is known to be exercising the right object.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "1020",
+      "title": "Erdos matching conjecture: f(n;r,k) = max(C(rk-1,r), C(n,r)-C(n-k+1,r))",
+      "url": "https://www.erdosproblems.com/1020",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "ILP",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.55,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.7,
+        "novelty": "medium",
+        "scales": false
+      },
+      "triage_rationale": "For fixed small (r,k,n) this is one ILP over C(n,r) binary variables with a matching constraint. r=4,5 in the mid range n ~ (r+1)k is where it is open and instances stay under a few thousand variables.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "458",
+      "title": "Is [1..p_{k+1}-1] < p_k [1..p_k] for all k?",
+      "url": "https://www.erdosproblems.com/458",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NUMBER SEARCH",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.5,
+      "estimates": {
+        "runtime": "minutes",
+        "p_machine_verifiable": 0.9,
+        "novelty": "low",
+        "scales": true
+      },
+      "triage_rationale": "The lcm ratio is exactly the product of primes q having a power q^e (e>=2) inside the gap (p_k, p_{k+1}). So the check is a cheap prime-power scan over prime gaps. Very likely already done informally, but it is nearly free.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "475",
+      "title": "Graham: does every A in F_p\\{0} have an ordering with distinct partial sums?",
+      "url": "https://www.erdosproblems.com/475",
+      "erdos_status": "decidable",
+      "status": "untouched",
+      "tags": [
+        "BRUTE-FORCE",
+        "DYNAMIC PROGRAMMING",
+        "SAT"
+      ],
+      "priority": 0.5,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.75,
+        "novelty": "medium",
+        "scales": false
+      },
+      "triage_rationale": "Proved for t<=12 and t>=p-3, so the open window is middle-sized A at p >= 17. Subsets modulo the scaling action of F_p^*: ~2^(p-1)/(p-1) orbits, feasible to p ~ 31, hopeless by p ~ 41.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "548",
+      "title": "Erdos-Sos: (k-1)n/2+1 edges forces every tree on k+1 vertices  ($100)",
+      "url": "https://www.erdosproblems.com/548",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "GRAPH ENUMERATION",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.5,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.6,
+        "novelty": "low",
+        "scales": false
+      },
+      "triage_rationale": "Exhaustive over geng graphs with the exact edge count, testing subtree containment. Feasible to n ~ 11. Small cases near-certainly already verified.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "583",
+      "title": "Erdos-Gallai: partition any connected graph into <= ceil(n/2) edge-disjoint paths",
+      "url": "https://www.erdosproblems.com/583",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "SAT",
+        "ILP",
+        "GRAPH ENUMERATION"
+      ],
+      "priority": 0.5,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.65,
+        "novelty": "low",
+        "scales": false
+      },
+      "triage_rationale": "Minimum path partition is NP-hard but tiny at n<=10; SAT per graph over geng output. Already proved for planar, max degree <=5, and 2-degenerate, which covers most small graphs.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "848",
+      "title": "Is the max A in [1,N] with ab+1 never squarefree given by n = 7 mod 25?",
+      "url": "https://www.erdosproblems.com/848",
+      "erdos_status": "decidable",
+      "status": "untouched",
+      "tags": [
+        "NUMBER SEARCH",
+        "ILP",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.5,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.7,
+        "novelty": "medium",
+        "scales": true
+      },
+      "triage_rationale": "Max-clique on the graph over [1,N] with a~b iff ab+1 is not squarefree. Sawhney settled large N; small N is the open part and is exactly where exact max-clique is affordable.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "375",
+      "title": "Grimm: distinct prime representatives for a run of composites",
+      "url": "https://www.erdosproblems.com/375",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NUMBER SEARCH",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.45,
+      "estimates": {
+        "runtime": "days",
+        "p_machine_verifiable": 0.6,
+        "novelty": "medium",
+        "scales": true
+      },
+      "triage_rationale": "Only MAXIMAL composite runs need checking (an SDR restricts to subsets), so it is one bipartite matching per prime gap. But the published bound is already 1.9e10 and beating it means sieving past 1e12 -- expensive relative to payoff.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "23",
+      "title": "Can every triangle-free graph on 5n vertices be made bipartite by deleting n^2 edges?",
+      "url": "https://www.erdosproblems.com/23",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "GRAPH ENUMERATION",
+        "BRUTE-FORCE",
+        "ILP"
+      ],
+      "priority": 0.45,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.7,
+        "novelty": "low",
+        "scales": false
+      },
+      "triage_rationale": "Max-cut by subset enumeration is exact and cheap below ~24 vertices; geng -t streams the triangle-free graphs. n=2 (10 vertices) and n=3 (15) are reachable, n=4 (20) is not.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "742",
+      "title": "Do diameter-2-critical graphs have at most n^2/4 edges?",
+      "url": "https://www.erdosproblems.com/742",
+      "erdos_status": "decidable",
+      "status": "untouched",
+      "tags": [
+        "GRAPH ENUMERATION",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.45,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.75,
+        "novelty": "low",
+        "scales": false
+      },
+      "triage_rationale": "Both the diameter-2 test and the edge-criticality test are O(n^3) bit operations. geng to 11 vertices is affordable, 12 is not. Furedi proved it for large n.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "128",
+      "title": "Erdos-Rousseau: every half-subgraph having > n^2/50 edges forces a triangle  ($250)",
+      "url": "https://www.erdosproblems.com/128",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "GRAPH ENUMERATION",
+        "ILP"
+      ],
+      "priority": 0.4,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.6,
+        "novelty": "low",
+        "scales": false
+      },
+      "triage_rationale": "Needs a triangle-free graph on n vertices whose every floor(n/2)-subset spans > n^2/50 edges. Enumeration is fine to n ~ 14; the extremal examples are C_5 blow-ups which only bite at n divisible by 5, and the interesting n are larger than the reachable range.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "580",
+      "title": "Loebl-Komlos-Sos: n/2 vertices of degree >= n/2 forces every tree on n/2 vertices",
+      "url": "https://www.erdosproblems.com/580",
+      "erdos_status": "decidable",
+      "status": "untouched",
+      "tags": [
+        "GRAPH ENUMERATION",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.4,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.6,
+        "novelty": "low",
+        "scales": false
+      },
+      "triage_rationale": "Exhaustive over geng graphs plus subtree containment. Reachable to n ~ 12, i.e. trees on <= 6 vertices. Zhao proved it for all large n, so only a small window is genuinely open.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "993",
+      "title": "Is the independent-set sequence of every tree unimodal?",
+      "url": "https://www.erdosproblems.com/993",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "BRUTE-FORCE",
+        "GRAPH ENUMERATION",
+        "DYNAMIC PROGRAMMING"
+      ],
+      "priority": 0.3,
+      "estimates": {
+        "runtime": "days",
+        "p_machine_verifiable": 0.5,
+        "novelty": "low",
+        "scales": false
+      },
+      "triage_rationale": "Already verified to 29 vertices (literature, 2026). n=30 is 1.48e10 free trees x O(n^2) DP ~= 1.3e13 operations: reachable only with a heavily optimised C implementation over many hours, for a one-vertex improvement. Kept as a fallback for spare compute.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "547",
+      "title": "R(T) <= 2n-2 for every tree T on n vertices",
+      "url": "https://www.erdosproblems.com/547",
+      "erdos_status": "decidable",
+      "status": "untouched",
+      "tags": [
+        "SAT",
+        "GRAPH ENUMERATION"
+      ],
+      "priority": 0.3,
+      "estimates": {
+        "runtime": "hours-days",
+        "p_machine_verifiable": 0.5,
+        "novelty": "low",
+        "scales": false
+      },
+      "triage_rationale": "Each Ramsey number is a 2-colouring SAT instance on K_m; feasible only for trees up to ~8 vertices before the instances explode. Zhao proved it for all large n.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "628",
+      "title": "Erdos-Lovasz Tihany: is every k-chromatic K_k-free graph (a,b)-splittable?",
+      "url": "https://www.erdosproblems.com/628",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "GRAPH ENUMERATION",
+        "SAT"
+      ],
+      "priority": 0.25,
+      "estimates": {
+        "runtime": "days",
+        "p_machine_verifiable": 0.35,
+        "novelty": "medium",
+        "scales": false
+      },
+      "triage_rationale": "The first open case needs chi = 6 with no K_6; the smallest such graphs are already beyond exhaustive enumeration, so this becomes an unguided search over a huge space.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "551",
+      "title": "R(C_k,K_n) = (k-1)(n-1)+1 for k >= n >= 3",
+      "url": "https://www.erdosproblems.com/551",
+      "erdos_status": "decidable",
+      "status": "untouched",
+      "tags": [
+        "SAT",
+        "GRAPH ENUMERATION"
+      ],
+      "priority": 0.25,
+      "estimates": {
+        "runtime": "days",
+        "p_machine_verifiable": 0.35,
+        "novelty": "low",
+        "scales": false
+      },
+      "triage_rationale": "Exact two-colour Ramsey numbers; the smallest unresolved instances are already at the edge of what dedicated Ramsey codes achieve after years of CPU time.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "1082",
+      "title": "Do n points with no 3 collinear determine >= floor(n/2) distinct distances?",
+      "url": "https://www.erdosproblems.com/1082",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "SMT/Z3",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.25,
+      "estimates": {
+        "runtime": "days",
+        "p_machine_verifiable": 0.3,
+        "novelty": "medium",
+        "scales": false
+      },
+      "triage_rationale": "Needs exact real coordinates; rational/integer point searches only cover a measure-zero slice of configurations, so a null result says almost nothing. The second half is already answered no.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "506",
+      "title": "Minimum number of circles determined by n points, not all concyclic",
+      "url": "https://www.erdosproblems.com/506",
+      "erdos_status": "decidable",
+      "status": "untouched",
+      "tags": [
+        "SMT/Z3",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.2,
+      "estimates": {
+        "runtime": "days",
+        "p_machine_verifiable": 0.3,
+        "novelty": "medium",
+        "scales": false
+      },
+      "triage_rationale": "Open only for small n but requires exact incidence geometry over the reals; the degenerate configurations that matter are exactly the ones floating-point search cannot certify.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "97",
+      "title": "Does every convex polygon have a vertex with no 4 others equidistant?  ($100)",
+      "url": "https://www.erdosproblems.com/97",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "SMT/Z3",
+        "SYMBOLIC"
+      ],
+      "priority": 0.2,
+      "estimates": {
+        "runtime": "days",
+        "p_machine_verifiable": 0.25,
+        "novelty": "high",
+        "scales": false
+      },
+      "triage_rationale": "A counterexample is a set of real coordinates satisfying many equidistance equations plus convexity. Z3 over the reals on this many degree-2 constraints is unlikely to close, and a numerical near-solution certifies nothing.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "982",
+      "title": "Convex n-gon: some vertex has >= floor(n/2) distinct distances to the others",
+      "url": "https://www.erdosproblems.com/982",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "SMT/Z3",
+        "BRUTE-FORCE"
+      ],
+      "priority": 0.2,
+      "estimates": {
+        "runtime": "hours-days",
+        "p_machine_verifiable": 0.3,
+        "novelty": "medium",
+        "scales": false
+      },
+      "triage_rationale": "Same exact-arithmetic obstruction as [1082]/[97]. Best known bound (13/36+eps)n is far from 1/2, so a small-n search would have to be lucky as well as exact.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "7",
+      "title": "Is there a distinct covering system with all moduli odd?  ($25/$2000)",
+      "url": "https://www.erdosproblems.com/7",
+      "erdos_status": "verifiable",
+      "status": "untouched",
+      "tags": [
+        "SAT",
+        "NUMBER SEARCH"
+      ],
+      "priority": 0.15,
+      "estimates": {
+        "runtime": "days",
+        "p_machine_verifiable": 0.15,
+        "novelty": "very high",
+        "scales": false
+      },
+      "triage_rationale": "The search space over odd modulus sets is astronomical and has absorbed decades of dedicated effort; known constraints (lcm divisible by 9 or 15) barely dent it. Very high payoff, but the probability of a SAT instance closing is small enough that the expected value stays low.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "779",
+      "title": "Deaconescu: prime p in (p_n, P) with P+p prime, P the n-th primorial",
+      "url": "https://www.erdosproblems.com/779",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NUMBER SEARCH"
+      ],
+      "priority": 0.15,
+      "estimates": {
+        "runtime": "hours",
+        "p_machine_verifiable": 0.2,
+        "novelty": "medium",
+        "scales": true
+      },
+      "triage_rationale": "Extending past n=1000 means primality of numbers with thousands of digits. Only BPSW/PRP is affordable, and a PRP is not a proof -- so the artifact would fail the trust rule. Rejected on verifiability, not on cost.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "556",
+      "title": "R_3(C_n) <= 4n-3",
+      "url": "https://www.erdosproblems.com/556",
+      "erdos_status": "decidable",
+      "status": "untouched",
+      "tags": [
+        "SAT"
+      ],
+      "priority": 0.15,
+      "estimates": {
+        "runtime": "days",
+        "p_machine_verifiable": 0.2,
+        "novelty": "low",
+        "scales": false
+      },
+      "triage_rationale": "Three-colour Ramsey numbers for cycles; instance sizes explode immediately and the conjecture is already settled for all large n in both parities.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "672",
+      "title": "Can a product of an AP of length >= 4 be a perfect power?",
+      "url": "https://www.erdosproblems.com/672",
+      "erdos_status": "verifiable",
+      "status": "untouched",
+      "tags": [
+        "NUMBER SEARCH"
+      ],
+      "priority": 0.1,
+      "estimates": {
+        "runtime": "days",
+        "p_machine_verifiable": 0.15,
+        "novelty": "low",
+        "scales": false
+      },
+      "triage_rationale": "Ruled out for 4<=k<=34 by deep Diophantine methods. Compute cannot reach k>=35, and no finite search settles the general statement.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "307",
+      "title": "Two finite prime sets P,Q with (sum 1/p)(sum 1/q) = 1",
+      "url": "https://www.erdosproblems.com/307",
+      "erdos_status": "verifiable",
+      "status": "untouched",
+      "tags": [
+        "NUMBER SEARCH",
+        "SMT/Z3"
+      ],
+      "priority": 0.08,
+      "estimates": {
+        "runtime": "days",
+        "p_machine_verifiable": 0.1,
+        "novelty": "high",
+        "scales": false
+      },
+      "triage_rationale": "|P union Q| >= 60 is forced, so any search is over 60+ primes with an exact rational product constraint. The space is astronomically larger than meet-in-the-middle can bridge.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "19",
+      "title": "Erdos-Faber-Lovasz: chi(G)=n for an edge-disjoint union of n copies of K_n  ($500)",
+      "url": "https://www.erdosproblems.com/19",
+      "erdos_status": "decidable",
+      "status": "untouched",
+      "tags": [
+        "NOT COMPUTE-AMENABLE"
+      ],
+      "priority": 0.05,
+      "estimates": {
+        "runtime": "-",
+        "p_machine_verifiable": 0.05,
+        "novelty": "-",
+        "scales": false
+      },
+      "triage_rationale": "Settled for n<10 and for all sufficiently large n, but the Kang-Kelly-Kuhn-Methuku-Osthus threshold is astronomically large. The 'finite check' is finite only in principle.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "242",
+      "title": "Erdos-Straus: 4/n = 1/x+1/y+1/z for all n>2",
+      "url": "https://www.erdosproblems.com/242",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NOT COMPUTE-AMENABLE"
+      ],
+      "priority": 0.05,
+      "estimates": {
+        "runtime": "-",
+        "p_machine_verifiable": 0.1,
+        "novelty": "none",
+        "scales": true
+      },
+      "triage_rationale": "Already verified to 1e18. Matching that needs a dedicated distributed effort and beating it needs more; no realistic novelty here.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "364",
+      "title": "Are there three consecutive powerful numbers?",
+      "url": "https://www.erdosproblems.com/364",
+      "erdos_status": "verifiable",
+      "status": "untouched",
+      "tags": [
+        "NOT COMPUTE-AMENABLE"
+      ],
+      "priority": 0.05,
+      "estimates": {
+        "runtime": "-",
+        "p_machine_verifiable": 0.1,
+        "novelty": "none",
+        "scales": true
+      },
+      "triage_rationale": "Checked past 7.38e28 via OEIS A076445. Enumerating powerful numbers that far requires ~1e14 objects; no path to improvement on this hardware.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "723",
+      "title": "Must a finite projective plane have prime power order?",
+      "url": "https://www.erdosproblems.com/723",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NOT COMPUTE-AMENABLE"
+      ],
+      "priority": 0.05,
+      "estimates": {
+        "runtime": "-",
+        "p_machine_verifiable": 0.05,
+        "novelty": "very high",
+        "scales": false
+      },
+      "triage_rationale": "The open case is order 12. Order 10 alone consumed thousands of CPU-hours in 1989 and order 12 is vastly harder; this is a known multi-CPU-year problem.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "107",
+      "title": "Happy ending: f(n) = 2^(n-2)+1  ($500)",
+      "url": "https://www.erdosproblems.com/107",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NOT COMPUTE-AMENABLE"
+      ],
+      "priority": 0.05,
+      "estimates": {
+        "runtime": "-",
+        "p_machine_verifiable": 0.05,
+        "novelty": "very high",
+        "scales": false
+      },
+      "triage_rationale": "f(6)=17 already required a major dedicated computation. f(7) means deciding configurations of 33 points -- far beyond exhaustive reach.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "106",
+      "title": "Squares packed in the unit square: is f(k^2+1) = k?",
+      "url": "https://www.erdosproblems.com/106",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NOT COMPUTE-AMENABLE"
+      ],
+      "priority": 0.05,
+      "estimates": {
+        "runtime": "-",
+        "p_machine_verifiable": 0.1,
+        "novelty": "high",
+        "scales": false
+      },
+      "triage_rationale": "A continuous packing optimum. Numerical optimisation gives no certificate, and the axis-parallel case (which IS combinatorial) is already fully solved by Baek-Koizumi-Ueoro.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "114",
+      "title": "Is the lemniscate length maximised by z^n - 1?  ($250)",
+      "url": "https://www.erdosproblems.com/114",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NOT COMPUTE-AMENABLE"
+      ],
+      "priority": 0.03,
+      "estimates": {
+        "runtime": "-",
+        "p_machine_verifiable": 0.05,
+        "novelty": "none",
+        "scales": false
+      },
+      "triage_rationale": "Analytic extremal problem over all monic polynomials, and Tao has already proved it for all sufficiently large n. Nothing finite to check.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    },
+    {
+      "problem_id": "1041",
+      "title": "A path of length < 2 in {|f|<1} joining two roots",
+      "url": "https://www.erdosproblems.com/1041",
+      "erdos_status": "falsifiable",
+      "status": "untouched",
+      "tags": [
+        "NOT COMPUTE-AMENABLE"
+      ],
+      "priority": 0.03,
+      "estimates": {
+        "runtime": "-",
+        "p_machine_verifiable": 0.05,
+        "novelty": "medium",
+        "scales": false
+      },
+      "triage_rationale": "Continuous: needs a certified bound on a path length in a sublevel set of |f|. Floating-point sampling cannot certify either direction.",
+      "approaches_attempted": [],
+      "search_bounds_reached": "",
+      "compute_time_spent_sec": 0,
+      "best_verified_result": "",
+      "best_unverified_lead": "",
+      "reason_for_stopping": "",
+      "artifacts": [],
+      "last_commit": "",
+      "last_modified": ""
+    }
+  ]
+}

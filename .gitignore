@@ -9,3 +9,5 @@ build/
 # Large generated search artifacts (regenerable via the documented commands)
 *.log.gz
 scratch/
+problems/*/results/
+problems/*/*.log

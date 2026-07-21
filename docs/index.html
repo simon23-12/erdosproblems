@@ -1,0 +1,1015 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erdős problems — machine-verified research log</title>
+<style>
+  :root {
+    --bg:#fbfaf8; --fg:#1a1917; --dim:#6b6862; --line:#e4e0d8; --card:#fff;
+    --acc:#8a5a2b; --ok:#2f7d4f; --warn:#a8761c; --bad:#8a3b3b; --idle:#8b8781;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#16161a; --fg:#e9e6e0; --dim:#9a958c; --line:#2c2c33; --card:#1d1d22;
+             --acc:#d3a06a; --ok:#5fb883; --warn:#d6a748; --bad:#d1706e; --idle:#75726c; }
+  }
+  :root[data-theme="dark"] { --bg:#16161a; --fg:#e9e6e0; --dim:#9a958c; --line:#2c2c33;
+    --card:#1d1d22; --acc:#d3a06a; --ok:#5fb883; --warn:#d6a748; --bad:#d1706e; --idle:#75726c; }
+  :root[data-theme="light"] { --bg:#fbfaf8; --fg:#1a1917; --dim:#6b6862; --line:#e4e0d8;
+    --card:#fff; --acc:#8a5a2b; --ok:#2f7d4f; --warn:#a8761c; --bad:#8a3b3b; --idle:#8b8781; }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--fg);
+    font:15px/1.55 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:1180px; margin:0 auto; padding:2.5rem 1.25rem 5rem; }
+  h1 { font-size:1.75rem; margin:0 0 .3rem; letter-spacing:-.02em; }
+  .sub { color:var(--dim); margin:0 0 2rem; }
+  .sub a { color:var(--acc); }
+  .trust { border-left:3px solid var(--acc); background:var(--card); padding:.9rem 1.1rem;
+    border-radius:0 8px 8px 0; margin:0 0 2rem; font-size:.92rem; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:.75rem; margin-bottom:2rem; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:.9rem 1rem; }
+  .card b { display:block; font-size:1.9rem; line-height:1.1; font-variant-numeric:tabular-nums; }
+  .card span { color:var(--dim); font-size:.8rem; text-transform:uppercase; letter-spacing:.05em; }
+  .card.ok b { color:var(--ok) } .card.warn b { color:var(--warn) }
+  .card.bad b { color:var(--bad) } .card.acc b { color:var(--acc) }
+  .empty { color:var(--dim); font-style:italic; }
+  .tablewrap { overflow-x:auto; border:1px solid var(--line); border-radius:10px;
+    background:var(--card); }
+  table { border-collapse:collapse; width:100%; min-width:900px; }
+  th { text-align:left; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--dim); padding:.7rem .8rem; border-bottom:1px solid var(--line); font-weight:600; }
+  td { padding:.8rem; border-bottom:1px solid var(--line); vertical-align:top; }
+  tr:last-child td { border-bottom:none }
+  .num a { color:var(--acc); text-decoration:none; font-weight:600;
+    font-variant-numeric:tabular-nums; }
+  .num a:hover { text-decoration:underline }
+  .title { max-width:430px }
+  .title .t { font-weight:550; margin-bottom:.35rem }
+  .why { color:var(--dim); font-size:.82rem; margin-top:.4rem }
+  .tags { display:flex; flex-wrap:wrap; gap:.25rem }
+  .tag { font-size:.68rem; padding:.1rem .4rem; border-radius:4px; border:1px solid var(--line);
+    color:var(--dim); white-space:nowrap; }
+  .tag.t-not { border-color:var(--bad); color:var(--bad) }
+  .pill { font-size:.74rem; padding:.2rem .5rem; border-radius:999px; white-space:nowrap;
+    border:1px solid currentColor; }
+  .p-verified { color:var(--ok) } .p-active { color:var(--acc) }
+  .p-lead { color:var(--warn) } .p-dead-end { color:var(--bad) }
+  .p-untouched, .p-paused { color:var(--idle) }
+  .pri { white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .bar { height:5px; background:var(--line); border-radius:3px; overflow:hidden;
+    margin-bottom:.25rem; width:66px; }
+  .bar i { display:block; height:100%; background:var(--acc) }
+  .est, .prog { font-size:.82rem; color:var(--dim) }
+  .est b, .prog b { color:var(--fg); font-weight:600 }
+  .prog .dim { font-size:.76rem }
+  .prog .best { color:var(--ok); margin-top:.3rem }
+  footer { margin-top:2rem; color:var(--dim); font-size:.82rem }
+  code { background:var(--line); padding:.1rem .35rem; border-radius:4px; font-size:.85em }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Erdős problems — machine-verified research log</h1>
+  <p class="sub">Autonomous work on open problems from
+    <a href="https://www.erdosproblems.com" target="_blank" rel="noopener">erdosproblems.com</a>.
+    Generated 2026-07-21 17:54 UTC · commit <code>3786ebe</code></p>
+
+  <div class="trust"><b>Trust rule.</b> A claim counts only if Lean compiles it with no sorry, or a short standalone script recomputes it from scratch. Everything else is a lead.
+    Counts below are deliberately conservative: a problem is
+    <b>Machine-verified</b> only when a standalone script or a Lean file reproduces the claim.</div>
+
+  <div class="cards">
+    <div class="card "><b>0</b><span>Verified</span></div>
+    <div class="card acc"><b>1</b><span>In progress</span></div>
+    <div class="card warn"><b>0</b><span>Leads (unverified)</span></div>
+    <div class="card bad"><b>0</b><span>Dead ends</span></div>
+    <div class="card"><b>43</b><span>Triaged</span></div>
+    <div class="card"><b>—</b><span>Compute spent</span></div>
+  </div>
+
+  <p class="empty">Nothing has been machine-verified yet — the Verified column is honestly empty.</p>
+
+  <div class="tablewrap">
+  <table>
+    <thead><tr>
+      <th>Problem</th><th>Statement &amp; triage</th><th>Status</th>
+      <th>Priority</th><th>Estimates</th><th>Progress</th>
+    </tr></thead>
+    <tbody>
+      <tr class="s-active" data-status="active">
+        <td class="num"><a href="https://www.erdosproblems.com/647" target="_blank" rel="noopener">#647</a></td>
+        <td class="title">
+          <div class="t">Is there n&gt;24 with max_{m&lt;n}(m+tau(m)) &lt;= n+2?  (GBP 25 prize)</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">Condition is LOCAL: tau(n-j)&lt;=j+2 for j&lt;=max tau, so the range splits across cores. Segmented divisor sieve at ~1.75s per 1e8 even at 1e13. No published search bound found.</div>
+        </td>
+        <td><span class="pill p-active">In progress</span></td>
+        <td class="pri"><div class="bar"><i style="width:80%"></i></div>
+            <span>0.80</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.95</b></div>
+          <div>novelty <b>high</b></div>
+        </td>
+        <td class="prog">
+          <div>in progress, target 1e13</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/617" target="_blank" rel="noopener">#617</a></td>
+        <td class="title">
+          <div class="t">r=5: can K_26 be 5-coloured so every K_6 sees all 5 colours?</div>
+          <div class="tags"><span class="tag t-sat">SAT</span></div>
+          <div class="why">1625 vars / ~1.2M clauses. Erdos-Gyarfas did r=3,4 by hand; r=5 is the first open case and looks computationally untouched. SAT =&gt; counterexample (trivially checkable). UNSAT is hard (26! vertex symmetry) but symmetry breaking may reach it. Does not scale past r=5.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:75%"></i></div>
+            <span>0.75</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.6</b></div>
+          <div>novelty <b>high</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/287" target="_blank" rel="noopener">#287</a></td>
+        <td class="title">
+          <div class="t">Unit fractions summing to 1 must have a consecutive gap &gt;= 3?</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span><span class="tag t-brute-force">BRUTE-FORCE</span><span class="tag t-dynamic">DYNAMIC PROGRAMMING</span></div>
+          <div class="why">A counterexample is a set with all gaps &lt;=2 and reciprocals summing to 1. The largest-prime-power valuation argument forces exclusions (p in (b/2,b] cannot appear), which prunes brutally. No published computational bound located.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:70%"></i></div>
+            <span>0.70</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.8</b></div>
+          <div>novelty <b>high</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/743" target="_blank" rel="noopener">#743</a></td>
+        <td class="title">
+          <div class="t">Tree packing: is K_10 the edge-disjoint union of trees T_2..T_10?</div>
+          <div class="tags"><span class="tag t-brute-force">BRUTE-FORCE</span><span class="tag t-sat">SAT</span><span class="tag t-graph">GRAPH ENUMERATION</span></div>
+          <div class="why">Fishburn settled n&lt;=9 in 1983; n=10 is 428,076 tree-collections x one exact-cover each. Sum of tree sizes is exactly 45 = |E(K_10)|, so it is a perfect packing. n=11 is ~50x worse.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:65%"></i></div>
+            <span>0.65</span></td>
+        <td class="est">
+          <div>runtime <b>hours-days</b></div>
+          <div>P(verif) <b>0.7</b></div>
+          <div>novelty <b>high</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/64" target="_blank" rel="noopener">#64</a></td>
+        <td class="title">
+          <div class="t">Does every graph with min degree &gt;= 3 contain a cycle of length 2^k?  ($1000)</div>
+          <div class="tags"><span class="tag t-graph">GRAPH ENUMERATION</span><span class="tag t-sat">SAT</span></div>
+          <div class="why">A counterexample must avoid C_4, C_8, C_16, ... Avoiding C_4 forces girth &gt;= 5, and cubic girth-5 graphs are generable up to ~26 vertices. Cycle spectrum is cheap. Liu-Montgomery proved it above an absolute degree constant, so only small degree can fail.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:60%"></i></div>
+            <span>0.60</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.6</b></div>
+          <div>novelty <b>high</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/366" target="_blank" rel="noopener">#366</a></td>
+        <td class="title">
+          <div class="t">Is there a 2-full n with n+1 3-full?</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">Enumerate 3-full m &lt;= X (only ~c*X^(1/3) of them, so 1e26 is ~1e9 candidates) and test whether m-1 is powerful. Small-prime trial division rejects essentially all candidates instantly. Current published bound is 1e22, so 1e25-1e26 is a genuine extension.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:60%"></i></div>
+            <span>0.60</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.85</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/835" target="_blank" rel="noopener">#835</a></td>
+        <td class="title">
+          <div class="t">Is chi(J(20,10)) = 11?  (Erdos-Rosenfeld k&gt;2 question)</div>
+          <div class="tags"><span class="tag t-sat">SAT</span><span class="tag t-brute-force">BRUTE-FORCE</span><span class="tag t-graph">GRAPH ENUMERATION</span></div>
+          <div class="why">Equivalent to an 11-colouring of the Johnson graph J(20,10): 184,756 vertices, 100-regular. k=10 is the smallest open case (false for k&lt;=8; Ma-Tang killed all k+1 composite). A FOUND colouring answers the problem YES and is verifiable in seconds -- excellent asymmetry. Failure to find proves nothing.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:60%"></i></div>
+            <span>0.60</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.45</b></div>
+          <div>novelty <b>high</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/699" target="_blank" rel="noopener">#699</a></td>
+        <td class="title">
+          <div class="t">For all 1&lt;=i&lt;j&lt;=n/2, is there a prime p&gt;=i dividing gcd(C(n,i),C(n,j))?</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span><span class="tag t-dynamic">DYNAMIC PROGRAMMING</span></div>
+          <div class="why">Kummer&#x27;s theorem gives v_p(C(n,i)) from base-p carries, so no binomial is ever formed. O(n^2) pairs per n. A counterexample is a single (n,i,j) triple -- instantly re-checkable.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:60%"></i></div>
+            <span>0.60</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.75</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/398" target="_blank" rel="noopener">#398</a></td>
+        <td class="title">
+          <div class="t">Brocard-Ramanujan: are n=4,5,7 the only solutions of n! = x^2 - 1?</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span></div>
+          <div class="why">Jacobi-symbol sieve: maintain n! mod p for primes p &gt; N and reject n when n!+1 is a quadratic non-residue. ~2 symbols per n expected, so 1e10 is roughly an hour in C. The erdosproblems page cites 1e9; the true current record must be confirmed before spending compute.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:60%"></i></div>
+            <span>0.60</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.85</b></div>
+          <div>novelty <b>unknown</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/167" target="_blank" rel="noopener">#167</a></td>
+        <td class="title">
+          <div class="t">Tuza: if G has &lt;=k edge-disjoint triangles, can &lt;=2k edges kill all triangles?</div>
+          <div class="tags"><span class="tag t-ilp">ILP</span><span class="tag t-graph">GRAPH ENUMERATION</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">nu (max edge-disjoint triangle packing) and tau (min triangle edge cover) are both small ILPs. Exhaustive over geng graphs to ~11 vertices. Famous conjecture, but small cases are very likely already checked by others -- novelty is the weak point, not feasibility.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:55%"></i></div>
+            <span>0.55</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.8</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/488" target="_blank" rel="noopener">#488</a></td>
+        <td class="title">
+          <div class="t">Is |B cap [1,m]|/m &lt; 2|B cap [1,n]|/n for multiples of a finite set A?</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span><span class="tag t-brute-force">BRUTE-FORCE</span><span class="tag t-ilp">ILP</span></div>
+          <div class="why">Fully concrete and cheap: choose A, compute two densities exactly. Search over A subset of a small window. Counterexamples to the mis-typed variant already exist, so the search machinery is known to be exercising the right object.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:55%"></i></div>
+            <span>0.55</span></td>
+        <td class="est">
+          <div>runtime <b>minutes-hours</b></div>
+          <div>P(verif) <b>0.8</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/1020" target="_blank" rel="noopener">#1020</a></td>
+        <td class="title">
+          <div class="t">Erdos matching conjecture: f(n;r,k) = max(C(rk-1,r), C(n,r)-C(n-k+1,r))</div>
+          <div class="tags"><span class="tag t-ilp">ILP</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">For fixed small (r,k,n) this is one ILP over C(n,r) binary variables with a matching constraint. r=4,5 in the mid range n ~ (r+1)k is where it is open and instances stay under a few thousand variables.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:55%"></i></div>
+            <span>0.55</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.7</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/458" target="_blank" rel="noopener">#458</a></td>
+        <td class="title">
+          <div class="t">Is [1..p_{k+1}-1] &lt; p_k [1..p_k] for all k?</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">The lcm ratio is exactly the product of primes q having a power q^e (e&gt;=2) inside the gap (p_k, p_{k+1}). So the check is a cheap prime-power scan over prime gaps. Very likely already done informally, but it is nearly free.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:50%"></i></div>
+            <span>0.50</span></td>
+        <td class="est">
+          <div>runtime <b>minutes</b></div>
+          <div>P(verif) <b>0.9</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/475" target="_blank" rel="noopener">#475</a></td>
+        <td class="title">
+          <div class="t">Graham: does every A in F_p\{0} have an ordering with distinct partial sums?</div>
+          <div class="tags"><span class="tag t-brute-force">BRUTE-FORCE</span><span class="tag t-dynamic">DYNAMIC PROGRAMMING</span><span class="tag t-sat">SAT</span></div>
+          <div class="why">Proved for t&lt;=12 and t&gt;=p-3, so the open window is middle-sized A at p &gt;= 17. Subsets modulo the scaling action of F_p^*: ~2^(p-1)/(p-1) orbits, feasible to p ~ 31, hopeless by p ~ 41.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:50%"></i></div>
+            <span>0.50</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.75</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/548" target="_blank" rel="noopener">#548</a></td>
+        <td class="title">
+          <div class="t">Erdos-Sos: (k-1)n/2+1 edges forces every tree on k+1 vertices  ($100)</div>
+          <div class="tags"><span class="tag t-graph">GRAPH ENUMERATION</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">Exhaustive over geng graphs with the exact edge count, testing subtree containment. Feasible to n ~ 11. Small cases near-certainly already verified.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:50%"></i></div>
+            <span>0.50</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.6</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/583" target="_blank" rel="noopener">#583</a></td>
+        <td class="title">
+          <div class="t">Erdos-Gallai: partition any connected graph into &lt;= ceil(n/2) edge-disjoint paths</div>
+          <div class="tags"><span class="tag t-sat">SAT</span><span class="tag t-ilp">ILP</span><span class="tag t-graph">GRAPH ENUMERATION</span></div>
+          <div class="why">Minimum path partition is NP-hard but tiny at n&lt;=10; SAT per graph over geng output. Already proved for planar, max degree &lt;=5, and 2-degenerate, which covers most small graphs.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:50%"></i></div>
+            <span>0.50</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.65</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/848" target="_blank" rel="noopener">#848</a></td>
+        <td class="title">
+          <div class="t">Is the max A in [1,N] with ab+1 never squarefree given by n = 7 mod 25?</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span><span class="tag t-ilp">ILP</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">Max-clique on the graph over [1,N] with a~b iff ab+1 is not squarefree. Sawhney settled large N; small N is the open part and is exactly where exact max-clique is affordable.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:50%"></i></div>
+            <span>0.50</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.7</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/375" target="_blank" rel="noopener">#375</a></td>
+        <td class="title">
+          <div class="t">Grimm: distinct prime representatives for a run of composites</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">Only MAXIMAL composite runs need checking (an SDR restricts to subsets), so it is one bipartite matching per prime gap. But the published bound is already 1.9e10 and beating it means sieving past 1e12 -- expensive relative to payoff.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:45%"></i></div>
+            <span>0.45</span></td>
+        <td class="est">
+          <div>runtime <b>days</b></div>
+          <div>P(verif) <b>0.6</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/23" target="_blank" rel="noopener">#23</a></td>
+        <td class="title">
+          <div class="t">Can every triangle-free graph on 5n vertices be made bipartite by deleting n^2 edges?</div>
+          <div class="tags"><span class="tag t-graph">GRAPH ENUMERATION</span><span class="tag t-brute-force">BRUTE-FORCE</span><span class="tag t-ilp">ILP</span></div>
+          <div class="why">Max-cut by subset enumeration is exact and cheap below ~24 vertices; geng -t streams the triangle-free graphs. n=2 (10 vertices) and n=3 (15) are reachable, n=4 (20) is not.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:45%"></i></div>
+            <span>0.45</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.7</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/742" target="_blank" rel="noopener">#742</a></td>
+        <td class="title">
+          <div class="t">Do diameter-2-critical graphs have at most n^2/4 edges?</div>
+          <div class="tags"><span class="tag t-graph">GRAPH ENUMERATION</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">Both the diameter-2 test and the edge-criticality test are O(n^3) bit operations. geng to 11 vertices is affordable, 12 is not. Furedi proved it for large n.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:45%"></i></div>
+            <span>0.45</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.75</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/128" target="_blank" rel="noopener">#128</a></td>
+        <td class="title">
+          <div class="t">Erdos-Rousseau: every half-subgraph having &gt; n^2/50 edges forces a triangle  ($250)</div>
+          <div class="tags"><span class="tag t-graph">GRAPH ENUMERATION</span><span class="tag t-ilp">ILP</span></div>
+          <div class="why">Needs a triangle-free graph on n vertices whose every floor(n/2)-subset spans &gt; n^2/50 edges. Enumeration is fine to n ~ 14; the extremal examples are C_5 blow-ups which only bite at n divisible by 5, and the interesting n are larger than the reachable range.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:40%"></i></div>
+            <span>0.40</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.6</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/580" target="_blank" rel="noopener">#580</a></td>
+        <td class="title">
+          <div class="t">Loebl-Komlos-Sos: n/2 vertices of degree &gt;= n/2 forces every tree on n/2 vertices</div>
+          <div class="tags"><span class="tag t-graph">GRAPH ENUMERATION</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">Exhaustive over geng graphs plus subtree containment. Reachable to n ~ 12, i.e. trees on &lt;= 6 vertices. Zhao proved it for all large n, so only a small window is genuinely open.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:40%"></i></div>
+            <span>0.40</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.6</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/993" target="_blank" rel="noopener">#993</a></td>
+        <td class="title">
+          <div class="t">Is the independent-set sequence of every tree unimodal?</div>
+          <div class="tags"><span class="tag t-brute-force">BRUTE-FORCE</span><span class="tag t-graph">GRAPH ENUMERATION</span><span class="tag t-dynamic">DYNAMIC PROGRAMMING</span></div>
+          <div class="why">Already verified to 29 vertices (literature, 2026). n=30 is 1.48e10 free trees x O(n^2) DP ~= 1.3e13 operations: reachable only with a heavily optimised C implementation over many hours, for a one-vertex improvement. Kept as a fallback for spare compute.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:30%"></i></div>
+            <span>0.30</span></td>
+        <td class="est">
+          <div>runtime <b>days</b></div>
+          <div>P(verif) <b>0.5</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/547" target="_blank" rel="noopener">#547</a></td>
+        <td class="title">
+          <div class="t">R(T) &lt;= 2n-2 for every tree T on n vertices</div>
+          <div class="tags"><span class="tag t-sat">SAT</span><span class="tag t-graph">GRAPH ENUMERATION</span></div>
+          <div class="why">Each Ramsey number is a 2-colouring SAT instance on K_m; feasible only for trees up to ~8 vertices before the instances explode. Zhao proved it for all large n.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:30%"></i></div>
+            <span>0.30</span></td>
+        <td class="est">
+          <div>runtime <b>hours-days</b></div>
+          <div>P(verif) <b>0.5</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/628" target="_blank" rel="noopener">#628</a></td>
+        <td class="title">
+          <div class="t">Erdos-Lovasz Tihany: is every k-chromatic K_k-free graph (a,b)-splittable?</div>
+          <div class="tags"><span class="tag t-graph">GRAPH ENUMERATION</span><span class="tag t-sat">SAT</span></div>
+          <div class="why">The first open case needs chi = 6 with no K_6; the smallest such graphs are already beyond exhaustive enumeration, so this becomes an unguided search over a huge space.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:25%"></i></div>
+            <span>0.25</span></td>
+        <td class="est">
+          <div>runtime <b>days</b></div>
+          <div>P(verif) <b>0.35</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/551" target="_blank" rel="noopener">#551</a></td>
+        <td class="title">
+          <div class="t">R(C_k,K_n) = (k-1)(n-1)+1 for k &gt;= n &gt;= 3</div>
+          <div class="tags"><span class="tag t-sat">SAT</span><span class="tag t-graph">GRAPH ENUMERATION</span></div>
+          <div class="why">Exact two-colour Ramsey numbers; the smallest unresolved instances are already at the edge of what dedicated Ramsey codes achieve after years of CPU time.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:25%"></i></div>
+            <span>0.25</span></td>
+        <td class="est">
+          <div>runtime <b>days</b></div>
+          <div>P(verif) <b>0.35</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/1082" target="_blank" rel="noopener">#1082</a></td>
+        <td class="title">
+          <div class="t">Do n points with no 3 collinear determine &gt;= floor(n/2) distinct distances?</div>
+          <div class="tags"><span class="tag t-smt">SMT/Z3</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">Needs exact real coordinates; rational/integer point searches only cover a measure-zero slice of configurations, so a null result says almost nothing. The second half is already answered no.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:25%"></i></div>
+            <span>0.25</span></td>
+        <td class="est">
+          <div>runtime <b>days</b></div>
+          <div>P(verif) <b>0.3</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/506" target="_blank" rel="noopener">#506</a></td>
+        <td class="title">
+          <div class="t">Minimum number of circles determined by n points, not all concyclic</div>
+          <div class="tags"><span class="tag t-smt">SMT/Z3</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">Open only for small n but requires exact incidence geometry over the reals; the degenerate configurations that matter are exactly the ones floating-point search cannot certify.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:20%"></i></div>
+            <span>0.20</span></td>
+        <td class="est">
+          <div>runtime <b>days</b></div>
+          <div>P(verif) <b>0.3</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/97" target="_blank" rel="noopener">#97</a></td>
+        <td class="title">
+          <div class="t">Does every convex polygon have a vertex with no 4 others equidistant?  ($100)</div>
+          <div class="tags"><span class="tag t-smt">SMT/Z3</span><span class="tag t-symbolic">SYMBOLIC</span></div>
+          <div class="why">A counterexample is a set of real coordinates satisfying many equidistance equations plus convexity. Z3 over the reals on this many degree-2 constraints is unlikely to close, and a numerical near-solution certifies nothing.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:20%"></i></div>
+            <span>0.20</span></td>
+        <td class="est">
+          <div>runtime <b>days</b></div>
+          <div>P(verif) <b>0.25</b></div>
+          <div>novelty <b>high</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/982" target="_blank" rel="noopener">#982</a></td>
+        <td class="title">
+          <div class="t">Convex n-gon: some vertex has &gt;= floor(n/2) distinct distances to the others</div>
+          <div class="tags"><span class="tag t-smt">SMT/Z3</span><span class="tag t-brute-force">BRUTE-FORCE</span></div>
+          <div class="why">Same exact-arithmetic obstruction as [1082]/[97]. Best known bound (13/36+eps)n is far from 1/2, so a small-n search would have to be lucky as well as exact.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:20%"></i></div>
+            <span>0.20</span></td>
+        <td class="est">
+          <div>runtime <b>hours-days</b></div>
+          <div>P(verif) <b>0.3</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/7" target="_blank" rel="noopener">#7</a></td>
+        <td class="title">
+          <div class="t">Is there a distinct covering system with all moduli odd?  ($25/$2000)</div>
+          <div class="tags"><span class="tag t-sat">SAT</span><span class="tag t-number">NUMBER SEARCH</span></div>
+          <div class="why">The search space over odd modulus sets is astronomical and has absorbed decades of dedicated effort; known constraints (lcm divisible by 9 or 15) barely dent it. Very high payoff, but the probability of a SAT instance closing is small enough that the expected value stays low.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:15%"></i></div>
+            <span>0.15</span></td>
+        <td class="est">
+          <div>runtime <b>days</b></div>
+          <div>P(verif) <b>0.15</b></div>
+          <div>novelty <b>very high</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/779" target="_blank" rel="noopener">#779</a></td>
+        <td class="title">
+          <div class="t">Deaconescu: prime p in (p_n, P) with P+p prime, P the n-th primorial</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span></div>
+          <div class="why">Extending past n=1000 means primality of numbers with thousands of digits. Only BPSW/PRP is affordable, and a PRP is not a proof -- so the artifact would fail the trust rule. Rejected on verifiability, not on cost.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:15%"></i></div>
+            <span>0.15</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.2</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/556" target="_blank" rel="noopener">#556</a></td>
+        <td class="title">
+          <div class="t">R_3(C_n) &lt;= 4n-3</div>
+          <div class="tags"><span class="tag t-sat">SAT</span></div>
+          <div class="why">Three-colour Ramsey numbers for cycles; instance sizes explode immediately and the conjecture is already settled for all large n in both parities.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:15%"></i></div>
+            <span>0.15</span></td>
+        <td class="est">
+          <div>runtime <b>days</b></div>
+          <div>P(verif) <b>0.2</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/672" target="_blank" rel="noopener">#672</a></td>
+        <td class="title">
+          <div class="t">Can a product of an AP of length &gt;= 4 be a perfect power?</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span></div>
+          <div class="why">Ruled out for 4&lt;=k&lt;=34 by deep Diophantine methods. Compute cannot reach k&gt;=35, and no finite search settles the general statement.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:10%"></i></div>
+            <span>0.10</span></td>
+        <td class="est">
+          <div>runtime <b>days</b></div>
+          <div>P(verif) <b>0.15</b></div>
+          <div>novelty <b>low</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/307" target="_blank" rel="noopener">#307</a></td>
+        <td class="title">
+          <div class="t">Two finite prime sets P,Q with (sum 1/p)(sum 1/q) = 1</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span><span class="tag t-smt">SMT/Z3</span></div>
+          <div class="why">|P union Q| &gt;= 60 is forced, so any search is over 60+ primes with an exact rational product constraint. The space is astronomically larger than meet-in-the-middle can bridge.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:8%"></i></div>
+            <span>0.08</span></td>
+        <td class="est">
+          <div>runtime <b>days</b></div>
+          <div>P(verif) <b>0.1</b></div>
+          <div>novelty <b>high</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/19" target="_blank" rel="noopener">#19</a></td>
+        <td class="title">
+          <div class="t">Erdos-Faber-Lovasz: chi(G)=n for an edge-disjoint union of n copies of K_n  ($500)</div>
+          <div class="tags"><span class="tag t-not">NOT COMPUTE-AMENABLE</span></div>
+          <div class="why">Settled for n&lt;10 and for all sufficiently large n, but the Kang-Kelly-Kuhn-Methuku-Osthus threshold is astronomically large. The &#x27;finite check&#x27; is finite only in principle.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:5%"></i></div>
+            <span>0.05</span></td>
+        <td class="est">
+          <div>runtime <b>-</b></div>
+          <div>P(verif) <b>0.05</b></div>
+          <div>novelty <b>-</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/242" target="_blank" rel="noopener">#242</a></td>
+        <td class="title">
+          <div class="t">Erdos-Straus: 4/n = 1/x+1/y+1/z for all n&gt;2</div>
+          <div class="tags"><span class="tag t-not">NOT COMPUTE-AMENABLE</span></div>
+          <div class="why">Already verified to 1e18. Matching that needs a dedicated distributed effort and beating it needs more; no realistic novelty here.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:5%"></i></div>
+            <span>0.05</span></td>
+        <td class="est">
+          <div>runtime <b>-</b></div>
+          <div>P(verif) <b>0.1</b></div>
+          <div>novelty <b>none</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/364" target="_blank" rel="noopener">#364</a></td>
+        <td class="title">
+          <div class="t">Are there three consecutive powerful numbers?</div>
+          <div class="tags"><span class="tag t-not">NOT COMPUTE-AMENABLE</span></div>
+          <div class="why">Checked past 7.38e28 via OEIS A076445. Enumerating powerful numbers that far requires ~1e14 objects; no path to improvement on this hardware.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:5%"></i></div>
+            <span>0.05</span></td>
+        <td class="est">
+          <div>runtime <b>-</b></div>
+          <div>P(verif) <b>0.1</b></div>
+          <div>novelty <b>none</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/723" target="_blank" rel="noopener">#723</a></td>
+        <td class="title">
+          <div class="t">Must a finite projective plane have prime power order?</div>
+          <div class="tags"><span class="tag t-not">NOT COMPUTE-AMENABLE</span></div>
+          <div class="why">The open case is order 12. Order 10 alone consumed thousands of CPU-hours in 1989 and order 12 is vastly harder; this is a known multi-CPU-year problem.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:5%"></i></div>
+            <span>0.05</span></td>
+        <td class="est">
+          <div>runtime <b>-</b></div>
+          <div>P(verif) <b>0.05</b></div>
+          <div>novelty <b>very high</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/107" target="_blank" rel="noopener">#107</a></td>
+        <td class="title">
+          <div class="t">Happy ending: f(n) = 2^(n-2)+1  ($500)</div>
+          <div class="tags"><span class="tag t-not">NOT COMPUTE-AMENABLE</span></div>
+          <div class="why">f(6)=17 already required a major dedicated computation. f(7) means deciding configurations of 33 points -- far beyond exhaustive reach.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:5%"></i></div>
+            <span>0.05</span></td>
+        <td class="est">
+          <div>runtime <b>-</b></div>
+          <div>P(verif) <b>0.05</b></div>
+          <div>novelty <b>very high</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/106" target="_blank" rel="noopener">#106</a></td>
+        <td class="title">
+          <div class="t">Squares packed in the unit square: is f(k^2+1) = k?</div>
+          <div class="tags"><span class="tag t-not">NOT COMPUTE-AMENABLE</span></div>
+          <div class="why">A continuous packing optimum. Numerical optimisation gives no certificate, and the axis-parallel case (which IS combinatorial) is already fully solved by Baek-Koizumi-Ueoro.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:5%"></i></div>
+            <span>0.05</span></td>
+        <td class="est">
+          <div>runtime <b>-</b></div>
+          <div>P(verif) <b>0.1</b></div>
+          <div>novelty <b>high</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/114" target="_blank" rel="noopener">#114</a></td>
+        <td class="title">
+          <div class="t">Is the lemniscate length maximised by z^n - 1?  ($250)</div>
+          <div class="tags"><span class="tag t-not">NOT COMPUTE-AMENABLE</span></div>
+          <div class="why">Analytic extremal problem over all monic polynomials, and Tao has already proved it for all sufficiently large n. Nothing finite to check.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:3%"></i></div>
+            <span>0.03</span></td>
+        <td class="est">
+          <div>runtime <b>-</b></div>
+          <div>P(verif) <b>0.05</b></div>
+          <div>novelty <b>none</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-untouched" data-status="untouched">
+        <td class="num"><a href="https://www.erdosproblems.com/1041" target="_blank" rel="noopener">#1041</a></td>
+        <td class="title">
+          <div class="t">A path of length &lt; 2 in {|f|&lt;1} joining two roots</div>
+          <div class="tags"><span class="tag t-not">NOT COMPUTE-AMENABLE</span></div>
+          <div class="why">Continuous: needs a certified bound on a path length in a sublevel set of |f|. Floating-point sampling cannot certify either direction.</div>
+        </td>
+        <td><span class="pill p-untouched">Not yet attempted</span></td>
+        <td class="pri"><div class="bar"><i style="width:3%"></i></div>
+            <span>0.03</span></td>
+        <td class="est">
+          <div>runtime <b>-</b></div>
+          <div>P(verif) <b>0.05</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <footer>
+    Problem metadata from <a href="https://github.com/teorth/erdosproblems">teorth/erdosproblems</a>.
+    Full journal in <code>LOG.md</code>, ledger in <code>RESULTS.md</code>,
+    machine-readable state in <code>RESEARCH_TRACKER.json</code>.
+  </footer>
+</div>
+</body>
+</html>
