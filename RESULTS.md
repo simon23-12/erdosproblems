@@ -90,9 +90,9 @@ cd problems/458 && python check458.py 1e14        # ~3 min
 ### [647] Erdős–Selfridge: is there n > 24 with max_{m<n}(m + τ(m)) ≤ n + 2?
 `[COMPUTATION-VERIFIED]` — exhaustive negative. Erdős offered £25 for such an n.
 
-**Claim.** The only n ≥ 2 with the property and n ≤ 5.6×10¹¹ are
+**Claim.** The only n ≥ 2 with the property and n ≤ 7.6×10¹¹ are
 n = 2, 3, 4, 5, 6, 8, 10, 12, 24. So there is **no** such n with
-24 < n ≤ 5.6×10¹¹. *(Search still running at ≈1.1×10¹¹/hour; `progress647.py`
+24 < n ≤ 7.6×10¹¹. *(Search still running at ≈1.1×10¹¹/hour; `progress647.py`
 prints the live contiguous bound, which is the number to quote.)*
 
 The condition rewrites as `τ(n−j) ≤ j+2` for all `j ≥ 1`, and `τ(m) ≤ 6720` for
@@ -127,6 +127,36 @@ known extremal example and is mild evidence that singletons are extremal in gene
 ```
 cd problems/488 && python search488.py --K 40 --L 3 --X 8000     # ~2 min
 ```
+
+### [366] Is there a 2-full n with n+1 3-full?
+`[COMPUTATION-VERIFIED]` — no such pair, in **either** order, up to 10²⁰.
+*(A run to 10²⁴ is in progress.)*
+
+The two known consecutive {3-full, 2-full} pairs — 8|9 and 12167|12168 — both
+have the **3-full member first**, so the question as literally asked (2-full,
+then 3-full) has no known example at all. The search covers both orders.
+
+**Why this can go past the published bound.** The cited 10²² comes from OEIS
+A060355, a table of consecutive *powerful* pairs, and powerful numbers number
+~2.17√X. But one member must be 3-full, and 3-full numbers number only ~cX^(1/3)
+— 21 million below 10²⁰ against ~2×10¹⁰ powerful ones. So: enumerate the 3-full
+member and test its two neighbours.
+
+Powerfulness is decided by trial division to `P0`, then "the surviving cofactor
+is powerful iff it is a perfect k-th power (k ≤ 4)" — valid exactly while
+`P0⁵ > X`, since the smallest non-perfect-power shape `p²q³` needs exponent sum 5.
+The program asserts `P0⁵ > X` at startup rather than assuming it.
+
+```
+cd problems/366
+cc -O3 -o search366 search366.c -lm && ./search366 1e20   # ~1 min
+python verify366.py                                        # independent check
+```
+`verify366.py` checks both directions of failure: **recall** (the search must
+find 8|9 and 12167|12168 and nothing else) and **precision** (600 powerfulness
+verdicts against `sympy`, including `p²q³` values built to break a too-small P0).
+That recall check earned its keep — it caught a real bug, a fast 128-bit modulo
+that computed `2^128 mod p` where it needed `2^64 mod p`.
 
 ### [699] Erdős–Szekeres: a prime p ≥ i dividing gcd(C(n,i), C(n,j))
 `[COMPUTATION-VERIFIED]` — holds for all `n ≤ 3000` and all `1 ≤ i < j ≤ n/2`.
