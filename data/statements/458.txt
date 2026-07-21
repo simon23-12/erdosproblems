@@ -1,0 +1,27 @@
+=== PROBLEM 458 ===
+source: https://www.erdosproblems.com/458
+
+FALSIFIABLE
+ 
+ Open, but could be disproved with a finite counterexample.
+
+ Let $[1,\ldots,n]$ denote the least common multiple of $\{1,\ldots,n\}$. Is it true that, for all $k\geq 1$,\[[1,\ldots,p_{k+1}-1]< p_k[1,\ldots,p_k]?\]
+ #458: [ErGr80,p.91]
+
+ number theory | 
+
+ primes
+
+--- additional ---
+Erdős and Graham write this is 'almost certainly' true, but the proof is beyond our ability, for (at least) two reasons:
+Firstly, one has to rule out the possibility of many primes $q$ such that $p_k<q^2<p_{k+1}$. There should be at most one such $q$, which would follow from $p_{k+1}-p_k<p_k^{1/2}$, which is essentially the notorious Legendre's conjecture.
+ The small primes also cause trouble.
+
+ View the LaTeX source
+
+ This page was last edited 07 October 2025. View history
+
+--- additional ---
+Previous
+
+ Next

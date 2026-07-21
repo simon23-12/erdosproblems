@@ -1,0 +1,29 @@
+=== PROBLEM 506 ===
+source: https://www.erdosproblems.com/506
+
+DECIDABLE
+ 
+ Resolved up to a finite check.
+
+ What is the minimum number of circles determined by any $n$ points in $\mathbb{R}^2$, not all on a circle?
+ #506: [Er61,p.245]
+
+ geometry
+
+--- additional ---
+There is clearly some non-degeneracy condition intended here - probably either that not all the points are on a line, or the stronger condition that no three points are on a line.
+
+This was resolved by Elliott [El67], who claimed that (assuming not all points are on a circle or a line), provided $n>393$, the points determine at least $\binom{n-1}{2}$ distinct circles. There was an error, observed by Purdy and Smith [PuSm], who noted that Elliott's proof actually gives a lower bound of\[\binom{n-1}{2}+1-\left\lfloor\frac{n-1}{2}\right\rfloor,\]again for all $n>393$. This is best possible, as witnessed by a circle with $n-1$ points and a single point off the circle. This corrected lower bound was also reported by Bálint and Bálintová [BaBa94], although without any explanation.
+
+The problem appears to remain open for small $n$. Segre observed that projecting a cube onto a plane shows that the lower bound $\binom{n-1}{2}$ is false for $n=8$.
+
+See also [104] and [831].
+
+ View the LaTeX source
+
+ This page was last edited 01 February 2026. View history
+
+--- additional ---
+Previous
+
+ Next

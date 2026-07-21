@@ -1,0 +1,31 @@
+=== PROBLEM 398 ===
+source: https://www.erdosproblems.com/398
+
+FALSIFIABLE
+ 
+ Open, but could be disproved with a finite counterexample.
+
+ Are the only solutions to\[n!=x^2-1\]when $n=4,5,7$?
+ #398: [ErGr80,p.77]
+
+ number theory | 
+
+ factorials
+
+--- additional ---
+The Brocard-Ramanujan conjecture. Erdős and Graham describe this as an old conjecture, and write it 'is almost certainly true but it is intractable at present'. 
+
+Overholt [Ov93] has shown that this has only finitely many solutions assuming a weak form of the ABC conjecture.
+
+There are no other solutions below $10^9$ (see the OEIS page).
+
+Naciri [Na25] has proved that there are only finitely many solutions if $x\pm 1$ is either $k$-free (for some $k\geq 2$) or a prime power (and Cambie explains both facts in the comments), and that if $x\pm 1$ is $7$-free then $n=4,5,7$ give the only solutions.
+
+ View the LaTeX source
+
+ This page was last edited 01 April 2026. View history
+
+--- additional ---
+Previous
+
+ Next

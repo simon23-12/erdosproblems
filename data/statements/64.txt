@@ -1,0 +1,35 @@
+=== PROBLEM 64 ===
+source: https://www.erdosproblems.com/64
+
+FALSIFIABLE
+ 
+ Open, but could be disproved with a finite counterexample.
+
+ - $1000
+
+ Does every finite graph with minimum degree at least 3 contain a cycle of length $2^k$ for some $k\geq 2$?
+ #64: [Er93,p.343][Er94b][Er95,p.174][Er96][Er97b][Er97c]
+
+ graph theory | 
+
+ cycles
+
+--- additional ---
+Conjectured by Erdős and Gyárfás, who believed the answer must be negative, and in fact for every $r$ there must be a graph of minimum degree at least $r$ without a cycle of length $2^k$ for any $k\geq 2$.
+
+This was solved in the affirmative if the minimum degree is larger than some absolute constant by Liu and Montgomery [LiMo20] (therefore disproving the above stronger conjecture of Erdős and Gyárfás). Liu and Montgomery prove a much stronger result: if the average degree of $G$ is sufficiently large then there is some large integer $\ell$ such that for every even integer $m\in [(\log \ell)^8,\ell]$, $G$ contains a cycle of length $m$.
+
+An infinite tree with minimum degree $3$ shows that the answer is trivially false for infinite graphs.
+
+The conjecture has been confirmed for various families of graphs; see the comment by Alfaiz for a list.
+
+This problem is #69 in Extremal Graph Theory in the graphs problem collection.
+
+ View the LaTeX source
+
+ This page was last edited 10 April 2026. View history
+
+--- additional ---
+Previous
+
+ Next

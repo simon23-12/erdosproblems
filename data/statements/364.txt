@@ -1,0 +1,35 @@
+=== PROBLEM 364 ===
+source: https://www.erdosproblems.com/364
+
+VERIFIABLE
+ 
+ Open, but could be proved with a finite example.
+
+ Are there any triples of consecutive positive integers all of which are powerful (i.e. if $p\mid n$ then $p^2\mid n$)? 
+ #364: [Er76d][ErGr80,p.68]
+
+ number theory | 
+
+ powerful
+
+--- additional ---
+Erdős originally asked Mahler whether there are infinitely many pairs of consecutive powerful numbers, but Mahler immediately observed that the answer is yes from the infinitely many solutions to the Pell equation $x^2=8y^2+1$. 
+
+This conjecture was also made by Mollin and Walsh [MoWa86]. Erdős [Er76d] believed the answer to this question is no, and in fact if $n_k$ is the $k$th powerful number then\[n_{k+2}-n_k > n_k^c\]for some constant $c>0$. The abc conjecture implies there are only finitely many such triples.
+
+It is trivial that there are no quadruples of consecutive powerful numbers since one must be $2\pmod{4}$. 
+
+Chan [Ch25] has shown there are no triples $n-1,n,n+1$ of powerful numbers with $n$ a cube and $n-1,n+1$ both of the shape $p^3x^2$ for some prime $p$ and integer $x$. She [Sh25] has proved there are no triples with $n$ a cube and both $n-1,n+1$ of the shape $p^2x^3$ with $p$ a prime.
+
+By OEIS A076445 there are no such $n$ for $n<7.38\times 10^{28}$.
+
+See also [137], [365], and [938].
+
+ View the LaTeX source
+
+ This page was last edited 13 April 2026. View history
+
+--- additional ---
+Previous
+
+ Next

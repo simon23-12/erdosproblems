@@ -1,0 +1,38 @@
+=== PROBLEM 547 ===
+source: https://www.erdosproblems.com/547
+
+DECIDABLE
+ 
+ Resolved up to a finite check.
+
+ If $T$ is a tree on $n$ vertices then\[R(T) \leq 2n-2.\]
+ #547: [BuEr76]
+
+ graph theory | 
+
+ ramsey theory
+
+--- additional ---
+This follows directly from the conjecture of Erdős and Sós in [548], and is therefore proved for all large $n$ assuming the announced proof of [548] by Ajtai, Komlós, Simonovits, and Szemerédi, although this proof has not been published. Zhao [Zh11] has proved $R(T)\leq 2n-2$ for all large $n$ via an alternative method.
+
+If $T$ has a partition into two sets of vertices of sizes $t_1\geq t_2$ then Burr [Bu74] showed\[R(T)\geq \max(t_1+2t_2,2t_1)-1,\]and conjectured this is sharp whenever $t_1\geq t_2\geq 2$. This strong conjecture was disproved by Grossman, Harary, and Klawe [GHK79].
+
+Some results on Ramsey numbers of trees:
+When $T$ is a path on $n$ vertices Gerencsér and Gyárfás [GeGy67] proved $R(T)=\lfloor \frac{3}{2}n\rfloor-1$.
+When $T$ is the star $K_{1,n-1}$ Harary [Ha72] proved $R(T)=2n-2$ if $n$ is even and $2n-3$ if $n$ is odd.
+When $T$ is the double star $S_{t_1,t_2}$, formed by joining the centres of two stars of sizes $t_1$ and $t_2$ by an edge, then when $t_1\geq 3t_2-2$ Grossman, Harary, and Klawe [GHK79] proved $R(T)=2t_1$ (disproving Burr's conjecture).
+Norin, Sun, and Zhao [NSZ16] proved that if $T$ is the double star $S_{2t,t}$ then $R(T)\geq (4.2-o(1))t$.
+Zhao [Zh11] proved $R(T)\leq 2n-2$ for all large even $n$.
+Montgomery, Pavez-Signé, and Yan [MPY25] proved Burr's conjecture, that $R(T)=\max(2t_1,t_1+2t_2)-1$, if $T$ has maximum degree at most $cn$ for some constant $c>0$.
+This problem is #14 in Ramsey Theory in the graphs problem collection.
+
+See also [549].
+
+ View the LaTeX source
+
+ This page was last edited 18 January 2026. View history
+
+--- additional ---
+Previous
+
+ Next

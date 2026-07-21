@@ -1,0 +1,31 @@
+=== PROBLEM 556 ===
+source: https://www.erdosproblems.com/556
+
+DECIDABLE
+ 
+ Resolved up to a finite check.
+
+ Let $R_3(G)$ denote the minimal $m$ such that if the edges of $K_m$ are $3$-coloured then there must be a monochromatic copy of $G$. Show that\[R_3(C_n) \leq 4n-3.\]
+ #556: [Er81][Er81c]
+
+ graph theory | 
+
+ ramsey theory
+
+--- additional ---
+A problem of Bondy and Erdős. This inequality is best possible for odd $n$. 
+
+Luczak [Lu99] has shown that $R_3(C_n)\leq (4+o(1))n$ for all $n$, and in fact $R_3(C_n)\leq 3n+o(n)$ for even $n$.
+
+Kohayakawa, Simonovits, and Skokan [KSS05] proved this conjecture when $n$ is sufficiently large and odd. Benevides and Skokan [BeSk09] proved that if $n$ is sufficiently large and even then $R_3(C_n)=2n$.
+
+This problem is #25 in Ramsey Theory in the graphs problem collection.
+
+ View the LaTeX source
+
+ This page was last edited 08 February 2026. View history
+
+--- additional ---
+Previous
+
+ Next

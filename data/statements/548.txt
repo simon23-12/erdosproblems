@@ -1,0 +1,35 @@
+=== PROBLEM 548 ===
+source: https://www.erdosproblems.com/548
+
+FALSIFIABLE
+ 
+ Open, but could be disproved with a finite counterexample.
+
+ - $100
+
+ Let $n\geq k+1$. Every graph on $n$ vertices with at least $\frac{k-1}{2}n+1$ edges contains every tree on $k+1$ vertices.
+ #548: [Er64c][Er74c,p.78][Er78,p.30][Er93,p.345][Va99,3.55]
+
+ graph theory
+
+--- additional ---
+A problem of Erdős and Sós, who also conjectured that every graph with at least\[\max\left( \binom{2k-1}{2}+1, (k-1)n-(k-1)^2+\binom{k-1}{2}+1\right)\]many edges contains every forest with $k$ edges. (Erdős and Gallai [ErGa59] proved that this is the threshold which guarantees containing $k$ independent edges.)
+
+In [Er78] Erdős says this is trivial for a star, and he and Gallai had proved it for a path. 
+
+It can be easily proved by induction that every graph on $n$ vertices with at least $n(k-1)+1$ edges contains every tree on $k+1$ vertices.
+
+Brandt and Dobson [BrDo96] have proved this for graphs of girth at least $5$. Wang, Li, and Liu [WLL00] have proved this for graphs whose complements have girth at least $5$. Saclé and Woznik [SaWo97] have proved this for graphs which contain no cycles of length $4$. Yi and Li [YiLi04] have proved this for graphs whose complements contain no cycles of length $4$.
+
+Implies [547] and [557].
+
+See also the entry in the graphs problem collection.
+
+ View the LaTeX source
+
+ This page was last edited 07 March 2026. View history
+
+--- additional ---
+Previous
+
+ Next

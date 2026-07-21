@@ -1,0 +1,29 @@
+=== PROBLEM 307 ===
+source: https://www.erdosproblems.com/307
+
+VERIFIABLE
+ 
+ Open, but could be proved with a finite example.
+
+ Are there two finite sets of primes $P,Q$ such that\[1=\left(\sum_{p\in P}\frac{1}{p}\right)\left(\sum_{q\in Q}\frac{1}{q}\right)?\]
+ #307: [ErGr80]
+
+ number theory | 
+
+ unit fractions
+
+--- additional ---
+Asked by Barbeau [Ba76]. Can this be done if we drop the requirement that all $p\in P$ are prime and just ask for them to be relatively coprime, and similarly for $Q$?
+
+Cambie has found several examples when this weakened version is true. For example,\[1=\left(1+\frac{1}{5}\right)\left(\frac{1}{2}+\frac{1}{3}\right)\]and\[1=\left(1+\frac{1}{41}\right)\left(\frac{1}{2}+\frac{1}{3}+\frac{1}{7}\right).\]There are no examples known of the weakened coprime version if we insist that $1\not\in P\cup Q$.
+
+It is easy to see that, if $P$ and $Q$ are sets of primes, then $P$ and $Q$ are disjoint, and $\sum_{p\in P\cup Q}\frac{1}{p}\geq 2$, whence $\lvert P\cup Q\rvert \geq 60$.
+
+ View the LaTeX source
+
+ View history
+
+--- additional ---
+Previous
+
+ Next

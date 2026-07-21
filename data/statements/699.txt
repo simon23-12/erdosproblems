@@ -1,0 +1,31 @@
+=== PROBLEM 699 ===
+source: https://www.erdosproblems.com/699
+
+FALSIFIABLE
+ 
+ Open, but could be disproved with a finite counterexample.
+
+ Is it true that for every $1\leq i<j\leq n/2$ there exists some prime $p\geq i$ such that\[p\mid \textrm{gcd}\left(\binom{n}{i}, \binom{n}{j}\right)?\]
+ #699: [ErSz78]
+
+ number theory | 
+
+ binomial coefficients
+
+--- additional ---
+A problem of Erdős and Szekeres. A theorem of Sylvester and Schur says that for any $1\leq i\leq n/2$ there exists some prime $p>i$ which divides $\binom{n}{i}$.
+
+GPT 5.6 (prompted by Price) has proved that this is true if $j\leq \frac{3}{2}i$ or $n=2j$.
+
+It is easy to prove (see the comments) that there are only finitely many possible $n$ which form a counterexample with any fixed $i<j$.
+
+Erdős and Szekeres further conjectured that $p\geq i$ can be improved to $p>i$ except in a few special cases. In particular this fails when $i=2$ and $n$ being some particular powers of $2$. They also found some counterexamples when $i=3$, but only one counterexample when $i\geq 4$:\[\textrm{gcd}\left(\binom{28}{5},\binom{28}{14}\right)=2^3\cdot 3^3\cdot 5.\]This is mentioned in problem B31 of Guy's collection [Gu04].
+
+ View the LaTeX source
+
+ This page was last edited 19 July 2026. View history
+
+--- additional ---
+Previous
+
+ Next

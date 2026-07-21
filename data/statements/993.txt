@@ -1,0 +1,28 @@
+=== PROBLEM 993 ===
+source: https://www.erdosproblems.com/993
+
+FALSIFIABLE
+ 
+ Open, but could be disproved with a finite counterexample.
+
+ The independent set sequence of any tree or forest is unimodal.
+
+In other words, if $i_k(G)$ counts the number of independent sets of vertices of size $k$ in a graph $G$, and $T$ is any tree or forest, then for some $m\geq 0$
+$$i_{0}(T)\leq i_{1}(T)\leq\cdots\leq i_{m}(T)\geq i_{m+1}(T)\geq i_{m+2}(T)\geq\cdots.$$
+ #993: [AMSE87]
+
+ graph theory
+
+--- additional ---
+A question of Alavi, Malde, Schwenk, and Erdős [AMSE87], who showed that this is false for general graphs $G$ (in fact every possible pattern of inequalities is achieved by some graph).
+
+The sequence which counts the number of independent sets of edges of a given size was proved to be unimodal (for any graph) by Schwenk [Sc81]. In [AMSE87] they also ask whether every possible unimodal pattern of inequalities is achieved by some graph.
+
+ View the LaTeX source
+
+ This page was last edited 01 February 2026. View history
+
+--- additional ---
+Previous
+
+ Next

@@ -1,0 +1,27 @@
+=== PROBLEM 723 ===
+source: https://www.erdosproblems.com/723
+
+FALSIFIABLE
+ 
+ Open, but could be disproved with a finite counterexample.
+
+ If there is a finite projective plane of order $n$ then must $n$ be a prime power?
+
+A finite projective plane of order $n$ is a collection of subsets of $\{1,\ldots,n^2+n+1\}$ of size $n+1$ such that every pair of elements is contained in exactly one set.
+ #723: [Er81]
+
+ combinatorics
+
+--- additional ---
+These always exist if $n$ is a prime power. This conjecture has been proved for $n\leq 11$, but it is open whether there exists a projective plane of order $12$.
+
+Bruck and Ryser [BrRy49] have proved that if $n\equiv 1\pmod{4}$ or $n\equiv 2\pmod{4}$ then $n$ must be the sum of two squares. For example, this rules out $n=6$ or $n=14$. The case $n=10$ was ruled out by computer search [La97].
+
+ View the LaTeX source
+
+ View history
+
+--- additional ---
+Previous
+
+ Next

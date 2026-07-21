@@ -1,0 +1,27 @@
+=== PROBLEM 167 ===
+source: https://www.erdosproblems.com/167
+
+FALSIFIABLE
+ 
+ Open, but could be disproved with a finite counterexample.
+
+ If $G$ is a graph with at most $k$ edge disjoint triangles then can $G$ be made triangle-free after removing at most $2k$ edges?
+ #167: [Er88]
+
+ graph theory
+
+--- additional ---
+A problem of Tuza. It is trivial that $G$ can be made triangle-free after removing at most $3k$ edges. The examples of $K_4$ and $K_5$ show that $2k$ would be best possible.
+
+The trivial bound of $\leq 3k$ was improved to $\leq (3-\frac{3}{23}+o(1))k$ by Haxell [Ha99].
+
+Kahn and Park [KaPa22] have proved this is true for random graphs.
+
+ View the LaTeX source
+
+ This page was last edited 13 October 2025. View history
+
+--- additional ---
+Previous
+
+ Next

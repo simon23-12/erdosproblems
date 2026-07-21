@@ -1,0 +1,29 @@
+=== PROBLEM 580 ===
+source: https://www.erdosproblems.com/580
+
+DECIDABLE
+ 
+ Resolved up to a finite check.
+
+ Let $G$ be a graph on $n$ vertices such that at least $n/2$ vertices have degree at least $n/2$. Must $G$ contain every tree on at most $n/2$ vertices?
+ #580: [EFLS95]
+
+ graph theory
+
+--- additional ---
+A conjecture of Erdős, Füredi, Loebl, and Sós. Ajtai, Komlós, and Szemerédi [AKS95] proved an asymptotic version, where at least $(1+\epsilon)n/2$ vertices have degree at least $(1+\epsilon)n/2$ (and $n$ is sufficiently large depending on $\epsilon$).
+
+Zhao [Zh11] has proved this conjecture holds for all sufficiently large $n$. 
+
+Komlós and Sós conjectured the generalisation that if at least $n/2$ vertices have degree at least $k$ then $G$ contains any tree with $k$ vertices.
+
+See also the entry in the graphs problem collection.
+
+ View the LaTeX source
+
+ This page was last edited 24 October 2025. View history
+
+--- additional ---
+Previous
+
+ Next

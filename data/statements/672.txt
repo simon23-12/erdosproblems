@@ -1,0 +1,35 @@
+=== PROBLEM 672 ===
+source: https://www.erdosproblems.com/672
+
+VERIFIABLE
+ 
+ Open, but could be proved with a finite example.
+
+ Can the product of an arithmetic progression of positive integers $n,n+d,\ldots,n+(k-1)d$ of length $k\geq 4$ (with $(n,d)=1$) be a perfect power?
+ #672: [Er97c][Va99,1.32]
+
+ number theory
+
+--- additional ---
+Erdős believed not. Erdős and Selfridge [ErSe75] proved that the product of consecutive integers is never a perfect power.
+
+The theory of Pell equations implies that there are infinitely many pairs $n,d$ with $(n,d)=1$ such that $n(n+d)(n+2d)$ is a square.
+
+Considering the question of whether the product of an arithmetic progression of length $k$ can be equal to an $\ell$th power:
+Euler proved this is impossible when $k=4$ and $\ell=2$,
+Obláth [Ob51] proved this is impossible when $(k,l)=(5,2),(3,3),(3,4),(3,5)$.
+Marszalek [Ma85] proved that this is only possible for $k\ll_d 1$, where $d$ is the common difference of the arithmetic progression.
+Györy, Hajdu, and Saradha [GHS04] proved this is impossible for $4\leq k\leq 5$.
+Bennett, Bruin, Györy, and Hajdu [BBGH06] proved this is impossible for $4\leq k\leq 11$, and also impossible for $k$ sufficiently large depending only on the number of prime divisors of $d$.
+ Györy, Hajdu, and Pintér [GHP09] have proved this is impossible for $4\leq k\leq 34$.
+ Bennett and Siksek [BeSi20] have proved that this is impossible for all $k$ sufficiently large and $\ell > e^{10^k}$ prime.
+Jakob Führer has observed this is possible for integers in general, for example $(-6)\cdot(-1)\cdot 4\cdot 9=6^3$.
+
+ View the LaTeX source
+
+ This page was last edited 01 February 2026. View history
+
+--- additional ---
+Previous
+
+ Next

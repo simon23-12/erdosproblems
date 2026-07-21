@@ -1,0 +1,31 @@
+=== PROBLEM 375 ===
+source: https://www.erdosproblems.com/375
+
+FALSIFIABLE
+ 
+ Open, but could be disproved with a finite counterexample.
+
+ Is it true that for any $n,k\geq 1$, if $n+1,\ldots,n+k$ are all composite then there are distinct primes $p_1,\ldots,p_k$ such that $p_i\mid n+i$ for $1\leq i\leq k$?
+ #375: [Er72][Er73][ErGr80,p.71]
+
+ number theory | 
+
+ primes
+
+--- additional ---
+Note this is trivial when $k\leq 2$. Originally conjectured by Grimm [Gr69]. This is a very difficult problem, since it in particular implies $p_{n+1}-p_n <p_n^{1/2-c}$ for some constant $c>0$, in particular resolving Legendre's conjecture.
+
+Grimm proved that this is true if $k\ll \log n/\log\log n$. Erdős and Selfridge improved this to $k\leq (1+o(1))\log n$. Ramachandra, Shorey, and Tijdeman [RST75] have improved this to\[k\ll\left(\frac{\log n}{\log\log n}\right)^3.\]Laishram and Shorey [LaSh06] have verified this is true, for all $k\geq 1$, for all $n\leq 1.9\times 10^{10}$. 
+
+This is problem B32 in Guy's collection [Gu04].
+
+See also [860].
+
+ View the LaTeX source
+
+ This page was last edited 24 January 2026. View history
+
+--- additional ---
+Previous
+
+ Next

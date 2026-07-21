@@ -1,0 +1,34 @@
+=== PROBLEM 475 ===
+source: https://www.erdosproblems.com/475
+
+DECIDABLE
+ 
+ Resolved up to a finite check.
+
+ Let $p$ be a prime. Given any finite set $A\subseteq \mathbb{F}_p\backslash \{0\}$, is there always a rearrangement $A=\{a_1,\ldots,a_t\}$ such that all partial sums $\sum_{1\leq k\leq m}a_{k}$ are distinct, for all $1\leq m\leq t$?
+ #475: [Er73][ErGr80]
+
+ number theory | 
+
+ additive combinatorics
+
+--- additional ---
+A problem of Graham, who proved it when $t=p-1$. A similar conjecture was made for arbitrary abelian groups by Alspach. Such an ordering is often called a valid ordering.
+
+This has been proved for $t\leq 12$ (see Costa and Pellegrini [CoPe20] and the references therein) and for $p-3\leq t\leq p-1$ (see Hicks, Ollis, and Schmitt [HOS19] and the references therein).
+
+This has been proved for all sufficiently large primes; this is a consequence of four different types of result, each of which handles (using different methods) a different range of size of $A$.
+ The small $A$ case: Kravitz [Kr24] proved this for\[t \leq \frac{\log p}{\log\log p}.\](This was independently earlier observed by Will Sawin in a MathOverflow post.)
+Bedert and Kravitz [BeKr24] improved this to the range\[t \leq e^{c(\log p)^{1/4}}\]for some constant $c>0$, and Costa and Della Fiore [CoDe26] have further improved this to\[t \leq e^{c(\log p)^{1/3}}.\]
+ The medium $A$ case: Pham and Sauermann [PhSa26] proved this, for any $0<\alpha<1$, for all\[ 1 \ll_\alpha t\leq p^{1-\alpha}.\]
+ The large $A$ case: Bedert, Bucić, Kravitz, Montgomery, and Müyesser [BBKMM25] proved this for all\[p^{1-c}\leq t\leq (1-o(1))p\]for some small constant $c>0$.
+The very large $A$ case: Müyesser and Pokrovskiy [MuPo25] proved this for all\[t\geq (1-o(1))p.\]
+
+ View the LaTeX source
+
+ This page was last edited 05 March 2026. View history
+
+--- additional ---
+Previous
+
+ Next

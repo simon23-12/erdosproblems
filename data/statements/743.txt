@@ -1,0 +1,29 @@
+=== PROBLEM 743 ===
+source: https://www.erdosproblems.com/743
+
+FALSIFIABLE
+ 
+ Open, but could be disproved with a finite counterexample.
+
+ Let $T_2,\ldots,T_n$ be a collection of trees such that $T_k$ has $k$ vertices. Can we always write $K_n$ as the edge disjoint union of the $T_k$?
+ #743: [Er81]
+
+ graph theory
+
+--- additional ---
+A conjecture of Gyárfás, known as the tree packing conjecture.
+
+Gyárfás and Lehel [GyLe78] proved that this holds if all but at most $2$ of the trees are stars, or if all the trees are stars or paths. Fishburn [Fi83] proved this for $n\leq 9$. Bollobás [Bo83] proved that the smallest $\lfloor n/\sqrt{2}\rfloor$ many trees can always be packed greedily into $K_n$.
+
+Joos, Kim, Kühn, and Osthus [JKKO19] proved that this conjecture holds when the trees have bounded maximum degree. Allen, Böttcher, Clemens, Hladky, Piguet, and Taraz [ABCHPT21] proved that this conjecture holds when all the trees have maximum degree $\leq c\frac{n}{\log n}$ for some constant $c>0$.
+
+Janzer and Montgomery [JaMo24] have proved that there exists some $c>0$ such that the largest $cn$ trees can be packed into $K_n$.
+
+ View the LaTeX source
+
+ View history
+
+--- additional ---
+Previous
+
+ Next

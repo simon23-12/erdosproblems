@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+# Lean build artifacts
+.lake/
+lake-packages/
+build/
+# Large generated search artifacts (regenerable via the documented commands)
+*.log.gz
+scratch/

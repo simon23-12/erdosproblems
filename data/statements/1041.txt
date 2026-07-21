@@ -1,0 +1,27 @@
+=== PROBLEM 1041 ===
+source: https://www.erdosproblems.com/1041
+
+FALSIFIABLE
+ 
+ Open, but could be disproved with a finite counterexample.
+
+ Let $f(z)=\prod_{i=1}^n(z-z_i)\in \mathbb{C}[z]$ with $\lvert z_i\rvert < 1$ for all $i$. 
+
+Must there always exist a path of length less than $2$ in\[\{z: \lvert f(z)\rvert < 1\}\]which connects two of the roots of $f$?
+ #1041: [EHP58,p.139]
+
+ analysis | 
+
+ polynomials
+
+--- additional ---
+A problem of Erdős, Herzog, and Piranian [EHP58], who proved that this set always has a connected component containing at least two of the roots.
+
+ View the LaTeX source
+
+ This page was last edited 06 December 2025. View history
+
+--- additional ---
+Previous
+
+ Next

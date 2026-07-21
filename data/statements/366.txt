@@ -1,0 +1,31 @@
+=== PROBLEM 366 ===
+source: https://www.erdosproblems.com/366
+
+VERIFIABLE
+ 
+ Open, but could be proved with a finite example.
+
+ Are there any $2$-full $n$ such that $n+1$ is $3$-full? That is, if $p\mid n$ then $p^2\mid n$ and if $p\mid n+1$ then $p^3\mid n+1$. 
+ #366: [Er76d,p.31][ErGr80,p.68]
+
+ number theory | 
+
+ powerful
+
+--- additional ---
+Erdős originally asked Mahler whether there are infinitely many pairs of consecutive powerful numbers, but Mahler immediately observed that the answer is yes from the infinitely many solutions to the Pell equation $x^2=8y^2+1$. 
+
+Note that $8$ is 3-full and $9$ is $2$-full. Erdős and Graham asked if this is the only pair of such consecutive integers. Stephan has observed that $12167=23^3$ and $12168=2^33^213^2$ (a pair already known to Golomb [Go70]) is another example, but (by OEIS A060355) there are no other examples for $n<10^{22}$.
+
+In [Er76d] Erdős asks the weaker question of whether there are any consecutive pairs of $3$-full integers (which is also discussed in problem B16 of Guy's collection [Gu04]).
+
+Turturean notes in the comments that the ABC conjecture implies there are only finitely many such $n$.
+
+ View the LaTeX source
+
+ This page was last edited 16 July 2026. View history
+
+--- additional ---
+Previous
+
+ Next
