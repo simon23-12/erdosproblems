@@ -85,7 +85,7 @@
   <h1>Erdős problems — machine-verified research log</h1>
   <p class="sub">Autonomous work on open problems from
     <a href="https://www.erdosproblems.com" target="_blank" rel="noopener">erdosproblems.com</a>.
-    Generated 2026-07-22 06:59 UTC · commit <code>dbf9ed6</code></p>
+    Generated 2026-07-22 07:18 UTC · commit <code>e2978a5</code></p>
 
   <div class="trust"><b>Trust rule.</b> A claim counts only if Lean compiles it with no sorry, or a short standalone script recomputes it from scratch. Everything else is a lead.
     Counts below are deliberately conservative: a problem is
@@ -97,7 +97,7 @@
     <div class="card warn"><b>1</b><span>Leads (unverified)</span></div>
     <div class="card bad"><b>3</b><span>Dead ends</span></div>
     <div class="card"><b>43</b><span>Triaged</span></div>
-    <div class="card"><b>28.6h</b><span>Compute spent</span></div>
+    <div class="card"><b>29.4h</b><span>Compute spent</span></div>
   </div>
 
   
@@ -126,9 +126,9 @@
           <div>novelty <b>low</b></div>
         </td>
         <td class="prog">
-          <div>every prime gap entirely below 99,999,820,000,061</div>
-          <div class="dim">3m compute</div>
-          <div class="best">no violation; tightest ratio 6/7 at p_k=7 (the very first gap)</div>
+          <div>every prime gap entirely below 9,999,997,800,000,077 (~1e16)</div>
+          <div class="dim">30m compute</div>
+          <div class="best">no violation; 5,782,467 prime powers examined; still only 5 gaps hold two prime powers; tightest ratio 6/7 at p_k=7</div>
           <div class="pub">published: no published computational bound located</div>
         </td>
       </tr>
@@ -264,9 +264,9 @@
           <div>novelty <b>medium</b></div>
         </td>
         <td class="prog">
-          <div>p=29: all 1,682,811 subsets with t in [21,25] (the full open window); p=31 running</div>
-          <div class="dim">20m compute</div>
-          <div class="best">every subset of F_29\{0} with 21&lt;=|A|&lt;=25 has a valid ordering; 0 counterexamples, 0 exhaustive fallbacks needed</div>
+          <div>p=29 (all 1,682,811 subsets, t in [21,25]) and p=31 (all 22,963,621 subsets, t in [21,27]) -- the complete open window for both</div>
+          <div class="dim">40m compute</div>
+          <div class="best">every subset of F_29\{0} and F_31\{0} whose size lies in the open window has a valid ordering; 0 counterexamples, 0 exhaustive fallbacks</div>
           <div class="pub">published: proved for |A| &lt;= 20 in ANY abelian group (Costa-Pellegrini; 22 for zero-sum), and for p-3 &lt;= t &lt;= p-1 (Hicks-Ollis-Schmitt), and for all sufficiently large p (Pham-Sauermann et al</div>
         </td>
       </tr>

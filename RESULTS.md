@@ -79,7 +79,7 @@ cc -O3 -o cover287 cover287.c -lm && ./cover287 38 10000000000     # ~60s
 
 ### [458] Is `[1,…,p_{k+1}−1] < p_k·[1,…,p_k]` for all k?
 `[COMPUTATION-VERIFIED]` — holds for **every prime gap lying entirely below
-99,999,820,000,061** (≈10¹⁴).
+9,999,997,800,000,077** (≈10¹⁶). 5,782,467 prime powers examined.
 
 The bound is stated that way on purpose: the last group of prime powers sits in a
 gap that may continue above the search limit and contain prime powers never
@@ -98,6 +98,7 @@ the very first one, `p_k = 7` with ratio `6/7`.
 
 ```
 cd problems/458 && python check458.py 1e14        # ~3 min
+cd problems/458 && python check458.py 1e16        # the full run, ~25 min
 ```
 
 ### [647] Erdős–Selfridge: is there n > 24 with max_{m<n}(m + τ(m)) ≤ n + 2?
@@ -124,9 +125,15 @@ cc -O3 -o search647 search647.c -lm && ./search647 2 1000000   # C agrees exactl
 `verify647.py` shares no code with the C search: it sieves τ by brute force and
 tracks the running maximum directly, with no locality argument at all.
 
-### [475] Graham's rearrangement conjecture at p = 29
-`[COMPUTATION-VERIFIED]` — every subset of F₂₉\{0} of size 21–25 has a valid
-ordering. 1,682,811 subsets, **0 counterexamples, 0 exhaustive fallbacks**, 73 s.
+### [475] Graham's rearrangement conjecture at p = 29 and p = 31
+`[COMPUTATION-VERIFIED]` — every subset of F₂₉\{0} of size 21–25, and every
+subset of F₃₁\{0} of size 21–27, has a valid ordering. **24,646,432 subsets,
+0 counterexamples, 0 exhaustive fallbacks.** These are the complete open windows
+for both primes.
+
+Computed twice by independent implementations: the Python reference
+(`graham475.py`, ~16 min) and a C version (`search475.c`, 10 s for p=31) that is
+30× faster and reproduces every per-slice count exactly.
 
 **Scope, stated precisely.** What is machine-checked here is the window
 `t ∈ [21,25]`. The rest of p = 29 is covered by *cited* theorems — `|A| ≤ 20` in
@@ -154,8 +161,12 @@ the only thing entitled to say "no" — it just stops being the common case.
 ```
 cd problems/475
 python graham475.py --selftest      # exhausts all 333,120 subsets for p <= 19
-python graham475.py --p 29          # the full open window, ~73 s
+python graham475.py --p 29          # python reference, ~73 s
+cc -O3 -o search475 search475.c && ./run475.sh 31 10 && python progress475.py 31
 ```
+`progress475.py` judges coverage by checking that the per-slice subset counts
+add up to C(p−1,t) **exactly**, so a killed chunk shows up as a mismatch rather
+than as silently reduced coverage.
 
 ### [488] Is |B∩[1,m]|/m < 2|B∩[1,n]|/n for the multiples of a finite set?
 `[COMPUTATION-VERIFIED]` — no counterexample in two exhaustive sweeps.
