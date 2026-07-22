@@ -135,6 +135,16 @@ Computed twice by independent implementations: the Python reference
 (`graham475.py`, ~16 min) and a C version (`search475.c`, 10 s for p=31) that is
 30× faster and reproduces every per-slice count exactly.
 
+**p = 37 is NOT claimed.** That run was stopped at 13,916,749,013 of
+13,916,801,341 subsets — 99.9996%, short by 52,328 in the two smallest slices
+(t=32, 33). `progress475.py` correctly refuses to call it complete, and neither
+do I. It is resumable (`./run475.sh 37 10 3` skips finished chunks) and would
+need well under a minute.
+
+One thing that run did establish: it triggered the exhaustive DFS fallback
+**7 times** — the first time in a production sweep — and all 7 resolved to valid
+orderings. The sound-fallback design was exercised, not merely carried.
+
 **Scope, stated precisely.** What is machine-checked here is the window
 `t ∈ [21,25]`. The rest of p = 29 is covered by *cited* theorems — `|A| ≤ 20` in
 any abelian group (Costa–Pellegrini) and `p−3 ≤ t ≤ p−1` (Hicks–Ollis–Schmitt).
