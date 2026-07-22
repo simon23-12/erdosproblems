@@ -24,8 +24,8 @@
       "dead-end"
     ],
     "generated": "2026-07-21T17:53:15+00:00",
-    "last_modified": "2026-07-22T07:18:53+00:00",
-    "last_commit": "e2978a5",
+    "last_modified": "2026-07-22T07:30:10+00:00",
+    "last_commit": "663da2b",
     "roi_formula": "expected_value * novelty * p_verifiable / compute_cost; compute_cost 1=minutes 3=hours 10=days 30=infeasible",
     "knowledge_graph": {
       "modules": {
@@ -489,15 +489,16 @@
       },
       "triage_rationale": "Proved for t<=12 and t>=p-3, so the open window is middle-sized A at p >= 17. Subsets modulo the scaling action of F_p^*: ~2^(p-1)/(p-1) orbits, feasible to p ~ 31, hopeless by p ~ 41.",
       "approaches_attempted": [
-        "Search is randomised greedy with 500 restarts, complete DFS fallback. Restart count is critical: at 60 restarts, 21% of t=25 subsets fell through to the exponential DFS and stalled the sweep; at 500, zero fell through and the whole p=29 window ran in 73s. Measured failure rates recorded in the module docstring."
+        "Search is randomised greedy with 500 restarts, complete DFS fallback. Restart count is critical: at 60 restarts, 21% of t=25 subsets fell through to the exponential DFS and stalled the sweep; at 500, zero fell through and the whole p=29 window ran in 73s. Measured failure rates recorded in the module docstring.",
+        "Reachability ceiling measured, not guessed: at the observed 7.9M subsets/s on 10 cores, p=37 is 0.5h, p=41 is 16.9h and p=43 is 86.8h. So p=37 is the last prime this hardware settles; anything beyond needs a different idea, not more cores."
       ],
       "search_bounds_reached": "p=29 (all 1,682,811 subsets, t in [21,25]) and p=31 (all 22,963,621 subsets, t in [21,27]) -- the complete open window for both",
       "compute_time_spent_sec": 2400.0,
       "best_verified_result": "every subset of F_29\\{0} and F_31\\{0} whose size lies in the open window has a valid ordering; 0 counterexamples, 0 exhaustive fallbacks",
       "best_unverified_lead": "",
       "reason_for_stopping": "p=29 and p=31 are the only reachable open primes; p=37 needs 1.4e10 subsets (~120 h in python, ~15 h on 10 cores with a C rewrite)",
-      "last_commit": "e2978a5",
-      "last_modified": "2026-07-22T07:13:54+00:00",
+      "last_commit": "663da2b",
+      "last_modified": "2026-07-22T07:30:10+00:00",
       "roi": {
         "expected_value": 0.55,
         "novelty": 0.45,
