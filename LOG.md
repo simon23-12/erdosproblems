@@ -246,3 +246,43 @@ was doing its job. Verified chunk 144's file when it landed.
 
 Lesson kept: check the process tree, not the filesystem, before concluding a job
 died.
+
+
+---
+
+## 2026-07-22 — Session 1 continued: [475] to three primes, [458] to 10¹⁶
+
+**[475] finished at p=29 and p=31, then extended to p=37.**
+
+The restart-count fix turned a hung job into a 73-second one (p=29) and a
+15-minute one (p=31). Then a C implementation (`search475.c`) came in **30×
+faster** with per-slice counts identical to the Python reference — p=31 went
+from 15 minutes to 10 seconds. Both implementations agreeing on all 24.6 million
+subsets is the cross-check that makes the result worth stating.
+
+Chunking mattered more than expected at p=37. The obvious scheme — one chunk per
+smallest element — leaves the chunk `(t=21, first=1)` holding C(35,20) = 3.2×10⁹
+subsets, which alone would set the wall-clock time regardless of core count. A
+3-element prefix caps the largest chunk at C(33,18) = 1.17×10⁹, comfortably under
+the 1/10-of-total that perfect balance would give. Measured throughput once the
+big chunks were in flight: 6.3M subsets/s across 10 cores.
+
+`progress475.py` judges coverage by checking the per-slice counts sum to
+C(p−1,t) **exactly**, rather than by trusting a chunk list. A lost chunk then
+surfaces as an arithmetic mismatch — the same fail-safe shape as
+`progress647.py`, and for the same reason: after the chunk-144 incident I do not
+want any path where missing work reads as completed work.
+
+**[458] extended from 10¹⁴ to 10¹⁶** — 5,782,467 prime powers, ~25 minutes.
+The structure is remarkably stable: still exactly **5** prime gaps in the whole
+range contain two prime powers ({8,9}, {25,27}, {121,125}, {2187,2197},
+{32761,32768}), and the tightest ratio anywhere below 10¹⁶ is still the very
+first one, p_k = 7 with 6/7. Nothing in four extra orders of magnitude came
+close to threatening the conjecture.
+
+**Estimation note.** My first ETA for p=37 was 3.8 hours, taken from progress in
+the first four minutes. That was wrong by a factor of six: the ten largest chunks
+were all still in flight and had reported nothing, so the numerator was missing
+most of the work actually done. Re-measuring over a two-minute window once the
+pipeline was full gave 0.6 hours. Rate estimates during ramp-up are worthless
+when chunk sizes span three orders of magnitude.
