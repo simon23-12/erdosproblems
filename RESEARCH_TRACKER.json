@@ -24,8 +24,8 @@
       "dead-end"
     ],
     "generated": "2026-07-21T17:53:15+00:00",
-    "last_modified": "2026-07-22T06:11:47+00:00",
-    "last_commit": "ede4b3d",
+    "last_modified": "2026-07-22T06:57:37+00:00",
+    "last_commit": "2116472",
     "roi_formula": "expected_value * novelty * p_verifiable / compute_cost; compute_cost 1=minutes 3=hours 10=days 30=infeasible",
     "knowledge_graph": {
       "modules": {
@@ -234,13 +234,13 @@
       "approaches_attempted": [
         "Segmented divisor-count sieve in C (problems/647/search647.c). Locality lemma: condition is equivalent to tau(n-j)<=j+2 for j<=W, so ranges split across cores; W=16384 checked at runtime against observed max tau (valid to ~1e13, where max tau=10752). Cross-checked against the independent brute-force verify647.py on [2,1e6]: identical output {2,3,4,5,6,8,10,12,24}. Running 8 workers over [1e7,1e13)."
       ],
-      "search_bounds_reached": "n <= 1280010000000 (search still extending)",
+      "search_bounds_reached": "n <= 1,520,010,000,000 (152 contiguous chunks; driver stopped, no hole)",
       "compute_time_spent_sec": 75000.0,
-      "best_verified_result": "only n <= 1280010000000 with the property are 2,3,4,5,6,8,10,12,24; none above 24",
+      "best_verified_result": "only n <= 1.52e12 with the property are 2,3,4,5,6,8,10,12,24; none above 24",
       "best_unverified_lead": "",
-      "reason_for_stopping": "still running; bound is live via progress647.py",
-      "last_commit": "a1b38a5",
-      "last_modified": "2026-07-22T06:08:39+00:00",
+      "reason_for_stopping": "stopped the driver at 1.52e12; reaching 1e13 would need ~78 more hours at the observed rate",
+      "last_commit": "2116472",
+      "last_modified": "2026-07-22T06:57:37+00:00",
       "roi": {
         "expected_value": 0.85,
         "novelty": 0.8,
@@ -474,7 +474,7 @@
       "title": "Graham: does every A in F_p\\{0} have an ordering with distinct partial sums?",
       "url": "https://www.erdosproblems.com/475",
       "erdos_status": "decidable",
-      "status": "untouched",
+      "status": "verified",
       "tags": [
         "BRUTE-FORCE",
         "DYNAMIC PROGRAMMING",
@@ -488,14 +488,16 @@
         "scales": false
       },
       "triage_rationale": "Proved for t<=12 and t>=p-3, so the open window is middle-sized A at p >= 17. Subsets modulo the scaling action of F_p^*: ~2^(p-1)/(p-1) orbits, feasible to p ~ 31, hopeless by p ~ 41.",
-      "approaches_attempted": [],
-      "search_bounds_reached": "",
+      "approaches_attempted": [
+        "Search is randomised greedy with 500 restarts, complete DFS fallback. Restart count is critical: at 60 restarts, 21% of t=25 subsets fell through to the exponential DFS and stalled the sweep; at 500, zero fell through and the whole p=29 window ran in 73s. Measured failure rates recorded in the module docstring."
+      ],
+      "search_bounds_reached": "p=29: all 1,682,811 subsets with t in [21,25] (the full open window); p=31 running",
       "compute_time_spent_sec": 0,
-      "best_verified_result": "",
+      "best_verified_result": "every subset of F_29\\{0} with 21<=|A|<=25 has a valid ordering; 0 counterexamples, 0 exhaustive fallbacks needed",
       "best_unverified_lead": "",
-      "reason_for_stopping": "",
-      "last_commit": "ede4b3d",
-      "last_modified": "2026-07-22T06:11:47+00:00",
+      "reason_for_stopping": "p=29 complete; p=37 needs 1.4e10 subsets, out of reach",
+      "last_commit": "2116472",
+      "last_modified": "2026-07-22T06:57:37+00:00",
       "roi": {
         "expected_value": 0.55,
         "novelty": 0.45,

@@ -85,14 +85,14 @@
   <h1>Erdős problems — machine-verified research log</h1>
   <p class="sub">Autonomous work on open problems from
     <a href="https://www.erdosproblems.com" target="_blank" rel="noopener">erdosproblems.com</a>.
-    Generated 2026-07-22 06:39 UTC · commit <code>ede4b3d</code></p>
+    Generated 2026-07-22 06:58 UTC · commit <code>2116472</code></p>
 
   <div class="trust"><b>Trust rule.</b> A claim counts only if Lean compiles it with no sorry, or a short standalone script recomputes it from scratch. Everything else is a lead.
     Counts below are deliberately conservative: a problem is
     <b>Machine-verified</b> only when a standalone script or a Lean file reproduces the claim.</div>
 
   <div class="cards">
-    <div class="card ok"><b>6</b><span>Verified</span></div>
+    <div class="card ok"><b>7</b><span>Verified</span></div>
     <div class="card acc"><b>0</b><span>In progress</span></div>
     <div class="card warn"><b>1</b><span>Leads (unverified)</span></div>
     <div class="card bad"><b>3</b><span>Dead ends</span></div>
@@ -172,9 +172,9 @@
           <div>novelty <b>high</b></div>
         </td>
         <td class="prog">
-          <div>n &lt;= 1280010000000 (search still extending)</div>
+          <div>n &lt;= 1,520,010,000,000 (152 contiguous chunks; driver stopped, no hole)</div>
           <div class="dim">20.8h compute</div>
-          <div class="best">only n &lt;= 1280010000000 with the property are 2,3,4,5,6,8,10,12,24; none above 24</div>
+          <div class="best">only n &lt;= 1.52e12 with the property are 2,3,4,5,6,8,10,12,24; none above 24</div>
           <div class="pub">published: no published computational bound located; AI attempts (Jan 2026) produced only incorrect proofs</div>
         </td>
       </tr>
@@ -247,6 +247,29 @@
           <div class="pub">published: no published computational bound located; GPT 5.6 proved the cases j &lt;= 3i/2 and n = 2j</div>
         </td>
       </tr>
+      <tr class="s-verified" data-status="verified">
+        <td class="num"><a href="https://www.erdosproblems.com/475" target="_blank" rel="noopener">#475</a></td>
+        <td class="title">
+          <div class="t">Graham: does every A in F_p\{0} have an ordering with distinct partial sums?</div>
+          <div class="tags"><span class="tag t-brute-force">BRUTE-FORCE</span><span class="tag t-dynamic">DYNAMIC PROGRAMMING</span><span class="tag t-sat">SAT</span></div>
+          <div class="why">Proved for t&lt;=12 and t&gt;=p-3, so the open window is middle-sized A at p &gt;= 17. Subsets modulo the scaling action of F_p^*: ~2^(p-1)/(p-1) orbits, feasible to p ~ 31, hopeless by p ~ 41.</div>
+        </td>
+        <td><span class="pill p-verified">Machine-verified</span></td>
+        <td class="pri"><div class="bar"><i style="width:19%"></i></div>
+            <span>0.058</span>
+            <div class="roiparts">0.55&times;0.45&times;0.7&nbsp;/&nbsp;3</div></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.75</b></div>
+          <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>p=29: all 1,682,811 subsets with t in [21,25] (the full open window); p=31 running</div>
+          <div class="dim">— compute</div>
+          <div class="best">every subset of F_29\{0} with 21&lt;=|A|&lt;=25 has a valid ordering; 0 counterexamples, 0 exhaustive fallbacks needed</div>
+          <div class="pub">published: proved for |A| &lt;= 20 in ANY abelian group (Costa-Pellegrini; 22 for zero-sum), and for p-3 &lt;= t &lt;= p-1 (Hicks-Ollis-Schmitt), and for all sufficiently large p (Pham-Sauermann et al</div>
+        </td>
+      </tr>
       <tr class="s-lead" data-status="lead">
         <td class="num"><a href="https://www.erdosproblems.com/835" target="_blank" rel="noopener">#835</a></td>
         <td class="title">
@@ -268,29 +291,6 @@
           <div class="dim">5m compute</div>
           <div class="best">chi(J(4,2))=3, chi(J(6,3))=6, chi(J(8,4))=6; S(k-1,k,2k) admissible iff k+1 prime for k&lt;=259</div>
           <div class="pub">published: false for 3 &lt;= k &lt;= 8 (published chromatic numbers); Ma-Tang: chi &gt; k+1 when k+1 is composite. An AlphaProof contribution (Dec 2025) is logged upstream as &#x27;likely folklore&#x27; -- my S</div>
-        </td>
-      </tr>
-      <tr class="s-untouched" data-status="untouched">
-        <td class="num"><a href="https://www.erdosproblems.com/475" target="_blank" rel="noopener">#475</a></td>
-        <td class="title">
-          <div class="t">Graham: does every A in F_p\{0} have an ordering with distinct partial sums?</div>
-          <div class="tags"><span class="tag t-brute-force">BRUTE-FORCE</span><span class="tag t-dynamic">DYNAMIC PROGRAMMING</span><span class="tag t-sat">SAT</span></div>
-          <div class="why">Proved for t&lt;=12 and t&gt;=p-3, so the open window is middle-sized A at p &gt;= 17. Subsets modulo the scaling action of F_p^*: ~2^(p-1)/(p-1) orbits, feasible to p ~ 31, hopeless by p ~ 41.</div>
-        </td>
-        <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:19%"></i></div>
-            <span>0.058</span>
-            <div class="roiparts">0.55&times;0.45&times;0.7&nbsp;/&nbsp;3</div></td>
-        <td class="est">
-          <div>runtime <b>hours</b></div>
-          <div>P(verif) <b>0.75</b></div>
-          <div>novelty <b>medium</b></div>
-        </td>
-        <td class="prog">
-          <div>—</div>
-          <div class="dim">— compute</div>
-          
-          <div class="pub">published: proved for |A| &lt;= 20 in ANY abelian group (Costa-Pellegrini; 22 for zero-sum), and for p-3 &lt;= t &lt;= p-1 (Hicks-Ollis-Schmitt), and for all sufficiently large p (Pham-Sauermann et al</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">

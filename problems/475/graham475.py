@@ -33,6 +33,17 @@ Only DFS exhaustion is allowed to report "no valid ordering". Every ordering
 that is found is re-checked by check_ordering(), which recomputes the partial
 sums from scratch and shares nothing with the search.
 
+The restart count matters a lot, because the fallback is exponential and any
+instance that reaches it stalls the whole sweep. Measured failure rate of the
+greedy phase at p=29, over 2000 random subsets each:
+
+        t=21   t=23   t=25
+   60    0/2000  29/2000  420/2000     <- 21% of t=25 subsets hit the DFS
+  500    0/2000   0/2000    0/2000     <- and the cost only rises 0.17 -> 0.22 ms
+
+So the default is 500 restarts. The DFS is still there and still the only thing
+allowed to answer "no"; it simply stops being the common case.
+
 WHAT THIS PROGRAM DOES AND DOES NOT ESTABLISH
 ---------------------------------------------
 It verifies, exhaustively, that every subset of F_p\\{0} whose size lies in the
@@ -119,7 +130,7 @@ def _dfs(A: tuple[int, ...], p: int):
 
 
 def find_ordering(A: tuple[int, ...], p: int, rnd: random.Random,
-                  tries: int = 60) -> tuple[list[int] | None, bool]:
+                  tries: int = 500) -> tuple[list[int] | None, bool]:
     """(ordering or None, whether the exhaustive fallback was needed)."""
     o = _greedy(A, p, rnd, tries)
     if o is not None:

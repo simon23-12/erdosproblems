@@ -103,10 +103,11 @@ cd problems/458 && python check458.py 1e14        # ~3 min
 ### [647] Erdős–Selfridge: is there n > 24 with max_{m<n}(m + τ(m)) ≤ n + 2?
 `[COMPUTATION-VERIFIED]` — exhaustive negative. Erdős offered £25 for such an n.
 
-**Claim.** The only n ≥ 2 with the property and n ≤ **1.28×10¹²** are
+**Claim.** The only n ≥ 2 with the property and n ≤ **1.52×10¹²** are
 n = 2, 3, 4, 5, 6, 8, 10, 12, 24. So there is **no** such n with
-24 < n ≤ 1.28×10¹². *(Search still running at ≈1.1×10¹¹/hour; `progress647.py`
-prints the live contiguous bound, which is the number to quote.)*
+24 < n ≤ 1.52×10¹². 152 contiguous chunks, max τ encountered 6912 (window
+16384). Stopped there deliberately: at the observed ≈1.1×10¹¹/hour, reaching
+10¹³ would take ~78 more hours.
 
 The condition rewrites as `τ(n−j) ≤ j+2` for all `j ≥ 1`, and `τ(m) ≤ 6720` for
 `m < 10¹²`, so only `j ≤ W = 16384` can matter — which makes the test local and
@@ -122,6 +123,39 @@ cc -O3 -o search647 search647.c -lm && ./search647 2 1000000   # C agrees exactl
 ```
 `verify647.py` shares no code with the C search: it sieves τ by brute force and
 tracks the running maximum directly, with no locality argument at all.
+
+### [475] Graham's rearrangement conjecture at p = 29
+`[COMPUTATION-VERIFIED]` — every subset of F₂₉\{0} of size 21–25 has a valid
+ordering. 1,682,811 subsets, **0 counterexamples, 0 exhaustive fallbacks**, 73 s.
+
+**Scope, stated precisely.** What is machine-checked here is the window
+`t ∈ [21,25]`. The rest of p = 29 is covered by *cited* theorems — `|A| ≤ 20` in
+any abelian group (Costa–Pellegrini) and `p−3 ≤ t ≤ p−1` (Hicks–Ollis–Schmitt).
+So "Graham's conjecture holds for p = 29" is my computation *plus* the
+literature; only the computation is mine. (Note erdosproblems.com still says
+`t ≤ 12` is proved. Using that stale figure would have made this look far more
+novel than it is — and would have put p = 17 and 19 wrongly in the open window.)
+
+**The restart count was the whole ballgame.** The search is randomised greedy
+with a complete DFS fallback, and only DFS exhaustion may answer "no ordering
+exists". But the fallback is exponential, so any instance reaching it stalls the
+sweep. Measured greedy failure rate over 2000 random subsets:
+
+| restarts | t=21 | t=23 | t=25 |
+|---|---|---|---|
+| 60 | 0/2000 | 29/2000 | **420/2000** |
+| 500 | 0/2000 | 0/2000 | 0/2000 |
+
+At 60 restarts a fifth of the t=25 subsets fell through to the exponential
+branch and the sweep effectively hung. At 500 restarts nothing falls through and
+the cost rises only from 0.17 to 0.22 ms. The fallback is still there and still
+the only thing entitled to say "no" — it just stops being the common case.
+
+```
+cd problems/475
+python graham475.py --selftest      # exhausts all 333,120 subsets for p <= 19
+python graham475.py --p 29          # the full open window, ~73 s
+```
 
 ### [488] Is |B∩[1,m]|/m < 2|B∩[1,n]|/n for the multiples of a finite set?
 `[COMPUTATION-VERIFIED]` — no counterexample in two exhaustive sweeps.
