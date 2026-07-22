@@ -162,3 +162,68 @@ Exact integer test (`n·f(m) < 2·m·f(n)`, no floats). Enumeration restricted t
 divisibility *antichains*, since `a | a'` makes `a'` contribute no new multiples.
 Reproduces the known extremal configuration immediately: `A = {a}`, `n = 2a−1`
 gives ratio `2 − 1/a` (observed 39/20 at `a = 20`). Larger scan running.
+
+
+---
+
+## 2026-07-22 — Session 1: sync phase, ROI triage, knowledge graph
+
+**Three jobs survived the session break and completed.**
+- [366] finished the full 10²⁴ run: 460,160,082 cubefull numbers examined,
+  exactly two hits, both already known (8|9, 12167|12168) and **both in the
+  opposite order** to the one the problem asks about. Published bound was 10²²,
+  so this is a 100× extension.
+- [287] covering completed at 10¹² (1,321,198,806 witness primes, no hole).
+- [647] kept running to 1.44×10¹² and is still extending.
+
+**SYNC PHASE built** (`tools/sync.py`). Diffs upstream `teorth/erdosproblems`
+against the local snapshot (added / removed / status-changed / statement drift)
+and reads the official AI-contributions wiki page. First run: no upstream
+changes; 11 of my problems appear on the AI page. Two mattered:
+- **[835]** has an AlphaProof contribution logged as *"likely folklore"* — so my
+  Steiner-large-set reduction may well BE that folklore. Recorded, so novelty is
+  not overclaimed.
+- **[366]** has an automated-pipeline entry (Apr 2026) that is a *conditional*
+  partial result, not a search bound — my exhaustive bound is a different artifact.
+
+A wrinkle worth noting: the wiki page title contains "Erdős", and urllib raises
+on the non-ASCII character before it ever reaches the network. The first run
+reported the page as unavailable rather than silently treating it as empty —
+which is the behaviour I want when a novelty check fails.
+
+**ROI TRIAGE** (`tools/upgrade_tracker.py`). Priorities are now
+`expected_value × novelty × p_verifiable / compute_cost`, with compute_cost on a
+log scale (1 minutes, 3 hours, 10 days, 30 infeasible). Added
+`published_search_bounds`, `prior_work`, `verification_artifacts`,
+`reusable_modules_created`, `knowledge_dependencies`, `related_problems`, and a
+14-edge **knowledge graph** linking problems through shared modules and tricks.
+
+**Two problems closed on NOVELTY without spending compute** — which is the point
+of doing the sync first:
+
+- **[398] Brocard–Ramanujan.** The erdosproblems page says "no other solutions
+  below 10⁹". The literature is at **10¹⁵** (Epstein & Glickman, after Matson's
+  10¹²). Merely matching that is ~2×10¹⁵ modular operations. DEAD-END, recorded
+  with the page/literature discrepancy. Had I trusted the page I would have
+  burned hours to land six orders of magnitude short of the record.
+
+- **[475] Graham's rearrangement** — nearly the same story, but it survived. The
+  page says "proved for t ≤ 12"; the literature is at **|A| ≤ 20 in any abelian
+  group** (Costa–Pellegrini). Combined with the settled range p−3 ≤ t ≤ p−1, the
+  open window is only `t ∈ [21, p−4]`, which is **empty for p ≤ 23**. So the
+  first genuinely open primes are p = 29 (1,682,811 subsets) and p = 31
+  (22,963,621); p = 37 needs 1.4×10¹⁰ and is out of reach.
+
+**[475] search design — the interesting part.** A naive ascending DFS is
+exponential in exactly the open regime: p=17, t=12 costs ~175 ms per subset,
+while t=8 costs 0.18 ms. Randomised greedy with restarts costs 0.04 ms — a
+**4000× speedup** — and empirically never fails. But a heuristic failing is not
+evidence that no ordering exists, so `find_ordering` falls through to a
+**complete DFS**, and only DFS exhaustion may report "none". Every ordering found
+is re-checked by a separate function that recomputes the partial sums.
+
+That rule was extracted into **`lib/erdos/search.py`** (`greedy_then_complete`):
+*a heuristic may only ever answer YES; only exhaustive search may answer NO*.
+Cross-checked against the problem-specific code on 70,653 instances — zero
+disagreements. It applies directly to [743] tree packing and [835] Johnson
+colouring, and those edges are in the knowledge graph.
