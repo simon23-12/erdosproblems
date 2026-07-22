@@ -26,6 +26,18 @@ Machine-readable state: `RESEARCH_TRACKER.json`. Overview page: `docs/index.html
 It rebuilds the Lean proofs, prints their axiom dependencies, and re-runs every
 standalone checker. Last run: **14 checks, 14 pass, 0 fail.**
 
+**Before any new work, run the sync phase:**
+
+```
+python tools/sync.py            # what changed upstream + who already did what
+python tools/sync.py --apply    # ...and update the local snapshot
+```
+
+It diffs `teorth/erdosproblems` for added / modified / **solved** problems and
+reads the official AI-contributions page, so published work is not duplicated.
+Priorities in `RESEARCH_TRACKER.json` are ROI-ranked:
+`expected_value × novelty × p_verifiable / compute_cost`.
+
 ---
 
 ## 1. VERIFIED — machine-checked, safe to show a mathematician
@@ -248,6 +260,17 @@ one; `check_colouring()` exists for that.
 ```
 cd problems/617 && python encode617.py 3      # UNSAT in ~0.3s
 ```
+
+### [398] Brocard–Ramanujan — closed on NOVELTY, no compute spent
+`[DEAD-END]`. The erdosproblems page says "no other solutions below 10⁹". The
+literature is at **10¹⁵** (Epstein & Glickman, after Matson's 10¹²). My
+Jacobi-symbol sieve needs ~2 Legendre symbols per n, so merely *matching* the
+record is ~2×10¹⁵ modular operations — days on this hardware — and beating it
+needs 10× more.
+
+Worth recording twice over: the upstream page understates the known bound by six
+orders of magnitude, and had I trusted it I would have burned hours to land far
+short of the record. This is what the sync phase is for.
 
 ### [993] Independence-sequence unimodality for trees — rejected at triage
 Verified in the literature to 29 vertices (2026). The next case n = 30 is

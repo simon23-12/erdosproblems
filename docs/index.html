@@ -74,7 +74,7 @@
   <h1>Erdős problems — machine-verified research log</h1>
   <p class="sub">Autonomous work on open problems from
     <a href="https://www.erdosproblems.com" target="_blank" rel="noopener">erdosproblems.com</a>.
-    Generated 2026-07-22 06:09 UTC · commit <code>a1b38a5</code></p>
+    Generated 2026-07-22 06:37 UTC · commit <code>ede4b3d</code></p>
 
   <div class="trust"><b>Trust rule.</b> A claim counts only if Lean compiles it with no sorry, or a short standalone script recomputes it from scratch. Everything else is a lead.
     Counts below are deliberately conservative: a problem is
@@ -84,7 +84,7 @@
     <div class="card ok"><b>6</b><span>Verified</span></div>
     <div class="card acc"><b>0</b><span>In progress</span></div>
     <div class="card warn"><b>1</b><span>Leads (unverified)</span></div>
-    <div class="card bad"><b>2</b><span>Dead ends</span></div>
+    <div class="card bad"><b>3</b><span>Dead ends</span></div>
     <div class="card"><b>43</b><span>Triaged</span></div>
     <div class="card"><b>28.3h</b><span>Compute spent</span></div>
   </div>
@@ -243,27 +243,6 @@
           <div>exact chi for k&lt;=4; Steiner admissibility for k&lt;=259</div>
           <div class="dim">5m compute</div>
           <div class="best">chi(J(4,2))=3, chi(J(6,3))=6, chi(J(8,4))=6; S(k-1,k,2k) admissible iff k+1 prime for k&lt;=259</div>
-        </td>
-      </tr>
-      <tr class="s-untouched" data-status="untouched">
-        <td class="num"><a href="https://www.erdosproblems.com/398" target="_blank" rel="noopener">#398</a></td>
-        <td class="title">
-          <div class="t">Brocard-Ramanujan: are n=4,5,7 the only solutions of n! = x^2 - 1?</div>
-          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span></div>
-          <div class="why">Jacobi-symbol sieve: maintain n! mod p for primes p &gt; N and reject n when n!+1 is a quadratic non-residue. ~2 symbols per n expected, so 1e10 is roughly an hour in C. The erdosproblems page cites 1e9; the true current record must be confirmed before spending compute.</div>
-        </td>
-        <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:77%"></i></div>
-            <span>0.77</span></td>
-        <td class="est">
-          <div>runtime <b>hours</b></div>
-          <div>P(verif) <b>0.85</b></div>
-          <div>novelty <b>unknown</b></div>
-        </td>
-        <td class="prog">
-          <div>—</div>
-          <div class="dim">— compute</div>
-          
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -952,6 +931,27 @@
           <div>runtime <b>-</b></div>
           <div>P(verif) <b>0.05</b></div>
           <div>novelty <b>medium</b></div>
+        </td>
+        <td class="prog">
+          <div>—</div>
+          <div class="dim">— compute</div>
+          
+        </td>
+      </tr>
+      <tr class="s-dead-end" data-status="dead-end">
+        <td class="num"><a href="https://www.erdosproblems.com/398" target="_blank" rel="noopener">#398</a></td>
+        <td class="title">
+          <div class="t">Brocard-Ramanujan: are n=4,5,7 the only solutions of n! = x^2 - 1?</div>
+          <div class="tags"><span class="tag t-number">NUMBER SEARCH</span></div>
+          <div class="why">Jacobi-symbol sieve: maintain n! mod p for primes p &gt; N and reject n when n!+1 is a quadratic non-residue. ~2 symbols per n expected, so 1e10 is roughly an hour in C. The erdosproblems page cites 1e9; the true current record must be confirmed before spending compute.</div>
+        </td>
+        <td><span class="pill p-dead-end">Dead end</span></td>
+        <td class="pri"><div class="bar"><i style="width:77%"></i></div>
+            <span>0.77</span></td>
+        <td class="est">
+          <div>runtime <b>hours</b></div>
+          <div>P(verif) <b>0.85</b></div>
+          <div>novelty <b>unknown</b></div>
         </td>
         <td class="prog">
           <div>—</div>
