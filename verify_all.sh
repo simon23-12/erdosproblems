@@ -108,6 +108,16 @@ echo "$out" | grep -q "^VERIFIED" \
   && ok "recall (finds 8|9 and 12167|12168, nothing else) and precision vs sympy" \
   || bad "verifier did not confirm: $(echo "$out" | tail -4)"
 
+# ---------------------------------------------------------------- 475
+say "[475] Graham's rearrangement: valid orderings in F_p"
+$PY problems/475/graham475.py --selftest 2>&1 | grep -q "selftest OK" \
+  && ok "selftest: all 333,120 subsets for p <= 19 have a valid ordering" \
+  || bad "selftest failed"
+out=$($PY problems/475/graham475.py --p 29 --t 25 2>&1)
+echo "$out" | grep -q "0 with NO valid ordering" \
+  && ok "p=29, t=25 slice: no subset lacks a valid ordering" \
+  || bad "counterexample reported: $(echo "$out" | tail -3)"
+
 # ---------------------------------------------------------------- 835
 say "[835] Johnson graph chi(J(2k,k)) -- checked parts of the Steiner reduction"
 out=$($PY problems/835/johnson835.py --primes 259 2>&1)

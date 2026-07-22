@@ -24,8 +24,8 @@
       "dead-end"
     ],
     "generated": "2026-07-21T17:53:15+00:00",
-    "last_modified": "2026-07-22T06:57:37+00:00",
-    "last_commit": "2116472",
+    "last_modified": "2026-07-22T06:59:36+00:00",
+    "last_commit": "dbf9ed6",
     "roi_formula": "expected_value * novelty * p_verifiable / compute_cost; compute_cost 1=minutes 3=hours 10=days 30=infeasible",
     "knowledge_graph": {
       "modules": {
@@ -492,12 +492,12 @@
         "Search is randomised greedy with 500 restarts, complete DFS fallback. Restart count is critical: at 60 restarts, 21% of t=25 subsets fell through to the exponential DFS and stalled the sweep; at 500, zero fell through and the whole p=29 window ran in 73s. Measured failure rates recorded in the module docstring."
       ],
       "search_bounds_reached": "p=29: all 1,682,811 subsets with t in [21,25] (the full open window); p=31 running",
-      "compute_time_spent_sec": 0,
+      "compute_time_spent_sec": 1200.0,
       "best_verified_result": "every subset of F_29\\{0} with 21<=|A|<=25 has a valid ordering; 0 counterexamples, 0 exhaustive fallbacks needed",
       "best_unverified_lead": "",
       "reason_for_stopping": "p=29 complete; p=37 needs 1.4e10 subsets, out of reach",
-      "last_commit": "2116472",
-      "last_modified": "2026-07-22T06:57:37+00:00",
+      "last_commit": "dbf9ed6",
+      "last_modified": "2026-07-22T06:59:36+00:00",
       "roi": {
         "expected_value": 0.55,
         "novelty": 0.45,
