@@ -65,6 +65,17 @@
   .est b, .prog b { color:var(--fg); font-weight:600 }
   .prog .dim { font-size:.76rem }
   .prog .best { color:var(--ok); margin-top:.3rem }
+  .roiparts { font-size:.66rem; color:var(--dim); margin-top:.15rem }
+  .prog .pub { color:var(--warn); margin-top:.3rem; font-size:.76rem }
+  .kgh { margin:2.5rem 0 .3rem; font-size:1.15rem; letter-spacing:-.01em }
+  .kg { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1rem }
+  .kgcol { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:1rem }
+  .kgcol h3 { margin:0 0 .6rem; font-size:.75rem; text-transform:uppercase;
+    letter-spacing:.06em; color:var(--dim) }
+  .kgm, .kge { padding:.4rem 0; border-bottom:1px solid var(--line); font-size:.84rem }
+  .kgm:last-child, .kge:last-child { border-bottom:none }
+  .kgm code { color:var(--acc) } .kge b { color:var(--acc); font-weight:600 }
+  .kgm span, .kge span { display:block; color:var(--dim); font-size:.79rem; margin-top:.15rem }
   footer { margin-top:2rem; color:var(--dim); font-size:.82rem }
   code { background:var(--line); padding:.1rem .35rem; border-radius:4px; font-size:.85em }
 </style>
@@ -74,7 +85,7 @@
   <h1>Erdős problems — machine-verified research log</h1>
   <p class="sub">Autonomous work on open problems from
     <a href="https://www.erdosproblems.com" target="_blank" rel="noopener">erdosproblems.com</a>.
-    Generated 2026-07-22 06:37 UTC · commit <code>ede4b3d</code></p>
+    Generated 2026-07-22 06:39 UTC · commit <code>ede4b3d</code></p>
 
   <div class="trust"><b>Trust rule.</b> A claim counts only if Lean compiles it with no sorry, or a short standalone script recomputes it from scratch. Everything else is a lead.
     Counts below are deliberately conservative: a problem is
@@ -95,7 +106,7 @@
   <table>
     <thead><tr>
       <th>Problem</th><th>Statement &amp; triage</th><th>Status</th>
-      <th>Priority</th><th>Estimates</th><th>Progress</th>
+      <th>ROI</th><th>Estimates</th><th>Progress</th>
     </tr></thead>
     <tbody>
       <tr class="s-verified" data-status="verified">
@@ -106,8 +117,9 @@
           <div class="why">The lcm ratio is exactly the product of primes q having a power q^e (e&gt;=2) inside the gap (p_k, p_{k+1}). So the check is a cheap prime-power scan over prime gaps. Very likely already done informally, but it is nearly free.</div>
         </td>
         <td><span class="pill p-verified">Machine-verified</span></td>
-        <td class="pri"><div class="bar"><i style="width:100%"></i></div>
-            <span>1.00</span></td>
+        <td class="pri"><div class="bar"><i style="width:99%"></i></div>
+            <span>0.299</span>
+            <div class="roiparts">0.45&times;0.7&times;0.95&nbsp;/&nbsp;1</div></td>
         <td class="est">
           <div>runtime <b>minutes</b></div>
           <div>P(verif) <b>0.9</b></div>
@@ -117,6 +129,7 @@
           <div>every prime gap entirely below 99,999,820,000,061</div>
           <div class="dim">3m compute</div>
           <div class="best">no violation; tightest ratio 6/7 at p_k=7 (the very first gap)</div>
+          <div class="pub">published: no published computational bound located</div>
         </td>
       </tr>
       <tr class="s-verified" data-status="verified">
@@ -127,8 +140,9 @@
           <div class="why">Fully concrete and cheap: choose A, compute two densities exactly. Search over A subset of a small window. Counterexamples to the mis-typed variant already exist, so the search machinery is known to be exercising the right object.</div>
         </td>
         <td><span class="pill p-verified">Machine-verified</span></td>
-        <td class="pri"><div class="bar"><i style="width:100%"></i></div>
-            <span>1.00</span></td>
+        <td class="pri"><div class="bar"><i style="width:84%"></i></div>
+            <span>0.255</span>
+            <div class="roiparts">0.5&times;0.6&times;0.85&nbsp;/&nbsp;1</div></td>
         <td class="est">
           <div>runtime <b>minutes-hours</b></div>
           <div>P(verif) <b>0.8</b></div>
@@ -138,6 +152,7 @@
           <div>antichains in [2,40] with |A|&lt;=3 (n&lt;m&lt;=8000) and in [2,30] with |A|&lt;=4 (n&lt;m&lt;=6000)</div>
           <div class="dim">7m compute</div>
           <div class="best">no counterexample in either sweep; singleton A={a} at n=2a-1 is always extremal, ratio 2-1/a</div>
+          <div class="pub">published: no published computational bound located; Cambie (2025) and Aristotle solved a VARIANT</div>
         </td>
       </tr>
       <tr class="s-verified" data-status="verified">
@@ -148,8 +163,9 @@
           <div class="why">Condition is LOCAL: tau(n-j)&lt;=j+2 for j&lt;=max tau, so the range splits across cores. Segmented divisor sieve at ~1.75s per 1e8 even at 1e13. No published search bound found.</div>
         </td>
         <td><span class="pill p-verified">Machine-verified</span></td>
-        <td class="pri"><div class="bar"><i style="width:100%"></i></div>
-            <span>1.00</span></td>
+        <td class="pri"><div class="bar"><i style="width:71%"></i></div>
+            <span>0.215</span>
+            <div class="roiparts">0.85&times;0.8&times;0.95&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.95</b></div>
@@ -159,6 +175,7 @@
           <div>n &lt;= 1280010000000 (search still extending)</div>
           <div class="dim">20.8h compute</div>
           <div class="best">only n &lt;= 1280010000000 with the property are 2,3,4,5,6,8,10,12,24; none above 24</div>
+          <div class="pub">published: no published computational bound located; AI attempts (Jan 2026) produced only incorrect proofs</div>
         </td>
       </tr>
       <tr class="s-verified" data-status="verified">
@@ -169,8 +186,9 @@
           <div class="why">A counterexample is a set with all gaps &lt;=2 and reciprocals summing to 1. The largest-prime-power valuation argument forces exclusions (p in (b/2,b] cannot appear), which prunes brutally. No published computational bound located.</div>
         </td>
         <td><span class="pill p-verified">Machine-verified</span></td>
-        <td class="pri"><div class="bar"><i style="width:100%"></i></div>
-            <span>1.00</span></td>
+        <td class="pri"><div class="bar"><i style="width:67%"></i></div>
+            <span>0.204</span>
+            <div class="roiparts">0.8&times;0.85&times;0.9&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.8</b></div>
@@ -180,6 +198,7 @@
           <div>max(S) &lt;= 1e12</div>
           <div class="dim">2.5h compute</div>
           <div class="best">LEAN: elimination + certificate_sub/_add (0 sorry, 3 std axioms). COMPUTATION: no counterexample with max(S) &lt;= 1e12</div>
+          <div class="pub">published: no published computational bound located</div>
         </td>
       </tr>
       <tr class="s-verified" data-status="verified">
@@ -190,8 +209,9 @@
           <div class="why">Enumerate 3-full m &lt;= X (only ~c*X^(1/3) of them, so 1e26 is ~1e9 candidates) and test whether m-1 is powerful. Small-prime trial division rejects essentially all candidates instantly. Current published bound is 1e22, so 1e25-1e26 is a genuine extension.</div>
         </td>
         <td><span class="pill p-verified">Machine-verified</span></td>
-        <td class="pri"><div class="bar"><i style="width:100%"></i></div>
-            <span>1.00</span></td>
+        <td class="pri"><div class="bar"><i style="width:45%"></i></div>
+            <span>0.135</span>
+            <div class="roiparts">0.6&times;0.75&times;0.9&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.85</b></div>
@@ -201,6 +221,7 @@
           <div>no pair in either order with the 3-full member &lt;= 1e24 (460,160,082 cubefull numbers examined)</div>
           <div class="dim">2.5h compute</div>
           <div class="best">exactly 2 hits up to 1e24, both known: 8|9 and 12167|12168, both with the 3-full member first. NONE in the order the problem asks (2-full then 3-full).</div>
+          <div class="pub">published: 10^22 via OEIS A060355 (consecutive powerful pairs); Aktas-Murty (2017) and an automated pipeline (Apr 2026) give conditional partial results, not a search bound</div>
         </td>
       </tr>
       <tr class="s-verified" data-status="verified">
@@ -211,8 +232,9 @@
           <div class="why">Kummer&#x27;s theorem gives v_p(C(n,i)) from base-p carries, so no binomial is ever formed. O(n^2) pairs per n. A counterexample is a single (n,i,j) triple -- instantly re-checkable.</div>
         </td>
         <td><span class="pill p-verified">Machine-verified</span></td>
-        <td class="pri"><div class="bar"><i style="width:100%"></i></div>
-            <span>1.00</span></td>
+        <td class="pri"><div class="bar"><i style="width:36%"></i></div>
+            <span>0.109</span>
+            <div class="roiparts">0.55&times;0.7&times;0.85&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.75</b></div>
@@ -222,6 +244,7 @@
           <div>n &lt;= 3000, all pairs 1&lt;=i&lt;j&lt;=n/2</div>
           <div class="dim">8m compute</div>
           <div class="best">no counterexample for n &lt;= 3000</div>
+          <div class="pub">published: no published computational bound located; GPT 5.6 proved the cases j &lt;= 3i/2 and n = 2j</div>
         </td>
       </tr>
       <tr class="s-lead" data-status="lead">
@@ -232,8 +255,9 @@
           <div class="why">Equivalent to an 11-colouring of the Johnson graph J(20,10): 184,756 vertices, 100-regular. k=10 is the smallest open case (false for k&lt;=8; Ma-Tang killed all k+1 composite). A FOUND colouring answers the problem YES and is verifiable in seconds -- excellent asymmetry. Failure to find proves nothing.</div>
         </td>
         <td><span class="pill p-lead">Unverified lead</span></td>
-        <td class="pri"><div class="bar"><i style="width:58%"></i></div>
-            <span>0.58</span></td>
+        <td class="pri"><div class="bar"><i style="width:16%"></i></div>
+            <span>0.048</span>
+            <div class="roiparts">0.75&times;0.35&times;0.55&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.45</b></div>
@@ -243,6 +267,7 @@
           <div>exact chi for k&lt;=4; Steiner admissibility for k&lt;=259</div>
           <div class="dim">5m compute</div>
           <div class="best">chi(J(4,2))=3, chi(J(6,3))=6, chi(J(8,4))=6; S(k-1,k,2k) admissible iff k+1 prime for k&lt;=259</div>
+          <div class="pub">published: false for 3 &lt;= k &lt;= 8 (published chromatic numbers); Ma-Tang: chi &gt; k+1 when k+1 is composite. An AlphaProof contribution (Dec 2025) is logged upstream as &#x27;likely folklore&#x27; -- my S</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -253,8 +278,9 @@
           <div class="why">Proved for t&lt;=12 and t&gt;=p-3, so the open window is middle-sized A at p &gt;= 17. Subsets modulo the scaling action of F_p^*: ~2^(p-1)/(p-1) orbits, feasible to p ~ 31, hopeless by p ~ 41.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:69%"></i></div>
-            <span>0.69</span></td>
+        <td class="pri"><div class="bar"><i style="width:19%"></i></div>
+            <span>0.058</span>
+            <div class="roiparts">0.55&times;0.45&times;0.7&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.75</b></div>
@@ -264,6 +290,7 @@
           <div>—</div>
           <div class="dim">— compute</div>
           
+          <div class="pub">published: proved for |A| &lt;= 20 in ANY abelian group (Costa-Pellegrini; 22 for zero-sum), and for p-3 &lt;= t &lt;= p-1 (Hicks-Ollis-Schmitt), and for all sufficiently large p (Pham-Sauermann et al</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -274,8 +301,9 @@
           <div class="why">For fixed small (r,k,n) this is one ILP over C(n,r) binary variables with a matching constraint. r=4,5 in the mid range n ~ (r+1)k is where it is open and instances stay under a few thousand variables.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:65%"></i></div>
-            <span>0.65</span></td>
+        <td class="pri"><div class="bar"><i style="width:18%"></i></div>
+            <span>0.054</span>
+            <div class="roiparts">0.6&times;0.45&times;0.6&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.7</b></div>
@@ -284,6 +312,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -295,8 +324,9 @@
           <div class="why">nu (max edge-disjoint triangle packing) and tau (min triangle edge cover) are both small ILPs. Exhaustive over geng graphs to ~11 vertices. Famous conjecture, but small cases are very likely already checked by others -- novelty is the weak point, not feasibility.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:52%"></i></div>
-            <span>0.53</span></td>
+        <td class="pri"><div class="bar"><i style="width:14%"></i></div>
+            <span>0.044</span>
+            <div class="roiparts">0.7&times;0.25&times;0.75&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.8</b></div>
@@ -306,6 +336,7 @@
           <div>—</div>
           <div class="dim">— compute</div>
           
+          <div class="pub">published: GPT-5 partial results (Oct 2025); Haxell&#x27;s (3 - 3/23)k bound</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -316,8 +347,9 @@
           <div class="why">Max-clique on the graph over [1,N] with a~b iff ab+1 is not squarefree. Sawhney settled large N; small N is the open part and is exactly where exact max-clique is affordable.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:52%"></i></div>
-            <span>0.52</span></td>
+        <td class="pri"><div class="bar"><i style="width:14%"></i></div>
+            <span>0.043</span>
+            <div class="roiparts">0.5&times;0.4&times;0.65&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.7</b></div>
@@ -327,6 +359,7 @@
           <div>—</div>
           <div class="dim">— compute</div>
           
+          <div class="pub">published: Sawhney: solved for all sufficiently large N; explicit bound derived (Mar 2026)</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -337,8 +370,9 @@
           <div class="why">Max-cut by subset enumeration is exact and cheap below ~24 vertices; geng -t streams the triangle-free graphs. n=2 (10 vertices) and n=3 (15) are reachable, n=4 (20) is not.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:39%"></i></div>
-            <span>0.39</span></td>
+        <td class="pri"><div class="bar"><i style="width:11%"></i></div>
+            <span>0.033</span>
+            <div class="roiparts">0.5&times;0.3&times;0.65&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.7</b></div>
@@ -347,6 +381,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -358,8 +393,9 @@
           <div class="why">Both the diameter-2 test and the edge-criticality test are O(n^3) bit operations. geng to 11 vertices is affordable, 12 is not. Furedi proved it for large n.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:38%"></i></div>
-            <span>0.38</span></td>
+        <td class="pri"><div class="bar"><i style="width:10%"></i></div>
+            <span>0.032</span>
+            <div class="roiparts">0.45&times;0.3&times;0.7&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.75</b></div>
@@ -368,6 +404,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -379,8 +416,9 @@
           <div class="why">Minimum path partition is NP-hard but tiny at n&lt;=10; SAT per graph over geng output. Already proved for planar, max degree &lt;=5, and 2-degenerate, which covers most small graphs.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:36%"></i></div>
-            <span>0.36</span></td>
+        <td class="pri"><div class="bar"><i style="width:10%"></i></div>
+            <span>0.030</span>
+            <div class="roiparts">0.5&times;0.3&times;0.6&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.65</b></div>
@@ -389,6 +427,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -400,8 +439,9 @@
           <div class="why">Exhaustive over geng graphs with the exact edge count, testing subtree containment. Feasible to n ~ 11. Small cases near-certainly already verified.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:33%"></i></div>
-            <span>0.33</span></td>
+        <td class="pri"><div class="bar"><i style="width:9%"></i></div>
+            <span>0.028</span>
+            <div class="roiparts">0.55&times;0.25&times;0.6&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.6</b></div>
@@ -410,6 +450,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -421,8 +462,9 @@
           <div class="why">Fishburn settled n&lt;=9 in 1983; n=10 is 428,076 tree-collections x one exact-cover each. Sum of tree sizes is exactly 45 = |E(K_10)|, so it is a perfect packing. n=11 is ~50x worse.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:32%"></i></div>
-            <span>0.32</span></td>
+        <td class="pri"><div class="bar"><i style="width:9%"></i></div>
+            <span>0.027</span>
+            <div class="roiparts">0.7&times;0.7&times;0.55&nbsp;/&nbsp;10</div></td>
         <td class="est">
           <div>runtime <b>hours-days</b></div>
           <div>P(verif) <b>0.7</b></div>
@@ -431,6 +473,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -442,8 +485,9 @@
           <div class="why">Needs a triangle-free graph on n vertices whose every floor(n/2)-subset spans &gt; n^2/50 edges. Enumeration is fine to n ~ 14; the extremal examples are C_5 blow-ups which only bite at n divisible by 5, and the interesting n are larger than the reachable range.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:28%"></i></div>
-            <span>0.28</span></td>
+        <td class="pri"><div class="bar"><i style="width:8%"></i></div>
+            <span>0.023</span>
+            <div class="roiparts">0.5&times;0.25&times;0.55&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.6</b></div>
@@ -452,6 +496,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -463,8 +508,9 @@
           <div class="why">Exhaustive over geng graphs plus subtree containment. Reachable to n ~ 12, i.e. trees on &lt;= 6 vertices. Zhao proved it for all large n, so only a small window is genuinely open.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:25%"></i></div>
-            <span>0.25</span></td>
+        <td class="pri"><div class="bar"><i style="width:7%"></i></div>
+            <span>0.021</span>
+            <div class="roiparts">0.45&times;0.25&times;0.55&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.6</b></div>
@@ -473,6 +519,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -484,8 +531,9 @@
           <div class="why">A counterexample must avoid C_4, C_8, C_16, ... Avoiding C_4 forces girth &gt;= 5, and cubic girth-5 graphs are generable up to ~26 vertices. Cycle spectrum is cheap. Liu-Montgomery proved it above an absolute degree constant, so only small degree can fail.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:22%"></i></div>
-            <span>0.22</span></td>
+        <td class="pri"><div class="bar"><i style="width:6%"></i></div>
+            <span>0.019</span>
+            <div class="roiparts">0.75&times;0.55&times;0.45&nbsp;/&nbsp;10</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.6</b></div>
@@ -494,6 +542,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -505,8 +554,9 @@
           <div class="why">Only MAXIMAL composite runs need checking (an SDR restricts to subsets), so it is one bipartite matching per prime gap. But the published bound is already 1.9e10 and beating it means sieving past 1e12 -- expensive relative to payoff.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:18%"></i></div>
-            <span>0.18</span></td>
+        <td class="pri"><div class="bar"><i style="width:5%"></i></div>
+            <span>0.015</span>
+            <div class="roiparts">0.6&times;0.45&times;0.55&nbsp;/&nbsp;10</div></td>
         <td class="est">
           <div>runtime <b>days</b></div>
           <div>P(verif) <b>0.6</b></div>
@@ -516,6 +566,7 @@
           <div>—</div>
           <div class="dim">— compute</div>
           
+          <div class="pub">published: verified to 1.9*10^10 (Laishram-Shorey)</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -526,8 +577,9 @@
           <div class="why">Extending past n=1000 means primality of numbers with thousands of digits. Only BPSW/PRP is affordable, and a PRP is not a proof -- so the artifact would fail the trust rule. Rejected on verifiability, not on cost.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:8%"></i></div>
-            <span>0.08</span></td>
+        <td class="pri"><div class="bar"><i style="width:2%"></i></div>
+            <span>0.007</span>
+            <div class="roiparts">0.4&times;0.5&times;0.1&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.2</b></div>
@@ -536,6 +588,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -547,8 +600,9 @@
           <div class="why">The first open case needs chi = 6 with no K_6; the smallest such graphs are already beyond exhaustive enumeration, so this becomes an unguided search over a huge space.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:7%"></i></div>
-            <span>0.07</span></td>
+        <td class="pri"><div class="bar"><i style="width:2%"></i></div>
+            <span>0.006</span>
+            <div class="roiparts">0.55&times;0.35&times;0.3&nbsp;/&nbsp;10</div></td>
         <td class="est">
           <div>runtime <b>days</b></div>
           <div>P(verif) <b>0.35</b></div>
@@ -557,6 +611,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -568,8 +623,9 @@
           <div class="why">Each Ramsey number is a 2-colouring SAT instance on K_m; feasible only for trees up to ~8 vertices before the instances explode. Zhao proved it for all large n.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:5%"></i></div>
-            <span>0.05</span></td>
+        <td class="pri"><div class="bar"><i style="width:1%"></i></div>
+            <span>0.004</span>
+            <div class="roiparts">0.4&times;0.25&times;0.45&nbsp;/&nbsp;10</div></td>
         <td class="est">
           <div>runtime <b>hours-days</b></div>
           <div>P(verif) <b>0.5</b></div>
@@ -578,6 +634,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -589,8 +646,9 @@
           <div class="why">A counterexample is a set of real coordinates satisfying many equidistance equations plus convexity. Z3 over the reals on this many degree-2 constraints is unlikely to close, and a numerical near-solution certifies nothing.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:5%"></i></div>
-            <span>0.05</span></td>
+        <td class="pri"><div class="bar"><i style="width:1%"></i></div>
+            <span>0.004</span>
+            <div class="roiparts">0.7&times;0.3&times;0.2&nbsp;/&nbsp;10</div></td>
         <td class="est">
           <div>runtime <b>days</b></div>
           <div>P(verif) <b>0.25</b></div>
@@ -599,6 +657,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -610,8 +669,9 @@
           <div class="why">Needs exact real coordinates; rational/integer point searches only cover a measure-zero slice of configurations, so a null result says almost nothing. The second half is already answered no.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:4%"></i></div>
-            <span>0.04</span></td>
+        <td class="pri"><div class="bar"><i style="width:1%"></i></div>
+            <span>0.003</span>
+            <div class="roiparts">0.55&times;0.25&times;0.25&nbsp;/&nbsp;10</div></td>
         <td class="est">
           <div>runtime <b>days</b></div>
           <div>P(verif) <b>0.3</b></div>
@@ -621,6 +681,7 @@
           <div>—</div>
           <div class="dim">— compute</div>
           
+          <div class="pub">published: second question answered NO by an 8-point construction (Harborth); DeepMind prover agent produced a Lean counterexample to one part (Feb 2026)</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -631,8 +692,9 @@
           <div class="why">Same exact-arithmetic obstruction as [1082]/[97]. Best known bound (13/36+eps)n is far from 1/2, so a small-n search would have to be lucky as well as exact.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:4%"></i></div>
-            <span>0.04</span></td>
+        <td class="pri"><div class="bar"><i style="width:1%"></i></div>
+            <span>0.003</span>
+            <div class="roiparts">0.5&times;0.25&times;0.25&nbsp;/&nbsp;10</div></td>
         <td class="est">
           <div>runtime <b>hours-days</b></div>
           <div>P(verif) <b>0.3</b></div>
@@ -641,6 +703,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -652,8 +715,9 @@
           <div class="why">Open only for small n but requires exact incidence geometry over the reals; the degenerate configurations that matter are exactly the ones floating-point search cannot certify.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:3%"></i></div>
-            <span>0.03</span></td>
+        <td class="pri"><div class="bar"><i style="width:1%"></i></div>
+            <span>0.003</span>
+            <div class="roiparts">0.45&times;0.25&times;0.25&nbsp;/&nbsp;10</div></td>
         <td class="est">
           <div>runtime <b>days</b></div>
           <div>P(verif) <b>0.3</b></div>
@@ -662,6 +726,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -673,8 +738,9 @@
           <div class="why">Exact two-colour Ramsey numbers; the smallest unresolved instances are already at the edge of what dedicated Ramsey codes achieve after years of CPU time.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:3%"></i></div>
-            <span>0.03</span></td>
+        <td class="pri"><div class="bar"><i style="width:1%"></i></div>
+            <span>0.002</span>
+            <div class="roiparts">0.4&times;0.2&times;0.3&nbsp;/&nbsp;10</div></td>
         <td class="est">
           <div>runtime <b>days</b></div>
           <div>P(verif) <b>0.35</b></div>
@@ -683,6 +749,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -694,8 +761,9 @@
           <div class="why">The search space over odd modulus sets is astronomical and has absorbed decades of dedicated effort; known constraints (lcm divisible by 9 or 15) barely dent it. Very high payoff, but the probability of a SAT instance closing is small enough that the expected value stays low.</div>
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
-        <td class="pri"><div class="bar"><i style="width:2%"></i></div>
-            <span>0.02</span></td>
+        <td class="pri"><div class="bar"><i style="width:1%"></i></div>
+            <span>0.002</span>
+            <div class="roiparts">0.95&times;0.6&times;0.1&nbsp;/&nbsp;30</div></td>
         <td class="est">
           <div>runtime <b>days</b></div>
           <div>P(verif) <b>0.15</b></div>
@@ -704,6 +772,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -716,7 +785,8 @@
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
         <td class="pri"><div class="bar"><i style="width:0%"></i></div>
-            <span>0.00</span></td>
+            <span>0.000</span>
+            <div class="roiparts">0.35&times;0.2&times;0.15&nbsp;/&nbsp;30</div></td>
         <td class="est">
           <div>runtime <b>days</b></div>
           <div>P(verif) <b>0.2</b></div>
@@ -725,6 +795,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -737,7 +808,8 @@
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
         <td class="pri"><div class="bar"><i style="width:0%"></i></div>
-            <span>0.00</span></td>
+            <span>0.000</span>
+            <div class="roiparts">0.6&times;0.3&times;0.05&nbsp;/&nbsp;30</div></td>
         <td class="est">
           <div>runtime <b>days</b></div>
           <div>P(verif) <b>0.1</b></div>
@@ -746,6 +818,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -758,7 +831,8 @@
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
         <td class="pri"><div class="bar"><i style="width:0%"></i></div>
-            <span>0.00</span></td>
+            <span>0.000</span>
+            <div class="roiparts">0.9&times;0.2&times;0.03&nbsp;/&nbsp;30</div></td>
         <td class="est">
           <div>runtime <b>-</b></div>
           <div>P(verif) <b>0.05</b></div>
@@ -768,6 +842,7 @@
           <div>—</div>
           <div class="dim">— compute</div>
           
+          <div class="pub">published: order 10 ruled out by computer search (Lam 1989); order 12 open</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -779,7 +854,8 @@
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
         <td class="pri"><div class="bar"><i style="width:0%"></i></div>
-            <span>0.00</span></td>
+            <span>0.000</span>
+            <div class="roiparts">0.6&times;0.2&times;0.05&nbsp;/&nbsp;30</div></td>
         <td class="est">
           <div>runtime <b>-</b></div>
           <div>P(verif) <b>0.1</b></div>
@@ -788,6 +864,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -800,7 +877,8 @@
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
         <td class="pri"><div class="bar"><i style="width:0%"></i></div>
-            <span>0.00</span></td>
+            <span>0.000</span>
+            <div class="roiparts">0.9&times;0.15&times;0.03&nbsp;/&nbsp;30</div></td>
         <td class="est">
           <div>runtime <b>-</b></div>
           <div>P(verif) <b>0.05</b></div>
@@ -810,6 +888,7 @@
           <div>—</div>
           <div class="dim">— compute</div>
           
+          <div class="pub">published: f(6)=17 (Szekeres-Peters); f(7) unknown</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -821,7 +900,8 @@
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
         <td class="pri"><div class="bar"><i style="width:0%"></i></div>
-            <span>0.00</span></td>
+            <span>0.000</span>
+            <div class="roiparts">0.35&times;0.1&times;0.1&nbsp;/&nbsp;30</div></td>
         <td class="est">
           <div>runtime <b>days</b></div>
           <div>P(verif) <b>0.15</b></div>
@@ -830,6 +910,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -842,7 +923,8 @@
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
         <td class="pri"><div class="bar"><i style="width:0%"></i></div>
-            <span>0.00</span></td>
+            <span>0.000</span>
+            <div class="roiparts">0.7&times;0.05&times;0.05&nbsp;/&nbsp;30</div></td>
         <td class="est">
           <div>runtime <b>-</b></div>
           <div>P(verif) <b>0.05</b></div>
@@ -852,6 +934,7 @@
           <div>—</div>
           <div class="dim">— compute</div>
           
+          <div class="pub">published: true for n &lt; 10 (Hindman) and all sufficiently large n (KKKMO 2021)</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -863,7 +946,8 @@
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
         <td class="pri"><div class="bar"><i style="width:0%"></i></div>
-            <span>0.00</span></td>
+            <span>0.000</span>
+            <div class="roiparts">0.5&times;0.02&times;0.05&nbsp;/&nbsp;30</div></td>
         <td class="est">
           <div>runtime <b>-</b></div>
           <div>P(verif) <b>0.1</b></div>
@@ -873,6 +957,7 @@
           <div>—</div>
           <div class="dim">— compute</div>
           
+          <div class="pub">published: verified to 10^18</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -884,7 +969,8 @@
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
         <td class="pri"><div class="bar"><i style="width:0%"></i></div>
-            <span>0.00</span></td>
+            <span>0.000</span>
+            <div class="roiparts">0.45&times;0.02&times;0.05&nbsp;/&nbsp;30</div></td>
         <td class="est">
           <div>runtime <b>-</b></div>
           <div>P(verif) <b>0.1</b></div>
@@ -894,6 +980,7 @@
           <div>—</div>
           <div class="dim">— compute</div>
           
+          <div class="pub">published: verified past 7.38*10^28 (OEIS A076445)</div>
         </td>
       </tr>
       <tr class="s-untouched" data-status="untouched">
@@ -905,7 +992,8 @@
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
         <td class="pri"><div class="bar"><i style="width:0%"></i></div>
-            <span>0.00</span></td>
+            <span>0.000</span>
+            <div class="roiparts">0.3&times;0.05&times;0.03&nbsp;/&nbsp;30</div></td>
         <td class="est">
           <div>runtime <b>-</b></div>
           <div>P(verif) <b>0.05</b></div>
@@ -914,6 +1002,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -926,7 +1015,8 @@
         </td>
         <td><span class="pill p-untouched">Not yet attempted</span></td>
         <td class="pri"><div class="bar"><i style="width:0%"></i></div>
-            <span>0.00</span></td>
+            <span>0.000</span>
+            <div class="roiparts">0.35&times;0.1&times;0.03&nbsp;/&nbsp;30</div></td>
         <td class="est">
           <div>runtime <b>-</b></div>
           <div>P(verif) <b>0.05</b></div>
@@ -935,6 +1025,7 @@
         <td class="prog">
           <div>—</div>
           <div class="dim">— compute</div>
+          
           
         </td>
       </tr>
@@ -946,8 +1037,9 @@
           <div class="why">Jacobi-symbol sieve: maintain n! mod p for primes p &gt; N and reject n when n!+1 is a quadratic non-residue. ~2 symbols per n expected, so 1e10 is roughly an hour in C. The erdosproblems page cites 1e9; the true current record must be confirmed before spending compute.</div>
         </td>
         <td><span class="pill p-dead-end">Dead end</span></td>
-        <td class="pri"><div class="bar"><i style="width:77%"></i></div>
-            <span>0.77</span></td>
+        <td class="pri"><div class="bar"><i style="width:21%"></i></div>
+            <span>0.064</span>
+            <div class="roiparts">0.6&times;0.4&times;0.8&nbsp;/&nbsp;3</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.85</b></div>
@@ -957,6 +1049,7 @@
           <div>—</div>
           <div class="dim">— compute</div>
           
+          <div class="pub">published: n &lt; 10^15 (Epstein &amp; Glickman); Matson 10^12; Berndt &amp; Galway 10^9. NOTE: the erdosproblems page cites only 10^9, which is stale by six orders of magnitude.</div>
         </td>
       </tr>
       <tr class="s-dead-end" data-status="dead-end">
@@ -967,8 +1060,9 @@
           <div class="why">1625 vars / ~1.2M clauses. Erdos-Gyarfas did r=3,4 by hand; r=5 is the first open case and looks computationally untouched. SAT =&gt; counterexample (trivially checkable). UNSAT is hard (26! vertex symmetry) but symmetry breaking may reach it. Does not scale past r=5.</div>
         </td>
         <td><span class="pill p-dead-end">Dead end</span></td>
-        <td class="pri"><div class="bar"><i style="width:11%"></i></div>
-            <span>0.11</span></td>
+        <td class="pri"><div class="bar"><i style="width:3%"></i></div>
+            <span>0.009</span>
+            <div class="roiparts">0.75&times;0.6&times;0.2&nbsp;/&nbsp;10</div></td>
         <td class="est">
           <div>runtime <b>hours</b></div>
           <div>P(verif) <b>0.6</b></div>
@@ -978,6 +1072,7 @@
           <div>r=3 UNSAT confirmed; r=4 running</div>
           <div class="dim">2.1h compute</div>
           <div class="best">r=3: no balanced 3-colouring of K_10 (known result, reproduced)</div>
+          
         </td>
       </tr>
       <tr class="s-dead-end" data-status="dead-end">
@@ -988,8 +1083,9 @@
           <div class="why">Already verified to 29 vertices (literature, 2026). n=30 is 1.48e10 free trees x O(n^2) DP ~= 1.3e13 operations: reachable only with a heavily optimised C implementation over many hours, for a one-vertex improvement. Kept as a fallback for spare compute.</div>
         </td>
         <td><span class="pill p-dead-end">Dead end</span></td>
-        <td class="pri"><div class="bar"><i style="width:5%"></i></div>
-            <span>0.05</span></td>
+        <td class="pri"><div class="bar"><i style="width:1%"></i></div>
+            <span>0.004</span>
+            <div class="roiparts">0.4&times;0.2&times;0.55&nbsp;/&nbsp;10</div></td>
         <td class="est">
           <div>runtime <b>days</b></div>
           <div>P(verif) <b>0.5</b></div>
@@ -999,10 +1095,19 @@
           <div>—</div>
           <div class="dim">— compute</div>
           
+          <div class="pub">published: unimodality verified to 29 vertices (literature, 2026)</div>
         </td>
       </tr>
     </tbody>
   </table>
+  </div>
+
+  <h2 class="kgh">Knowledge graph</h2>
+  <p class="sub">Shared modules and techniques. An edge means solving one problem
+     supplies machinery for the other, so it gets scheduled rather than forgotten.</p>
+  <div class="kg">
+    <div class="kgcol"><h3>Reusable modules</h3><div class="kgm"><code>erdos.sat</code><span>CNF builder, cardinality encodings, symmetry breaking (lex_leq)</span></div><div class="kgm"><code>erdos.graphs</code><span>nauty geng/gentreeg wrappers, cycle spectrum, max-cut, exact chromatic number by SAT</span></div><div class="kgm"><code>erdos.numth</code><span>sieves, deterministic Miller-Rabin, prime_between witnesses, prime_powers_upto, k-full numbers, Kummer carries</span></div><div class="kgm"><code>erdos.treedp</code><span>linear-time tree DP (independence polynomial, unimodality)</span></div><div class="kgm"><code>ErdosFormal</code><span>Lean 4 + mathlib; Erdos287 elimination/certificate lemmas</span></div></div>
+    <div class="kgcol"><h3>Problem links</h3><div class="kge"><b>#287 &harr; #458</b><span>both reduce a statement about lcm/reciprocals to a prime-gap scan; share erdos.numth prime primitives</span></div><div class="kge"><b>#287 &harr; #366</b><span>both are &#x27;exhaustive negative over a range&#x27; number searches whose correctness hinges on an exactly-stated cofactor test</span></div><div class="kge"><b>#458 &harr; #366</b><span>both walk a sparse set (prime powers / cubefull numbers) instead of the dense set the obvious approach would use -- the same trick</span></div><div class="kge"><b>#699 &harr; #458</b><span>both use exact prime-power valuations rather than forming big integers</span></div><div class="kge"><b>#617 &harr; #835</b><span>both are graph-colouring feasibility questions attacked with the same SAT encoder and symmetry-breaking idea</span></div><div class="kge"><b>#835 &harr; #723</b><span>both ask whether a highly structured design exists (Steiner system / projective plane); a large-set search engine would serve both</span></div><div class="kge"><b>#835 &harr; #1020</b><span>both are extremal set-system problems over k-subsets; the same ILP/packing bounds apply</span></div><div class="kge"><b>#167 &harr; #23</b><span>both need exact small-graph optimisation (triangle packing / max-cut) over geng output</span></div><div class="kge"><b>#548 &harr; #580</b><span>both ask when an edge/degree condition forces every tree of a given size; the same subtree-containment routine serves both</span></div><div class="kge"><b>#547 &harr; #551</b><span>both need exact Ramsey numbers via SAT on K_m</span></div><div class="kge"><b>#993 &harr; #743</b><span>both enumerate free trees with gentreeg and do per-tree DP</span></div><div class="kge"><b>#64 &harr; #583</b><span>both are questions about cycle/path structure in bounded-degree graphs over geng output</span></div><div class="kge"><b>#366 &harr; #364</b><span>consecutive powerful numbers; the same cubefull enumerator and powerfulness test apply, but 364&#x27;s published bound is far out of reach</span></div><div class="kge"><b>#242 &harr; #287</b><span>both are unit-fraction problems; 242&#x27;s 10^18 bound shows what a dedicated effort achieves and why 287 needed a different idea</span></div></div>
   </div>
 
   <footer>

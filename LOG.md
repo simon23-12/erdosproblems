@@ -227,3 +227,22 @@ That rule was extracted into **`lib/erdos/search.py`** (`greedy_then_complete`):
 Cross-checked against the problem-specific code on 70,653 instances — zero
 disagreements. It applies directly to [743] tree packing and [835] Johnson
 colouring, and those edges are in the knowledge graph.
+
+**Operational incident, recorded because it nearly cost a result.** To free the
+machine I stopped the [647] driver, intending to let the eight in-flight chunks
+finish so coverage would end cleanly with no hole. I then checked whether chunk
+144 had completed by looking for its `.out` file, saw only a `.tmp`, concluded it
+had been killed, and relaunched it. That was wrong — chunk 144 was still running;
+the `.tmp` was simply the in-progress file. The relaunch opened the *same*
+`.tmp` with `>` and truncated it, so two processes were writing one file.
+
+Caught it three minutes later by reading the actual process tree instead of
+inferring from filenames, and killed the duplicate. Two things limited the
+damage: neither process had written output yet (search647 only prints at the
+end), and `progress647.py` accepts a chunk only if it carries the exact
+terminal `# range [L,R) done` line — so a corrupted chunk shows up as a *hole*
+that stops the reported bound, never as a silently wrong bound. The fail-safe
+was doing its job. Verified chunk 144's file when it landed.
+
+Lesson kept: check the process tree, not the filesystem, before concluding a job
+died.

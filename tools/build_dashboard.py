@@ -75,8 +75,9 @@ def main():
           <div class="why">{html.escape(p['triage_rationale'])}</div>
         </td>
         <td><span class="pill p-{p['status']}">{STATUS_LABEL.get(p['status'], p['status'])}</span></td>
-        <td class="pri"><div class="bar"><i style="width:{p['priority']*100:.0f}%"></i></div>
-            <span>{p['priority']:.2f}</span></td>
+        <td class="pri"><div class="bar"><i style="width:{min(100, p['roi']['score']*330):.0f}%"></i></div>
+            <span>{p['roi']['score']:.3f}</span>
+            <div class="roiparts">{p['roi']['expected_value']}&times;{p['roi']['novelty']}&times;{p['roi']['p_verifiable']}&nbsp;/&nbsp;{p['roi']['compute_cost']}</div></td>
         <td class="est">
           <div>runtime <b>{html.escape(str(e['runtime']))}</b></div>
           <div>P(verif) <b>{e['p_machine_verifiable']}</b></div>
@@ -86,8 +87,18 @@ def main():
           <div>{html.escape(bound) if bound else '—'}</div>
           <div class="dim">{fmt_time(p['compute_time_spent_sec'])} compute</div>
           {f'<div class="best">{html.escape(best)}</div>' if best else ''}
+          {f'<div class="pub">published: {html.escape(p["published_search_bounds"][:180])}</div>' if p.get("published_search_bounds") else ''}
         </td>
       </tr>""")
+
+    kg = meta.get("knowledge_graph", {})
+    modules_html = "".join(
+        f'<div class="kgm"><code>{html.escape(k)}</code><span>{html.escape(v)}</span></div>'
+        for k, v in kg.get("modules", {}).items()) or "<p class='empty'>none yet</p>"
+    edges_html = "".join(
+        f'<div class="kge"><b>#{html.escape(e["a"])} &harr; #{html.escape(e["b"])}</b>'
+        f'<span>{html.escape(e["why"])}</span></div>'
+        for e in kg.get("edges", [])) or "<p class='empty'>none yet</p>"
 
     generated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     doc = f"""<!doctype html>
@@ -157,6 +168,17 @@ def main():
   .est b, .prog b {{ color:var(--fg); font-weight:600 }}
   .prog .dim {{ font-size:.76rem }}
   .prog .best {{ color:var(--ok); margin-top:.3rem }}
+  .roiparts {{ font-size:.66rem; color:var(--dim); margin-top:.15rem }}
+  .prog .pub {{ color:var(--warn); margin-top:.3rem; font-size:.76rem }}
+  .kgh {{ margin:2.5rem 0 .3rem; font-size:1.15rem; letter-spacing:-.01em }}
+  .kg {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1rem }}
+  .kgcol {{ background:var(--card); border:1px solid var(--line); border-radius:10px; padding:1rem }}
+  .kgcol h3 {{ margin:0 0 .6rem; font-size:.75rem; text-transform:uppercase;
+    letter-spacing:.06em; color:var(--dim) }}
+  .kgm, .kge {{ padding:.4rem 0; border-bottom:1px solid var(--line); font-size:.84rem }}
+  .kgm:last-child, .kge:last-child {{ border-bottom:none }}
+  .kgm code {{ color:var(--acc) }} .kge b {{ color:var(--acc); font-weight:600 }}
+  .kgm span, .kge span {{ display:block; color:var(--dim); font-size:.79rem; margin-top:.15rem }}
   footer {{ margin-top:2rem; color:var(--dim); font-size:.82rem }}
   code {{ background:var(--line); padding:.1rem .35rem; border-radius:4px; font-size:.85em }}
 </style>
@@ -187,11 +209,19 @@ def main():
   <table>
     <thead><tr>
       <th>Problem</th><th>Statement &amp; triage</th><th>Status</th>
-      <th>Priority</th><th>Estimates</th><th>Progress</th>
+      <th>ROI</th><th>Estimates</th><th>Progress</th>
     </tr></thead>
     <tbody>{''.join(rows)}
     </tbody>
   </table>
+  </div>
+
+  <h2 class="kgh">Knowledge graph</h2>
+  <p class="sub">Shared modules and techniques. An edge means solving one problem
+     supplies machinery for the other, so it gets scheduled rather than forgotten.</p>
+  <div class="kg">
+    <div class="kgcol"><h3>Reusable modules</h3>{modules_html}</div>
+    <div class="kgcol"><h3>Problem links</h3>{edges_html}</div>
   </div>
 
   <footer>
