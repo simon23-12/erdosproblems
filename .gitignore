@@ -12,3 +12,4 @@ scratch/
 problems/*/results/
 problems/*/*.log
 ErdosFormal/.lake/
+data/upstream/

@@ -34,7 +34,8 @@ standalone checker. Last run: **14 checks, 14 pass, 0 fail.**
 `[LEAN-VERIFIED]` reduction + `[COMPUTATION-VERIFIED]` finite check.
 
 **Claim.** No finite set `S` of integers ≥ 2 with `Σ 1/n = 1` and all consecutive
-gaps ≤ 2 has `max(S) ≤ 10¹⁰`. *(A covering to 10¹² is running.)*
+gaps ≤ 2 has **max(S) ≤ 10¹²**. The covering used 1,321,198,806 witness primes
+and reported no hole.
 
 **The mathematics is formalized.** `ErdosFormal/ErdosFormal/Erdos287.lean`
 compiles with **no `sorry`**, depending only on `[propext, Classical.choice,
@@ -90,9 +91,9 @@ cd problems/458 && python check458.py 1e14        # ~3 min
 ### [647] Erdős–Selfridge: is there n > 24 with max_{m<n}(m + τ(m)) ≤ n + 2?
 `[COMPUTATION-VERIFIED]` — exhaustive negative. Erdős offered £25 for such an n.
 
-**Claim.** The only n ≥ 2 with the property and n ≤ 7.6×10¹¹ are
+**Claim.** The only n ≥ 2 with the property and n ≤ **1.28×10¹²** are
 n = 2, 3, 4, 5, 6, 8, 10, 12, 24. So there is **no** such n with
-24 < n ≤ 7.6×10¹¹. *(Search still running at ≈1.1×10¹¹/hour; `progress647.py`
+24 < n ≤ 1.28×10¹². *(Search still running at ≈1.1×10¹¹/hour; `progress647.py`
 prints the live contiguous bound, which is the number to quote.)*
 
 The condition rewrites as `τ(n−j) ≤ j+2` for all `j ≥ 1`, and `τ(m) ≤ 6720` for
@@ -129,8 +130,14 @@ cd problems/488 && python search488.py --K 40 --L 3 --X 8000     # ~2 min
 ```
 
 ### [366] Is there a 2-full n with n+1 3-full?
-`[COMPUTATION-VERIFIED]` — no such pair, in **either** order, up to 10²⁰.
-*(A run to 10²⁴ is in progress.)*
+`[COMPUTATION-VERIFIED]` — no such pair, in **either** order, with the 3-full
+member up to **10²⁴**. 460,160,082 cubefull numbers examined; exactly two hits,
+both already known (8|9 and 12167|12168), and **both in the opposite order** to
+the one the problem asks about.
+
+The published bound is 10²² (OEIS A060355's consecutive-powerful-pair tables), so
+this extends it by a factor of 100. Prior AI work on this problem (April 2026,
+logged upstream) is a *conditional* partial result, not a search bound.
 
 The two known consecutive {3-full, 2-full} pairs — 8|9 and 12167|12168 — both
 have the **3-full member first**, so the question as literally asked (2-full,
@@ -150,6 +157,7 @@ The program asserts `P0⁵ > X` at startup rather than assuming it.
 ```
 cd problems/366
 cc -O3 -o search366 search366.c -lm && ./search366 1e20   # ~1 min
+./search366 1e24                                          # the full run, ~2 h
 python verify366.py                                        # independent check
 ```
 `verify366.py` checks both directions of failure: **recall** (the search must
