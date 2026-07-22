@@ -24,8 +24,8 @@
       "dead-end"
     ],
     "generated": "2026-07-21T17:53:15+00:00",
-    "last_modified": "2026-07-22T06:08:40+00:00",
-    "last_commit": "a1b38a5",
+    "last_modified": "2026-07-22T06:11:47+00:00",
+    "last_commit": "ede4b3d",
     "roi_formula": "expected_value * novelty * p_verifiable / compute_cost; compute_cost 1=minutes 3=hours 10=days 30=infeasible",
     "knowledge_graph": {
       "modules": {
@@ -433,7 +433,7 @@
       "title": "Brocard-Ramanujan: are n=4,5,7 the only solutions of n! = x^2 - 1?",
       "url": "https://www.erdosproblems.com/398",
       "erdos_status": "falsifiable",
-      "status": "untouched",
+      "status": "dead-end",
       "tags": [
         "NUMBER SEARCH"
       ],
@@ -445,14 +445,16 @@
         "scales": true
       },
       "triage_rationale": "Jacobi-symbol sieve: maintain n! mod p for primes p > N and reject n when n!+1 is a quadratic non-residue. ~2 symbols per n expected, so 1e10 is roughly an hour in C. The erdosproblems page cites 1e9; the true current record must be confirmed before spending compute.",
-      "approaches_attempted": [],
+      "approaches_attempted": [
+        "Checked published bound before spending compute (per sync phase). erdosproblems.com/398 says 'no other solutions below 10^9'; the literature is at 10^15. Recorded the discrepancy rather than trusting the page."
+      ],
       "search_bounds_reached": "",
       "compute_time_spent_sec": 0,
       "best_verified_result": "",
       "best_unverified_lead": "",
-      "reason_for_stopping": "",
-      "last_commit": "",
-      "last_modified": "",
+      "reason_for_stopping": "NOVELTY, not feasibility: the real published bound is 10^15. My Jacobi-symbol sieve does ~2 Legendre symbols per n, so merely MATCHING 10^15 is ~2e15 modular ops = days on 10 cores, and beating it needs 10x more. ROI collapses.",
+      "last_commit": "ede4b3d",
+      "last_modified": "2026-07-22T06:09:52+00:00",
       "roi": {
         "expected_value": 0.6,
         "novelty": 0.4,
@@ -460,7 +462,7 @@
         "compute_cost": 3,
         "score": 0.064
       },
-      "published_search_bounds": "no other solutions below 10^9 per the OEIS page",
+      "published_search_bounds": "n < 10^15 (Epstein & Glickman); Matson 10^12; Berndt & Galway 10^9. NOTE: the erdosproblems page cites only 10^9, which is stale by six orders of magnitude.",
       "prior_work": [],
       "knowledge_dependencies": [],
       "reusable_modules_created": [],
@@ -492,8 +494,8 @@
       "best_verified_result": "",
       "best_unverified_lead": "",
       "reason_for_stopping": "",
-      "last_commit": "",
-      "last_modified": "",
+      "last_commit": "ede4b3d",
+      "last_modified": "2026-07-22T06:11:47+00:00",
       "roi": {
         "expected_value": 0.55,
         "novelty": 0.45,
@@ -501,7 +503,7 @@
         "compute_cost": 3,
         "score": 0.0578
       },
-      "published_search_bounds": "true for t <= 12 and p-3 <= t <= p-1, and all sufficiently large p",
+      "published_search_bounds": "proved for |A| <= 20 in ANY abelian group (Costa-Pellegrini; 22 for zero-sum), and for p-3 <= t <= p-1 (Hicks-Ollis-Schmitt), and for all sufficiently large p (Pham-Sauermann et al). NOTE: erdosproblems.com says 't <= 12', which is stale.",
       "prior_work": [],
       "knowledge_dependencies": [],
       "reusable_modules_created": [],
