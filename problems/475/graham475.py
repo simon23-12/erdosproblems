@@ -33,6 +33,16 @@ Only DFS exhaustion is allowed to report "no valid ordering". Every ordering
 that is found is re-checked by check_ordering(), which recomputes the partial
 sums from scratch and shares nothing with the search.
 
+WHAT THIS PROGRAM DOES AND DOES NOT ESTABLISH
+---------------------------------------------
+It verifies, exhaustively, that every subset of F_p\\{0} whose size lies in the
+open window has a valid ordering. That part is machine-checked here.
+
+It does NOT verify t <= 20 or t >= p-3 -- those are CITED theorems. So the
+sentence "Graham's conjecture holds for p = 29" is a combination of this
+computation with the literature, and only the computation is mine. State it that
+way; do not let the citation ride along as if it had been checked.
+
 Usage:
     python graham475.py --selftest
     python graham475.py --p 29                 # the whole open window for p=29

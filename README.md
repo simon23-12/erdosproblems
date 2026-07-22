@@ -18,9 +18,28 @@ is the honest kind of progress a compute budget buys.
 | file | what it is |
 |---|---|
 | [`RESULTS.md`](RESULTS.md) | the ledger — three buckets: verified / leads / dead ends, with repro commands |
-| [`LOG.md`](LOG.md) | chronological journal, including what failed and why I stopped |
-| [`RESEARCH_TRACKER.json`](RESEARCH_TRACKER.json) | machine-readable state for all 43 triaged problems |
-| [`docs/index.html`](docs/index.html) | generated overview page |
+| [`LOG.md`](LOG.md) | chronological journal, including what failed, what broke, and why I stopped |
+| [`RESEARCH_TRACKER.json`](RESEARCH_TRACKER.json) | machine-readable state for all 43 triaged problems, ROI-ranked |
+| [`docs/index.html`](docs/index.html) | generated overview page, including the knowledge graph |
+
+## How work is chosen
+
+```bash
+python tools/sync.py            # SYNC: what changed upstream, and who already did what
+python tools/upgrade_tracker.py # re-rank by ROI
+python tools/tracker.py next    # highest-ROI problem not yet attempted
+```
+
+`sync.py` diffs the upstream problem database for added / modified / **solved**
+problems and reads the official AI-contributions page, so published work is not
+duplicated. Problems are ranked by
+
+    ROI = expected_value × novelty × p_verifiable / compute_cost
+
+which is why two problems here were closed **without spending any compute**: the
+published bound already sat far beyond this hardware. In one case
+([398] Brocard–Ramanujan) the erdosproblems page understated the known bound by
+six orders of magnitude — trusting it would have wasted hours.
 
 ## Check the work yourself
 
@@ -37,21 +56,23 @@ everything from `sympy` along a different route.
 
 | # | problem | result |
 |---|---|---|
-| [287](https://www.erdosproblems.com/287) | unit fractions summing to 1 must have a consecutive gap ≥ 3 | **Lean-verified reduction** + no counterexample with max(S) ≤ 10¹⁰ |
-| [647](https://www.erdosproblems.com/647) | is there n > 24 with max_{m<n}(m+τ(m)) ≤ n+2? (£25) | no such n below the live bound in `RESULTS.md` |
-| [458](https://www.erdosproblems.com/458) | is [1..p_{k+1}−1] < p_k·[1..p_k]? | holds for every prime gap with p_k ≤ 10¹⁴ |
+| [287](https://www.erdosproblems.com/287) | unit fractions summing to 1 must have a consecutive gap ≥ 3 | **Lean-verified reduction** + no counterexample with max(S) ≤ 10¹² |
+| [366](https://www.erdosproblems.com/366) | a 2-full n with n+1 3-full | none in either order up to 10²⁴ — **100× past the published 10²²** |
+| [647](https://www.erdosproblems.com/647) | is there n > 24 with max_{m<n}(m+τ(m)) ≤ n+2? (£25) | no such n up to ~1.5×10¹² |
+| [458](https://www.erdosproblems.com/458) | is [1..p_{k+1}−1] < p_k·[1..p_k]? | holds for every prime gap entirely below ~10¹⁴ |
 | [488](https://www.erdosproblems.com/488) | density inequality for multiples of a finite set | no counterexample over 21,550 antichains |
 | [699](https://www.erdosproblems.com/699) | a prime p ≥ i dividing gcd(C(n,i), C(n,j)) | holds for all n ≤ 3000 |
-| [366](https://www.erdosproblems.com/366) | a 2-full n with n+1 3-full | search past the published bound; see `RESULTS.md` |
 
 The Lean development lives in [`ErdosFormal/`](ErdosFormal/ErdosFormal/Erdos287.lean).
 
 ## Layout
 
 ```
-lib/erdos/       reusable components (SAT encodings, graph generation,
-                 number theory, tree DP) — shared across problems
-tools/           triage, tracker CLI, statement fetcher, dashboard generator
+lib/erdos/       reusable components — SAT encodings, graph generation,
+                 number theory, tree DP, and search harnesses that stay
+                 sound when the fast path fails (a heuristic may only ever
+                 answer YES; only exhaustive search may answer NO)
+tools/           sync, ROI triage, tracker CLI, statement fetcher, dashboard
 problems/<n>/    one directory per problem: search code + standalone verifier
 ErdosFormal/     Lean 4 + mathlib project
 data/            problem metadata and cached statements
